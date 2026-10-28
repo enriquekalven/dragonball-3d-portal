@@ -30,10 +30,39 @@
     return arr;
   }
 
+  const THEME_STORAGE_KEY = 'db-portal-theme';
+
+  function detectInitialTheme() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlTheme = params.get('theme');
+      if (urlTheme === 'light' || urlTheme === 'dark') return urlTheme;
+    } catch (_e) {}
+    try {
+      const saved = window.localStorage.getItem(THEME_STORAGE_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch (_e) {}
+    return 'dark';
+  }
+
+  function applyThemeToDom(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    const themeBtn = document.getElementById('toggle-theme-btn');
+    const themeLabel = document.getElementById('theme-state-label');
+    if (themeBtn) {
+      themeBtn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+    }
+    if (themeLabel) {
+      themeLabel.textContent = theme === 'light' ? tr('themeDark') : tr('themeLight');
+    }
+  }
+
   const initialLang = I18N.detectInitialLanguage();
+  const initialTheme = detectInitialTheme();
 
   const state = {
     lang: initialLang,
+    theme: initialTheme,
     activeMode: 'fighters',
     selectedArenaId: BASE_DATA.arenas[0].id,
     selectedArena: BASE_DATA.arenas[0],
@@ -43,8 +72,8 @@
     selectedFighter: BASE_DATA.fighters[0],
     selectedFighterFormIndex: 0,
     activeFighterForm: BASE_DATA.fighters[0].forms[0],
-    selectedHairFormId: 'ssg-red',
-    selectedHairForm: BASE_DATA.hairForms[5],
+    selectedHairFormId: 'ui-silver',
+    selectedHairForm: BASE_DATA.hairForms.find((h) => h.id === 'ui-silver') || BASE_DATA.hairForms[0],
     selectedFusionRecipeId: BASE_DATA.fusionRecipes[0].id,
     selectedFusionRecipe: BASE_DATA.fusionRecipes[0],
     fusionSpriteA: BASE_DATA.fighters[0].spriteUrl,
@@ -55,8 +84,8 @@
     selectedSaga: BASE_DATA.timelineSagas[8],
     battleFighterIdA: 'goku',
     battleFighterA: findFighterById(BASE_DATA, 'goku'),
-    battleFormIndexA: 5,
-    battleFormA: findFighterById(BASE_DATA, 'goku').forms[5] || findFighterById(BASE_DATA, 'goku').forms[0],
+    battleFormIndexA: 8,
+    battleFormA: findFighterById(BASE_DATA, 'goku').forms[8] || findFighterById(BASE_DATA, 'goku').forms[0],
     battleFighterIdB: 'beerus',
     battleFighterB: findFighterById(BASE_DATA, 'beerus'),
     battleFormIndexB: 0,
@@ -101,7 +130,7 @@
     return el;
   }
 
-  function makeReadAloudButton(getSpeechString) {
+  function makeReadAloudButton(getSpeechString, audioKey) {
     const btn = createEl('button', 'btn-read-aloud', tr('readAloud'));
     btn.type = 'button';
     let isThisButtonSpeaking = false;
@@ -112,11 +141,16 @@
         AUDIO.stopSpeaking();
         return;
       }
-      AUDIO.speakText(getSpeechString(), state.lang, (speakingNow) => {
-        isThisButtonSpeaking = speakingNow;
-        btn.classList.toggle('speaking', speakingNow);
-        btn.textContent = speakingNow ? tr('stopReading') : tr('readAloud');
-      });
+      AUDIO.speakText(
+        getSpeechString(),
+        state.lang,
+        (speakingNow) => {
+          isThisButtonSpeaking = speakingNow;
+          btn.classList.toggle('speaking', speakingNow);
+          btn.textContent = speakingNow ? tr('stopReading') : tr('readAloud');
+        },
+        audioKey
+      );
     });
     return btn;
   }
@@ -184,6 +218,7 @@
   function renderStaticShellStrings() {
     document.documentElement.lang = state.lang === 'yue' ? 'yue-Hant-HK' : state.lang;
     document.documentElement.dir = I18N.getLanguageDir(state.lang);
+    applyThemeToDom(state.theme);
 
     document.getElementById('ui-brand-title').textContent = tr('brandTitle');
     document.getElementById('ui-brand-sub').textContent = tr('brandSub');
@@ -415,7 +450,8 @@
     actionsWrap.appendChild(createEl('span', 'gold-badge', '⚡ ' + activeForm.label + ': ' + activeForm.power));
     actionsWrap.appendChild(
       makeReadAloudButton(() =>
-        fighter.name + '. ' + activeForm.label + ', ' + activeForm.power + '. ' + fighter.kidBio + '. ' + tr('signatureMoves') + fighter.signatureMove
+        fighter.name + '. ' + activeForm.label + ', ' + activeForm.power + '. ' + fighter.kidBio + '. ' + tr('signatureMoves') + fighter.signatureMove,
+        'fighter_' + fighter.id
       )
     );
     titleRow.appendChild(actionsWrap);
@@ -564,7 +600,8 @@
     actionsWrap.appendChild(createEl('span', 'gold-badge', hf.multiplier));
     actionsWrap.appendChild(
       makeReadAloudButton(() =>
-        hf.name + '. ' + hf.multiplier + '. ' + hf.meaningForKids + '. ' + tr('funFactLabel') + hf.funFact
+        hf.name + '. ' + hf.multiplier + '. ' + hf.meaningForKids + '. ' + tr('funFactLabel') + hf.funFact,
+        'hair_' + hf.id
       )
     );
     titleRow.appendChild(actionsWrap);
@@ -684,7 +721,7 @@
     const actionsWrap = createEl('div', 'card-inline-actions');
     actionsWrap.appendChild(createEl('span', 'gold-badge', '⚡ ' + rec.power));
     actionsWrap.appendChild(
-      makeReadAloudButton(() => rec.methodName + '. ' + rec.resultName + '. ' + rec.power + '. ' + rec.story)
+      makeReadAloudButton(() => rec.methodName + '. ' + rec.resultName + '. ' + rec.power + '. ' + rec.story, 'fusion_' + rec.id)
     );
     headerRow.appendChild(actionsWrap);
 
@@ -779,7 +816,8 @@
     actionsWrap.appendChild(createEl('span', 'gold-badge', saga.eraFullName + ' (' + saga.years + ')'));
     actionsWrap.appendChild(
       makeReadAloudButton(() =>
-        saga.eraFullName + '. ' + saga.title + '. ' + saga.keyEvents + '. ' + tr('lessonLabel') + saga.kidLesson
+        saga.eraFullName + '. ' + saga.title + '. ' + saga.keyEvents + '. ' + tr('lessonLabel') + saga.kidLesson,
+        'saga_' + saga.id
       )
     );
     tRow.appendChild(actionsWrap);
@@ -1087,7 +1125,8 @@
     );
     qTopRow.appendChild(
       makeReadAloudButton(() =>
-        qData.question + '. ' + perm.map((origIdx) => qData.options[origIdx]).join('. ')
+        qData.question + '. ' + perm.map((origIdx) => qData.options[origIdx]).join('. '),
+        'quiz_' + rawQIndex
       )
     );
     box.appendChild(qTopRow);
@@ -1340,6 +1379,19 @@
       renderBattleOutcomeBox();
       syncStageUI(false);
     });
+
+    // Light / Dark Mode Theme Toggle
+    const themeBtn = document.getElementById('toggle-theme-btn');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        state.theme = state.theme === 'light' ? 'dark' : 'light';
+        try {
+          window.localStorage.setItem(THEME_STORAGE_KEY, state.theme);
+        } catch (_e) {}
+        AUDIO.playSound('scouter');
+        applyThemeToDom(state.theme);
+      });
+    }
 
     // Scouter HUD Visor Toggle
     const scouterBtn = document.getElementById('toggle-scouter-btn');

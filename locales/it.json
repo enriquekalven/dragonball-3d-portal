@@ -117,7 +117,7 @@
     },
     "ui-silver": {
       "name": "Ultra Istinto Autonomo (Argento Celestiale)",
-      "shortLabel": "Bianco Argento (Ultra Istinto)",
+      "shortLabel": "Ultra Istinto Completo (Capelli d'Argento)",
       "characterName": "Son Goku Ultra Istinto Autonomo",
       "era": "DRAGON BALL SUPER (TORNEO DEL POTERE)",
       "multiplier": "Tecnica del Reame degli Angeli",
@@ -150,6 +150,18 @@
       "howUnlocked": "Gohan che spinge oltre il limite il suo potenziale supremo per proteggere Piccolo e la piccola Pan da Cell Max!",
       "meaningForKids": "Una svettante chioma grigio-argentea più alta che mai, occhi rosso rubino ardenti e saette magenta! Al contempo, il drago Shenron ha concesso a Piccolo la monumentale trasformazione 'Orange Piccolo'!",
       "funFact": "Gohan Beast ha sconfitto il gigantesco e furioso Cell Max usando la tecnica caratteristica del suo maestro Piccolo: il Cannone Speciale (Makankosappo)!"
+    },
+    "ui-sign": {
+      "name": "Ultra Istinto «Segno» (Capelli Neri + Occhi d'Argento)",
+      "shortLabel": "UI «Segno» (Occhi Argento)",
+      "characterName": "Son Goku (Ultra Istinto Segno)",
+      "era": "DRAGON BALL SUPER (TORNEO DEL POTERE)",
+      "multiplier": "Soglia del Regno degli Angeli",
+      "powerExample": "18 Settilioni",
+      "whoUsesIt": "Son Goku",
+      "howUnlocked": "Infrangendo ogni limite nel Torneo del Potere per risvegliare la difesa istintiva!",
+      "meaningForKids": "Lo stadio prima dei capelli d'argento! I capelli di Goku restano neri con riflessi argentati e occhi d'argento mentre il corpo schiva da solo!",
+      "funFact": "Anche se incompleto, Goku a volte sceglie il Segno perché gli permette di usare le emozioni Saiyan!"
     }
   },
   "timelineSagas": {
@@ -270,7 +282,7 @@
       "series": "DB • DBZ • GT • DBS",
       "race": "Saiyan cresciuto sulla Terra",
       "signatureMove": "Kamehameha (Onda Energetica), Teletrasporto, Kaio-ken & Genkidama",
-      "peakPowerLabel": "Ultra Istinto Autonomo (90 Triliardi)",
+      "peakPowerLabel": "Ultra Istinto Completo (Capelli d'Argento) (90 Settilioni)",
       "kidBio": "Solare, di buon cuore e perennemente affamato! Inviato sulla Terra da neonato, cresciuto dal nonno Gohan e allenato dal Maestro Muten, Re Kaioh e Whis. Clicca sulle 8 forme di Goku sotto il palco 3D per ammirare la sua trasformazione dalla forma base fino all'Ultra Istinto argentato!",
       "forms": [
         {
@@ -302,8 +314,12 @@
           "power": "9 Trilioni"
         },
         {
-          "label": "Ultra Istinto Autonomo (Argento)",
-          "power": "90 Triliardi"
+          "label": "Ultra Istinto «Segno»",
+          "power": "18 Settilioni"
+        },
+        {
+          "label": "Ultra Istinto Completo (Capelli d'Argento)",
+          "power": "90 Settilioni"
         }
       ]
     },

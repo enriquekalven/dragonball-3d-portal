@@ -117,7 +117,7 @@
     },
     "ui-silver": {
       "name": "Ultra Instinct Autonome (Argent Céleste)",
-      "shortLabel": "Blanc Argenté (Ultra Instinct)",
+      "shortLabel": "Ultra Instinct Maîtrisé (Cheveux Argentés)",
       "characterName": "Goku Ultra Instinct Autonome",
       "era": "DRAGON BALL SUPER (TOURNOI DU POUVOIR)",
       "multiplier": "Technique du Domaine des Anges",
@@ -150,6 +150,18 @@
       "howUnlocked": "Gohan transcendant son potentiel ultime afin de sauver Piccolo et Pan face à la menace de Cell Max !",
       "meaningForKids": "D'immenses cheveux gris argenté dressés vers les cieux, des yeux rouge rubis féroces et des étincelles pourpres ! Dans le même temps, Shenron accorda à Piccolo sa spectaculaire transformation d'« Orange Piccolo ».",
       "funFact": "Gohan Beast pulvérisa le gigantesque Cell Max en exécutant la technique emblématique de son mentor Piccolo : le redoutable Makankosappo !"
+    },
+    "ui-sign": {
+      "name": "Ultra Instinct « Prémices » (Cheveux Noirs + Yeux Argentés)",
+      "shortLabel": "UI « Prémices » (Yeux Argent)",
+      "characterName": "Son Goku (Ultra Instinct Prémices)",
+      "era": "DRAGON BALL SUPER (TOURNOI DU POUVOIR)",
+      "multiplier": "Portail du Royaume des Anges",
+      "powerExample": "18 Septillions",
+      "whoUsesIt": "Son Goku",
+      "howUnlocked": "En brisant sa carapace lors du Tournoi du Pouvoir pour éveiller une défense instinctive !",
+      "meaningForKids": "L'étape juste avant les cheveux argentés ! Les cheveux de Goku restent noirs aux reflets d'argent avec des yeux argentés étincelants.",
+      "funFact": "Même incomplet, Goku utilise parfois les Prémices exprès pour garder ses émotions de Saiyan !"
     }
   },
   "timelineSagas": {
@@ -270,7 +282,7 @@
       "series": "DB • DBZ • GT • DBS",
       "race": "Saiyan élevé sur Terre",
       "signatureMove": "Kamehameha, Déplacement Instantané, Kaio-ken & Genkidama",
-      "peakPowerLabel": "Ultra Instinct Autonome (90 Septillions)",
+      "peakPowerLabel": "Ultra Instinct Maîtrisé (Cheveux Argentés) (90 Septillions)",
       "kidBio": "Enthousiaste, le cœur débordant de bonté et perpétuellement affamé ! Arrivé sur Terre tout bébé, élevé par grand-père Gohan et guidé par Tortue Géniale, Maître Kaio et Whis. Cliquez sur ses 8 formes pour le voir progresser de sa forme de Base jusqu'à l'Ultra Instinct argenté !",
       "forms": [
         {
@@ -302,7 +314,11 @@
           "power": "9 Quintillions"
         },
         {
-          "label": "Ultra Instinct Autonome (Argent)",
+          "label": "Ultra Instinct « Prémices »",
+          "power": "18 Septillions"
+        },
+        {
+          "label": "Ultra Instinct Maîtrisé (Cheveux Argentés)",
           "power": "90 Septillions"
         }
       ]

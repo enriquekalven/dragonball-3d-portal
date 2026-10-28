@@ -117,7 +117,7 @@
     },
     "ui-silver": {
       "name": "Instinto Superior Autônomo (Prata Celestial)",
-      "shortLabel": "Branco Prateado (Instinto Superior)",
+      "shortLabel": "Instinto Superior Dominado (Cabelo Prateado)",
       "characterName": "Goku Instinto Superior Autônomo",
       "era": "DRAGON BALL SUPER (TORNEIO DO PODER)",
       "multiplier": "Técnica do Reino dos Anjos",
@@ -150,6 +150,18 @@
       "howUnlocked": "Gohan elevando seu potencial místico a patamares inéditos para salvar Piccolo e Pan das garras de Cell Max!",
       "meaningForKids": "Cabelos cinza-prateados imponentes que sobem mais alto que nunca, olhos rubi incandescentes e relâmpagos avermelhados! Paralelamente, Shenlong agraciou Piccolo com a sua robusta forma \"Piccolo Laranja\".",
       "funFact": "Gohan Beast liquidou o gigantesco Cell Max disparando o golpe assinatura do seu tutor Piccolo: o temível Makankosappo!"
+    },
+    "ui-sign": {
+      "name": "Instinto Superior «Presságio» (Cabelo Preto + Olhos Prateados)",
+      "shortLabel": "UI «Presságio» (Olhos Prata)",
+      "characterName": "Son Goku (Instinto Superior Presságio)",
+      "era": "DRAGON BALL SUPER (TORNEIO DO PODER)",
+      "multiplier": "Portal do Reino dos Anjos",
+      "powerExample": "18 Septilhões",
+      "whoUsesIt": "Son Goku",
+      "howUnlocked": "Quebrando seus limites absolutos no Torneio do Poder para despertar a defesa instintiva!",
+      "meaningForKids": "O estágio antes do cabelo prateado! O cabelo de Goku continua preto com brilho prateado e olhos prateados enquanto seu corpo desvia sozinho!",
+      "funFact": "Mesmo sendo incompleto, Goku às vezes escolhe o Presságio para poder lutar usando suas emoções Saiyajin!"
     }
   },
   "timelineSagas": {
@@ -270,7 +282,7 @@
       "series": "DB • DBZ • GT • DBS",
       "race": "Saiyajin criado na Terra",
       "signatureMove": "Kamehameha, Teletransporte, Kaio-ken e Genki Dama",
-      "peakPowerLabel": "Instinto Superior Autônomo (90 Septilhões)",
+      "peakPowerLabel": "Instinto Superior Dominado (Cabelo Prateado) (90 Septilhões)",
       "kidBio": "Alegre, de coração puro e sempre com fome! Enviado à Terra como bebê, foi criado pelo Vovô Gohan e treinado por Mestre Kame, Senhor Kaioh e Whis. Clique nas 8 formas de Goku para vê-lo elevar seu poder da Base até o Instinto Superior Prateado!",
       "forms": [
         {
@@ -302,7 +314,11 @@
           "power": "9 Quintilhões"
         },
         {
-          "label": "Instinto Superior Autônomo (Prata)",
+          "label": "Instinto Superior «Presságio»",
+          "power": "18 Septilhões"
+        },
+        {
+          "label": "Instinto Superior Dominado (Cabelo Prateado)",
           "power": "90 Septilhões"
         }
       ]

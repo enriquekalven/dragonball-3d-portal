@@ -118,8 +118,53 @@
     };
   }
 
+  const DAYLIGHT_ARENAS = {
+    'space-capsule': {
+      skyInner: '#e0f2fe',
+      skyOuter: '#7dd3fc',
+      gridColor: 'rgba(15, 23, 42, 0.16)',
+      rockColor: '#64748b',
+      floorTileA: 'rgba(255, 255, 255, 0.82)',
+      floorTileB: 'rgba(226, 232, 240, 0.85)'
+    },
+    'planet-namek': {
+      skyInner: '#d1fae5',
+      skyOuter: '#34d399',
+      gridColor: 'rgba(6, 95, 70, 0.22)',
+      rockColor: '#059669',
+      floorTileA: 'rgba(167, 243, 208, 0.78)',
+      floorTileB: 'rgba(110, 231, 183, 0.78)'
+    },
+    'cell-games': {
+      skyInner: '#dbeafe',
+      skyOuter: '#60a5fa',
+      gridColor: 'rgba(30, 58, 138, 0.18)',
+      rockColor: '#64748b',
+      floorTileA: 'rgba(248, 250, 252, 0.90)',
+      floorTileB: 'rgba(203, 213, 225, 0.85)'
+    },
+    'time-chamber': {
+      skyInner: '#ffffff',
+      skyOuter: '#cbd5e1',
+      gridColor: 'rgba(71, 85, 105, 0.18)',
+      rockColor: '#94a3b8',
+      floorTileA: 'rgba(255, 255, 255, 0.92)',
+      floorTileB: 'rgba(226, 232, 240, 0.85)'
+    },
+    'world-of-void': {
+      skyInner: '#f3e8ff',
+      skyOuter: '#c084fc',
+      gridColor: 'rgba(88, 28, 135, 0.20)',
+      rockColor: '#7e22ce',
+      floorTileA: 'rgba(243, 232, 255, 0.82)',
+      floorTileB: 'rgba(216, 180, 254, 0.78)'
+    }
+  };
+
   function drawArenaBackgroundAndFloor(t, width, height, state, auraHex) {
-    const arena = state.selectedArena;
+    const isLight = state.theme === 'light';
+    const baseArena = state.selectedArena;
+    const arena = (isLight && DAYLIGHT_ARENAS[baseArena.id]) ? DAYLIGHT_ARENAS[baseArena.id] : baseArena;
     const cam = state.camera;
 
     // 1. Dynamic Arena Sky Gradient
@@ -140,7 +185,7 @@
     stars3D.forEach((star) => {
       const p = project3D(star.x, star.y, star.z, width, height, cam);
       if (p.scale > 0) {
-        ctx.fillStyle = 'rgba(226, 232, 240, 0.42)';
+        ctx.fillStyle = isLight ? 'rgba(255, 255, 255, 0.65)' : 'rgba(226, 232, 240, 0.42)';
         ctx.beginPath();
         ctx.arc(p.x, p.y, star.size * p.scale * 0.65, 0, Math.PI * 2);
         ctx.fill();
@@ -198,7 +243,7 @@
       if (i === 0) ctx.moveTo(rp.x, rp.y);
       else ctx.lineTo(rp.x, rp.y);
     }
-    ctx.strokeStyle = auraHex;
+    ctx.strokeStyle = isLight && auraHex === '#e2e8f0' ? '#7c3aed' : auraHex;
     ctx.lineWidth = state.powerBurstTimer > 0 ? 3 : 2;
     ctx.stroke();
 
@@ -237,7 +282,8 @@
   function drawGroundShadow(x3d, z3d, radiusX, width, height, cam) {
     const sp = project3D(x3d, 168, z3d, width, height, cam);
     ctx.save();
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.48)';
+    const isLight = getState && getState().theme === 'light';
+    ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.24)' : 'rgba(0, 0, 0, 0.48)';
     ctx.beginPath();
     ctx.ellipse(sp.x, sp.y, radiusX * sp.scale, radiusX * 0.34 * sp.scale, 0, 0, Math.PI * 2);
     ctx.fill();
@@ -252,13 +298,16 @@
     const aspect = img.naturalWidth / Math.max(1, img.naturalHeight);
     const targetHeight = maxHeightPx * centerProj.scale * (burstActive ? 1.05 : 1.0);
     const targetWidth = targetHeight * aspect;
+    const isLight = getState && getState().theme === 'light';
 
     ctx.save();
     ctx.translate(centerProj.x, centerProj.y + floatBob);
     // Subtle 3D horizontal perspective skew when user orbits camera
     const subtleTilt = Math.sin(cam.rotY) * 0.035;
     ctx.transform(1, 0, subtleTilt, 1, 0, 0);
-    ctx.shadowColor = auraHex;
+    ctx.shadowColor = (isLight && (auraHex === '#e2e8f0' || auraHex === '#f8fafc'))
+      ? '#6366f1'
+      : auraHex;
     ctx.shadowBlur = burstActive ? 38 : 22;
     ctx.drawImage(
       img,

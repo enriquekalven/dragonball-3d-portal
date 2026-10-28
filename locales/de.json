@@ -117,7 +117,7 @@
     },
     "ui-silver": {
       "name": "Autonomer Ultra-Instinkt (Himmlisches Silber)",
-      "shortLabel": "Silberweiß (Ultra-Instinkt)",
+      "shortLabel": "Gemeisterter Ultra-Instinkt (Silbernes Haar)",
       "characterName": "Autonomer Ultra-Instinkt Goku",
       "era": "DRAGON BALL SUPER (TURNIER DER KRAFT)",
       "multiplier": "Technik der Engelsphäre",
@@ -150,6 +150,18 @@
       "howUnlocked": "Gohans Evolution seines ultimativen Potenzials, um Piccolo und Pan vor Cell Max zu schützen!",
       "meaningForKids": "Himmelstürmendes silbergraues Haar, das höher ragt als je zuvor, funkelnde rubinrote Augen und magentarote Blitze! Gleichzeitig verlieh Shenlong Piccolo die gewaltige, muskulöse 'Orange Piccolo'-Verwandlung!",
       "funFact": "Gohan Beast bezwang den gigantischen, tobenden Cell Max mit Piccolos berühmtester eigener Attacke: der Höllenspirale (Makankosappo)!"
+    },
+    "ui-sign": {
+      "name": "Ultra-Instinkt -Omen- (Schwarzes Haar + Silberne Augen)",
+      "shortLabel": "UI -Omen- (Silberaugen)",
+      "characterName": "Son Goku (Ultra-Instinkt -Omen-)",
+      "era": "DRAGON BALL SUPER (TURNIER DER KRAFT)",
+      "multiplier": "Tor zum Reich der Engel",
+      "powerExample": "18 Quadrilliarden",
+      "whoUsesIt": "Son Goku",
+      "howUnlocked": "Durchbrechen aller eigenen Grenzen im Turnier der Kraft für instinktive Verteidigung!",
+      "meaningForKids": "Die Vorstufe zum silbernen Haar! Gokus Haar bleibt tiefschwarz mit silbernem Schimmer und leuchtend silbernen Augen, während sein Körper von selbst ausweicht!",
+      "funFact": "Obwohl es eine Vorstufe ist, nutzt Goku das Omen manchmal absichtlich, um seine Saiyajin-Emotionen einzusetzen!"
     }
   },
   "timelineSagas": {
@@ -270,7 +282,7 @@
       "series": "DB • DBZ • GT • DBS",
       "race": "Saiyajin, auf der Erde aufgewachsen",
       "signatureMove": "Kamehameha, Momentane Teleportation, Kaio-ken & Genkidama",
-      "peakPowerLabel": "Autonomer Ultra-Instinkt (90 Trilliarden)",
+      "peakPowerLabel": "Gemeisterter Ultra-Instinkt (Silbernes Haar) (90 Quadrilliarden)",
       "kidBio": "Fröhlich, herzensgut und immer hungrig! Als Baby zur Erde geschickt, von Großvater Gohan liebevoll aufgezogen und von Muten-Roshi, Meister Kaio und Whis trainiert. Klicke auf Gokus 8 Stufen unter der 3D-Bühne, um seine Power von der Basisform bis zum silbernen Ultra-Instinkt mitzuerleben!",
       "forms": [
         {
@@ -302,8 +314,12 @@
           "power": "9 Trillionen"
         },
         {
-          "label": "Autonomer Ultra-Instinkt (Silber)",
-          "power": "90 Trilliarden"
+          "label": "Ultra-Instinkt -Omen-",
+          "power": "18 Quadrilliarden"
+        },
+        {
+          "label": "Gemeisterter Ultra-Instinkt (Silberhaar)",
+          "power": "90 Quadrilliarden"
         }
       ]
     },

@@ -82,6 +82,8 @@
 
   const UI_STRINGS = {
     en: {
+      themeLight: '☀️ Light',
+      themeDark: '🌙 Dark',
       brandTitle: 'DRAGON BALL 3D PORTAL',
       brandSub: 'DB • DBZ • DB GT • DB SUPER',
       tabFighters: '🥋 1. Characters & Forms',
@@ -100,7 +102,7 @@
       stopReading: '⏹ Stop Voice',
       clickToTransform: 'CLICK TO TRANSFORM {name} ({count} FORMS):',
       characterForm: 'CHARACTER FORM:',
-      quickSwitchHair: 'QUICK-SWITCH SAIYAN HAIR COLORS (12 FORMS):',
+      quickSwitchHair: 'QUICK-SWITCH SAIYAN HAIR COLORS (13 FORMS):',
       chooseFusionRecipe: 'CHOOSE A FUSION RECIPE TO LAUNCH IN 3D:',
       liveBeamStage: 'LIVE 3D FORM-VS-FORM BEAM STRUGGLE',
       mashOrClickStage: 'MASH SPACEBAR OR CLICK PUSH!',
@@ -114,7 +116,7 @@
       transformationsCount: '{count} Transformations',
       signatureMoves: '🔥 Signature Moves: ',
       hairIntroTitle: '🎨 What Every Saiyan Hair Color Means!',
-      hairIntroSub: 'Tap any of the 12 hair colors below (including Flame-Red Super Saiyan God, Rose-Pink, Silver Ultra Instinct & Purple Ultra Ego) to transform in 3D!',
+      hairIntroSub: 'Tap any of the 13 hair colors below (including Flame-Red Super Saiyan God, Rose-Pink, Silver Ultra Instinct & Purple Ultra Ego) to transform in 3D!',
       howUnlockedLabel: '💡 How It Is Unlocked: ',
       funFactLabel: '🌟 Fun Fact: ',
       fusionIntroTitle: '✨ Capsule Corp 3D Fusion Chamber!',
@@ -161,6 +163,8 @@
       wishCloseBtn: '🎓 Keep Exploring as an Official Z-Fighter Master!'
     },
     es: {
+      themeLight: '☀️ Claro',
+      themeDark: '🌙 Oscuro',
       brandTitle: 'PORTAL 3D DE DRAGON BALL',
       brandSub: 'DB • DBZ • DB GT • DB SUPER',
       tabFighters: '🥋 1. Personajes y Formas',
@@ -179,7 +183,7 @@
       stopReading: '⏹ Detener Voz',
       clickToTransform: 'HAZ CLIC PARA TRANSFORMAR A {name} ({count} FORMAS):',
       characterForm: 'FORMA DEL PERSONAJE:',
-      quickSwitchHair: 'CAMBIO RÁPIDO DE COLOR SAIYAJIN (12 FORMAS):',
+      quickSwitchHair: 'CAMBIO RÁPIDO DE COLOR SAIYAJIN (13 FORMAS):',
       chooseFusionRecipe: 'ELIGE UNA FUSIÓN PARA VERLA EN 3D:',
       liveBeamStage: 'CHOQUE DE PODERES 1V1 EN 3D',
       mashOrClickStage: '¡PULSA ESPACIO O EL BOTÓN RÁPIDO!',
@@ -193,7 +197,7 @@
       transformationsCount: '{count} Transformaciones',
       signatureMoves: '🔥 Técnicas Especiales: ',
       hairIntroTitle: '🎨 ¡Qué Significa Cada Color de Pelo Saiyajin!',
-      hairIntroSub: '¡Toca cualquiera de los 12 colores de cabello (incluyendo Super Saiyajin Dios Rojo, Rosé, Ultra Instinto Plateado y Ultra Ego Morado) para verlo en 3D!',
+      hairIntroSub: '¡Toca cualquiera de los 13 colores de cabello (incluyendo Super Saiyajin Dios Rojo, Rosé, Ultra Instinto Plateado y Ultra Ego Morado) para verlo en 3D!',
       howUnlockedLabel: '💡 Cómo se Desbloquea: ',
       funFactLabel: '🌟 Dato Curioso: ',
       fusionIntroTitle: '✨ ¡Cámara de Fusión 3D de Capsule Corp!',
@@ -240,6 +244,8 @@
       wishCloseBtn: '🎓 ¡Seguir Explorando como Maestro Guerrero Z!'
     },
     zh: {
+      themeLight: '☀️ 浅色',
+      themeDark: '🌙 深色',
       brandTitle: '龙珠 3D 多元宇宙门户',
       brandSub: '七龙珠 • 龙珠Z • 龙珠GT • 龙珠超',
       tabFighters: '🥋 1. 角色与变身',
@@ -272,7 +278,7 @@
       transformationsCount: '{count} 种变身形态',
       signatureMoves: '🔥 必杀绝招：',
       hairIntroTitle: '🎨 每种赛亚人发色代表什么含义！',
-      hairIntroSub: '点击下方任意 12 种发色卡片（含火焰红超级赛亚人之神、桃红、银发自在极意功与紫发自我极意），立即在 3D 舞台变身！',
+      hairIntroSub: '点击下方任意 13 种发色卡片（含火焰红超级赛亚人之神、桃红、银发自在极意功与紫发自我极意），立即在 3D 舞台变身！',
       howUnlockedLabel: '💡 觉醒条件：',
       funFactLabel: '🌟 趣味冷知识：',
       fusionIntroTitle: '✨ 胶囊公司 3D 合体实验室！',
@@ -319,6 +325,8 @@
       wishCloseBtn: '🎓 以正式 Z 战士大师身份继续探索！'
     },
     yue: {
+      themeLight: '☀️ 淺色',
+      themeDark: '🌙 深色',
       brandTitle: '龍珠 3D 多元宇宙傳送門',
       brandSub: '龍珠 • 龍珠Z • 龍珠GT • 龍珠超',
       tabFighters: '🥋 1. 角色同變身',
@@ -398,6 +406,8 @@
       wishCloseBtn: '🎓 以正式 Z 戰士大師身份繼續探索！'
     },
     ja: {
+      themeLight: '☀️ ライト',
+      themeDark: '🌙 ダーク',
       brandTitle: 'ドラゴンボール 3D ポータル',
       brandSub: 'DB • DBZ • DB GT • DB超',
       tabFighters: '🥋 1. キャラ＆変身',
@@ -430,7 +440,7 @@
       transformationsCount: '{count} 段階の変身',
       signatureMoves: '🔥 必殺技: ',
       hairIntroTitle: '🎨 サイヤ人の髪色の意味をマスターしよう！',
-      hairIntroSub: '赤髪の超サイヤ人ゴッド、ロゼ、銀色の身勝手の極意、紫の我儘の極意など全12色を3Dステージで体験しよう！',
+      hairIntroSub: '赤髪の超サイヤ人ゴッド、ロゼ、銀色の身勝手の極意、紫の我儘の極意など全13色を3Dステージで体験しよう！',
       howUnlockedLabel: '💡 覚醒の条件: ',
       funFactLabel: '🌟 豆知識: ',
       fusionIntroTitle: '✨ カプセルコーポレーション 3D合体ラボ！',
@@ -477,6 +487,8 @@
       wishCloseBtn: '🎓 Z戦士マスターとして冒険を続ける！'
     },
     ko: {
+      themeLight: '☀️ 라이트',
+      themeDark: '🌙 다크',
       brandTitle: '드래곤볼 3D 멀티버스 포털',
       brandSub: 'DB • DBZ • DB GT • DB 슈퍼',
       tabFighters: '🥋 1. 캐릭터 & 변신',
@@ -495,7 +507,7 @@
       stopReading: '⏹ 음성 정지',
       clickToTransform: '클릭하여 {name} 변신시키기 (총 {count}가지 형태):',
       characterForm: '캐릭터 형태:',
-      quickSwitchHair: '사이어인 머리색 빠른 전환 (12가지 변신):',
+      quickSwitchHair: '사이어인 머리색 빠른 전환 (13가지 변신):',
       chooseFusionRecipe: '3D로 실행할 합체 레시피 선택:',
       liveBeamStage: '실시간 3D 변신 대 변신 빔 대결',
       mashOrClickStage: '스페이스바 또는 버튼을 연타하세요!',
@@ -509,7 +521,7 @@
       transformationsCount: '{count}단계 변신',
       signatureMoves: '🔥 필살기: ',
       hairIntroTitle: '🎨 사이어인 머리색의 모든 의미!',
-      hairIntroSub: '붉은 초사이어인 갓, 로제, 은빛 무의식의 극의, 보라빛 자의식의 극의 등 12가지 머리색 카드를 눌러 3D로 확인해 보세요!',
+      hairIntroSub: '붉은 초사이어인 갓, 로제, 은빛 무의식의 극의, 보라빛 자의식의 극의 등 13가지 머리색 카드를 눌러 3D로 확인해 보세요!',
       howUnlockedLabel: '💡 각성 방법: ',
       funFactLabel: '🌟 재미있는 사실: ',
       fusionIntroTitle: '✨ 캡슐 코퍼레이션 3D 퓨전 챔버!',
@@ -556,6 +568,8 @@
       wishCloseBtn: '🎓 공식 Z전사 마스터로 계속 탐험하기!'
     },
     pt: {
+      themeLight: '☀️ Claro',
+      themeDark: '🌙 Escuro',
       brandTitle: 'PORTAL 3D DRAGON BALL',
       brandSub: 'DB • DBZ • DB GT • DB SUPER',
       tabFighters: '🥋 1. Personagens e Formas',
@@ -574,7 +588,7 @@
       stopReading: '⏹ Parar Voz',
       clickToTransform: 'CLIQUE PARA TRANSFORMAR {name} ({count} FORMAS):',
       characterForm: 'FORMA DO PERSONAGEM:',
-      quickSwitchHair: 'TROCA RÁPIDA DE CABELO SAIYAJIN (12 FORMAS):',
+      quickSwitchHair: 'TROCA RÁPIDA DE CABELO SAIYAJIN (13 FORMAS):',
       chooseFusionRecipe: 'ESCOLHA UMA FUSÃO PARA LANÇAR EM 3D:',
       liveBeamStage: 'DISPUTA DE PODERES 1V1 EM 3D',
       mashOrClickStage: 'APERTE ESPAÇO OU CLIQUE RÁPIDO!',
@@ -588,7 +602,7 @@
       transformationsCount: '{count} Transformações',
       signatureMoves: '🔥 Golpes Especiais: ',
       hairIntroTitle: '🎨 O Que Significa Cada Cor de Cabelo Saiyajin!',
-      hairIntroSub: 'Toque em qualquer uma das 12 cores abaixo (incluindo Super Saiyajin Deus Vermelho, Rosé, Instinto Superior Prateado e Ego Superior Roxo) em 3D!',
+      hairIntroSub: 'Toque em qualquer uma das 13 cores abaixo (incluindo Super Saiyajin Deus Vermelho, Rosé, Instinto Superior Prateado e Ego Superior Roxo) em 3D!',
       howUnlockedLabel: '💡 Como Desbloqueia: ',
       funFactLabel: '🌟 Curiosidade: ',
       fusionIntroTitle: '✨ Câmara de Fusão 3D da Corporação Cápsula!',
@@ -635,6 +649,8 @@
       wishCloseBtn: '🎓 Continuar Explorando como Mestre Guerreiro Z!'
     },
     fr: {
+      themeLight: '☀️ Clair',
+      themeDark: '🌙 Sombre',
       brandTitle: 'PORTAIL 3D DRAGON BALL',
       brandSub: 'DB • DBZ • DB GT • DB SUPER',
       tabFighters: '🥋 1. Personnages & Formes',
@@ -653,7 +669,7 @@
       stopReading: '⏹ Arrêter',
       clickToTransform: 'CLIQUE POUR TRANSFORMER {name} ({count} FORMES) :',
       characterForm: 'FORME DU PERSONNAGE :',
-      quickSwitchHair: 'CHANGEMENT RAPIDE DES CHEVEUX SAIYAN (12 FORMES) :',
+      quickSwitchHair: 'CHANGEMENT RAPIDE DES CHEVEUX SAIYAN (13 FORMES) :',
       chooseFusionRecipe: 'CHOISIS UNE FUSION À LANCER EN 3D :',
       liveBeamStage: 'DUEL DE RAYONS 1V1 EN 3D',
       mashOrClickStage: 'APPUIE VITE SUR ESPACE OU LE BOUTON !',
@@ -667,7 +683,7 @@
       transformationsCount: '{count} Transformations',
       signatureMoves: '🔥 Techniques Spéciales : ',
       hairIntroTitle: '🎨 Que Signifie Chaque Couleur de Cheveux Saiyan !',
-      hairIntroSub: 'Touche l\'une des 12 couleurs ci-dessous (dont Super Saiyan Divin Rouge, Rosé, Ultra Instinct Argenté et Ultra Ego Violet) en 3D !',
+      hairIntroSub: 'Touche l\'une des 13 couleurs ci-dessous (dont Super Saiyan Divin Rouge, Rosé, Ultra Instinct Argenté et Ultra Ego Violet) en 3D !',
       howUnlockedLabel: '💡 Comment l\'obtenir : ',
       funFactLabel: '🌟 Anecdote : ',
       fusionIntroTitle: '✨ Chambre de Fusion 3D de Capsule Corp !',
@@ -714,6 +730,8 @@
       wishCloseBtn: '🎓 Continuer l\'Exploration en Maître Guerrier Z !'
     },
     it: {
+      themeLight: '☀️ Chiaro',
+      themeDark: '🌙 Scuro',
       brandTitle: 'PORTALE 3D DRAGON BALL',
       brandSub: 'DB • DBZ • DB GT • DB SUPER',
       tabFighters: '🥋 1. Personaggi & Forme',
@@ -732,7 +750,7 @@
       stopReading: '⏹ Ferma Voce',
       clickToTransform: 'CLICCA PER TRASFORMARE {name} ({count} FORME):',
       characterForm: 'FORMA DEL PERSONAGGIO:',
-      quickSwitchHair: 'CAMBIO RAPIDO COLORI SAIYAN (12 FORME):',
+      quickSwitchHair: 'CAMBIO RAPIDO COLORI SAIYAN (13 FORME):',
       chooseFusionRecipe: 'SCEGLI UNA FUSIONE DA LANCIARE IN 3D:',
       liveBeamStage: 'SCONTRO ENERGETICO 1V1 IN 3D',
       mashOrClickStage: 'PREMI VELOCE SPAZIO O IL PULSANTE!',
@@ -746,7 +764,7 @@
       transformationsCount: '{count} Trasformazioni',
       signatureMoves: '🔥 Mosse Speciali: ',
       hairIntroTitle: '🎨 Cosa Significa Ogni Colore dei Capelli Saiyan!',
-      hairIntroSub: 'Tocca uno dei 12 colori qui sotto (inclusi Super Saiyan God Rosso, Rosé, Ultra Istinto Argento e Ultra Ego Viola) per vederlo in 3D!',
+      hairIntroSub: 'Tocca uno dei 13 colori qui sotto (inclusi Super Saiyan God Rosso, Rosé, Ultra Istinto Argento e Ultra Ego Viola) per vederlo in 3D!',
       howUnlockedLabel: '💡 Come si Sblocca: ',
       funFactLabel: '🌟 Curiosità: ',
       fusionIntroTitle: '✨ Camera di Fusione 3D Capsule Corp!',
@@ -793,6 +811,8 @@
       wishCloseBtn: '🎓 Continua a Esplorare come Maestro Guerriero Z!'
     },
     de: {
+      themeLight: '☀️ Hell',
+      themeDark: '🌙 Dunkel',
       brandTitle: 'DRAGON BALL 3D-PORTAL',
       brandSub: 'DB • DBZ • DB GT • DB SUPER',
       tabFighters: '🥋 1. Charaktere & Formen',
@@ -811,7 +831,7 @@
       stopReading: '⏹ Stopp',
       clickToTransform: 'KLICKE ZUM VERWANDELN VON {name} ({count} FORMEN):',
       characterForm: 'AKTUELLE FORM:',
-      quickSwitchHair: 'SAIYAJIN-HAARFARBEN SCHNELLWAHL (12 FORMEN):',
+      quickSwitchHair: 'SAIYAJIN-HAARFARBEN SCHNELLWAHL (13 FORMEN):',
       chooseFusionRecipe: 'WÄHLE EINE FUSION FÜR DIE 3D-BÜHNE:',
       liveBeamStage: 'LIVE 3D-STRAHLENDUELL',
       mashOrClickStage: 'LEERTASTE ODER BUTTON SCHNELL DRÜCKEN!',
@@ -825,7 +845,7 @@
       transformationsCount: '{count} Verwandlungen',
       signatureMoves: '🔥 Spezialattacken: ',
       hairIntroTitle: '🎨 Was jede Saiyajin-Haarfarbe bedeutet!',
-      hairIntroSub: 'Tippe auf eine der 12 Haarfarben (inklusive feuerrotem Super-Saiyajin Gott, Rosé, silbernem Ultra-Instinkt & violettem Ultra-Ego) in 3D!',
+      hairIntroSub: 'Tippe auf eine der 13 Haarfarben (inklusive feuerrotem Super-Saiyajin Gott, Rosé, silbernem Ultra-Instinkt & violettem Ultra-Ego) in 3D!',
       howUnlockedLabel: '💡 So wird es freigeschaltet: ',
       funFactLabel: '🌟 Coole Info: ',
       fusionIntroTitle: '✨ Capsule Corp 3D-Fusionskammer!',
@@ -872,6 +892,8 @@
       wishCloseBtn: '🎓 Als offizieller Z-Kämpfer-Meister weitererkunden!'
     },
     nl: {
+      themeLight: '☀️ Licht',
+      themeDark: '🌙 Donker',
       brandTitle: 'DRAGON BALL 3D-PORTAAL',
       brandSub: 'DB • DBZ • DB GT • DB SUPER',
       tabFighters: '🥋 1. Personages & Vormen',
@@ -890,7 +912,7 @@
       stopReading: '⏹ Stop Stem',
       clickToTransform: 'KLIK OM {name} TE TRANSFORMEREN ({count} VORMEN):',
       characterForm: 'HUIDIGE VORM:',
-      quickSwitchHair: 'SNEL WISSELEN VAN SAIYAN-HAARKLEUR (12 VORMEN):',
+      quickSwitchHair: 'SNEL WISSELEN VAN SAIYAN-HAARKLEUR (13 VORMEN):',
       chooseFusionRecipe: 'KIES EEN FUSIE VOOR HET 3D-PODIUM:',
       liveBeamStage: 'LIVE 3D-STRALENGEVECHT',
       mashOrClickStage: 'DRUK SNEL OP SPATIEBALK OF DE KNOP!',
@@ -904,7 +926,7 @@
       transformationsCount: '{count} Transformaties',
       signatureMoves: '🔥 Speciale Aanvallen: ',
       hairIntroTitle: '🎨 Wat Elke Saiyan-Haarkleur Betekent!',
-      hairIntroSub: 'Tik op een van de 12 haarkleuren hieronder (zoals Vuurrode Super Saiyan God, Rosé, Zilveren Ultra Instinct & Paarse Ultra Ego) in 3D!',
+      hairIntroSub: 'Tik op een van de 13 haarkleuren hieronder (zoals Vuurrode Super Saiyan God, Rosé, Zilveren Ultra Instinct & Paarse Ultra Ego) in 3D!',
       howUnlockedLabel: '💡 Hoe Ontgrendeld: ',
       funFactLabel: '🌟 Leuk Weetje: ',
       fusionIntroTitle: '✨ Capsule Corp 3D Fusiekamer!',
@@ -951,6 +973,8 @@
       wishCloseBtn: '🎓 Verder Ontdekken als Officiële Z-Vechter Meester!'
     },
     ar: {
+      themeLight: '☀️ فاتح',
+      themeDark: '🌙 داكن',
       brandTitle: 'بوابة دراغون بول ثلاثية الأبعاد',
       brandSub: 'دراغون بول • زد • جي تي • سوبر',
       tabFighters: '🥋 1. الشخصيات والتحولات',
@@ -969,7 +993,7 @@
       stopReading: '⏹ إيقاف الصوت',
       clickToTransform: 'اضغط لتحويل {name} ({count} تحولات):',
       characterForm: 'هيئة الشخصية:',
-      quickSwitchHair: 'تبديل سريع لألوان شعر السايان (12 تحولاً):',
+      quickSwitchHair: 'تبديل سريع لألوان شعر السايان (13 تحولاً):',
       chooseFusionRecipe: 'اختر وصفة اندماج لعرضها ثلاثية الأبعاد:',
       liveBeamStage: 'صراع أشعة ثلاثي الأبعاد وجهاً لوجه',
       mashOrClickStage: 'اضغط بسرعة على المسافة أو زر الدفع!',

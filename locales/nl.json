@@ -117,7 +117,7 @@
     },
     "ui-silver": {
       "name": "Autonome Ultra Instinct (Hemels Zilver)",
-      "shortLabel": "Zilverwit (Ultra Instinct)",
+      "shortLabel": "Voltooide Ultra Instinct (Zilver Haar)",
       "characterName": "Autonome Ultra Instinct Goku",
       "era": "DRAGON BALL SUPER (TOERNOOI DER KRACHT)",
       "multiplier": "Engelenrijk-Techniek",
@@ -150,6 +150,18 @@
       "howUnlocked": "Gohan die zijn ultieme potentieel laat evolueren om Piccolo en Pan te beschermen tegen Cell Max!",
       "meaningForKids": "Torenhoog zilvergrijs haar dat hoger reikt dan ooit tevoren, gloeiende robijnrode ogen en magentarode bliksems! Tegelijk gaf Shenron aan Piccolo zijn gigantische gespierde 'Orange Piccolo' transformatie!",
       "funFact": "Gohan Beast versloeg de reusachtige dolgedraaide Cell Max met Piccolo's eigen beroemde techniek: de Special Beam Cannon (Makankosappo)!"
+    },
+    "ui-sign": {
+      "name": "Ultra Instinct -Sign- (Zwart Haar + Zilveren Ogen)",
+      "shortLabel": "UI -Sign- (Zilveren Ogen)",
+      "characterName": "Son Goku (Ultra Instinct -Sign-)",
+      "era": "DRAGON BALL SUPER (TOERNOOI VAN KRACHT)",
+      "multiplier": "Poort naar het Engelenrijk",
+      "powerExample": "18 Septiljoen",
+      "whoUsesIt": "Son Goku",
+      "howUnlocked": "Door al zijn grenzen te doorbreken in het Toernooi van Kracht voor instinctieve verdediging!",
+      "meaningForKids": "De voorfase vóór het zilveren haar! Goku zijn haar blijft gitzwart met een zilveren gloed en felzilveren ogen terwijl zijn lichaam vanzelf ontwijkt!",
+      "funFact": "Hoewel het onvoltooid is, kiest Goku soms bewust voor Ultra Instinct -Sign- zodat hij zijn Saiyan-emoties kan gebruiken!"
     }
   },
   "timelineSagas": {
@@ -270,7 +282,7 @@
       "series": "DB • DBZ • GT • DBS",
       "race": "Saiyan opgegroeid op aarde",
       "signatureMove": "Kamehameha, Instant Transmission, Kaio-ken & Spirit Bomb",
-      "peakPowerLabel": "Autonome Ultra Instinct (90 Triljard)",
+      "peakPowerLabel": "Voltooide Ultra Instinct (Zilver Haar) (90 Septiljoen)",
       "kidBio": "Vrolijk, goudhartig en altijd hongerig! Als baby naar de aarde gestuurd, opgevoed door opa Gohan en getraind door Meester Roshi, Koning Kai en Whis. Klik op Goku's 8 gedaantes onder het 3D-podium om te zien hoe hij transformeert van zijn basisvorm naar de zilveren Ultra Instinct!",
       "forms": [
         {
@@ -302,8 +314,12 @@
           "power": "9 Triljoen"
         },
         {
-          "label": "Autonome Ultra Instinct (Zilver)",
-          "power": "90 Triljard"
+          "label": "Ultra Instinct -Sign-",
+          "power": "18 Septiljoen"
+        },
+        {
+          "label": "Voltooide Ultra Instinct (Zilver Haar)",
+          "power": "90 Septiljoen"
         }
       ]
     },

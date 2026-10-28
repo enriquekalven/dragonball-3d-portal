@@ -214,21 +214,38 @@ window.DB_PORTAL_DATA = {
       funFact: 'In Dragon Ball Super: Broly, Broly got so strong in his first real battle that Goku and Vegeta had to fuse into Gogeta Blue just to stop him!'
     },
     {
-      id: 'ui-silver',
-      name: 'Autonomous Ultra Instinct (Celestial Silver)',
-      shortLabel: 'Silver-White (Ultra Instinct)',
-      characterName: 'Autonomous Ultra Instinct Goku',
+      id: 'ui-sign',
+      name: 'Ultra Instinct -Sign- / Omen (Black Hair + Silver Eyes)',
+      shortLabel: 'UI -Sign- (Silver Eyes)',
+      characterName: 'Son Goku (Ultra Instinct -Sign-)',
       spriteUrl: 'assets/renders/goku_ui.webp',
       era: 'DRAGON BALL SUPER (TOURNAMENT OF POWER)',
-      multiplier: 'Angel Realm Technique',
+      multiplier: 'Gateway to the Angel Realm',
+      powerExample: '18 Septillion',
+      hairHex: '#64748b',
+      auraHex: '#94a3b8',
+      hasLightning: false,
+      whoUsesIt: 'Son Goku',
+      howUnlocked: 'Breaking through his absolute shell in the Tournament of Power to awaken instinctive defense!',
+      meaningForKids: 'The gateway stage before Silver Ultra Instinct! Goku\'s hair stays jet-black with glowing silver highlights and piercing silver eyes while his body dodges attacks automatically!',
+      funFact: 'Even though it is an incomplete gateway form, Goku sometimes chooses Ultra Instinct -Sign- on purpose because it lets him use Saiyan emotions!'
+    },
+    {
+      id: 'ui-silver',
+      name: 'Mastered Ultra Instinct (Celestial Silver Hair)',
+      shortLabel: 'Silver Hair (Mastered UI)',
+      characterName: 'Mastered Ultra Instinct Son Goku',
+      spriteUrl: 'assets/renders/goku_mui.webp',
+      era: 'DRAGON BALL SUPER (TOURNAMENT OF POWER)',
+      multiplier: 'Complete Angel Realm Technique',
       powerExample: '90 Septillion',
-      hairHex: '#e2e8f0',
+      hairHex: '#f1f5f9',
       auraHex: '#c084fc',
       hasLightning: false,
       whoUsesIt: 'Son Goku (and all Angels like Whis & Grand Priest)',
-      howUnlocked: 'Clearing the mind completely so every cell in the body dodges and counter-attacks automatically without having to think!',
-      meaningForKids: 'Blinding silver-white hair and silver eyes with a galaxy-like crystalline aura! Even the Gods of Destruction stood up in shock when Goku mastered this Angel power against Jiren.',
-      funFact: 'Before full silver hair, Goku first enters "Ultra Instinct Sign" where his hair stays black with silver highlights and glowing silver eyes!'
+      howUnlocked: 'Clearing the mind completely so every cell in the body dodges AND counter-attacks automatically without having to think!',
+      meaningForKids: 'Blinding metallic silver-white hair, piercing silver eyes, and a galaxy-like crystalline aura! Even all 12 Gods of Destruction stood up in shock when Goku completed Silver Ultra Instinct against Jiren!',
+      funFact: 'When Goku mastered Silver Ultra Instinct, his hair turned the exact same celestial white-silver color as the Angels like Whis and the Grand Priest!'
     },
     {
       id: 'ultra-ego-purple',
@@ -414,12 +431,12 @@ window.DB_PORTAL_DATA = {
       eraFullName: 'Dragon Ball Super',
       years: 'Age 780 – 783',
       title: 'Tournament of Power (Jiren), Broly, Ultra Ego & Super Hero',
-      spriteUrl: 'assets/renders/goku_ui.webp',
+      spriteUrl: 'assets/renders/goku_mui.webp',
       planetColor: '#c084fc',
-      mainHero: 'Ultra Instinct Goku, Ultra Ego Vegeta, Gogeta Blue, Gohan Beast & Orange Piccolo',
+      mainHero: 'Mastered Silver Ultra Instinct Goku, Ultra Ego Vegeta, Gogeta Blue, Gohan Beast & Orange Piccolo',
       mainEnemy: 'Jiren, Toppo, Dyspo, Legendary Broly & Cell Max',
-      keyEvents: 'Grand Zeno hosts an 80-fighter Tournament of Power where Goku unlocks Silver Autonomous Ultra Instinct against Jiren and Android 17 wins MVP! Later, Gogeta Blue battles Broly, Vegeta unlocks Purple Ultra Ego, and Gohan & Piccolo awaken Gohan Beast and Orange Piccolo!',
-      hairOrFormUnlocked: 'Silver Ultra Instinct, Purple Ultra Ego, Gohan Beast & Orange Piccolo',
+      keyEvents: 'Grand Zeno hosts an 80-fighter Tournament of Power where Goku awakens Ultra Instinct -Sign- and completes Mastered Silver-Hair Ultra Instinct against Jiren while Android 17 wins MVP! Later, Gogeta Blue battles Broly, Vegeta unlocks Purple Ultra Ego, and Gohan & Piccolo awaken Gohan Beast and Orange Piccolo!',
+      hairOrFormUnlocked: 'Silver Mastered Ultra Instinct, Purple Ultra Ego, Gohan Beast & Orange Piccolo',
       kidLesson: 'Every hero now shines with their own unique color: Goku (Silver), Vegeta (Purple), Gohan (Beast Silver), and Piccolo (Orange)!'
     }
   ],
@@ -435,7 +452,7 @@ window.DB_PORTAL_DATA = {
       race: 'Saiyan raised on Earth',
       signatureMove: 'Kamehameha, Instant Transmission, Kaio-ken & Spirit Bomb',
       auraColor: '#00e5ff',
-      peakPowerLabel: 'Autonomous Ultra Instinct (90 Septillion)',
+      peakPowerLabel: 'Mastered Ultra Instinct — Silver Hair (90 Septillion)',
       spriteUrl: 'assets/renders/goku_base.webp',
       forms: [
         { label: 'Base Goku', spriteUrl: 'assets/renders/goku_base.webp', auraHex: '#f97316', power: '60,000,000', powerScore: 52 },
@@ -445,9 +462,10 @@ window.DB_PORTAL_DATA = {
         { label: 'Super Saiyan 4 (GT)', spriteUrl: 'assets/renders/goku_ssj4.webp', auraHex: '#ef4444', power: '2 Quadrillion', powerScore: 87 },
         { label: 'Super Saiyan God (Red)', spriteUrl: 'assets/renders/goku_ssg.webp', auraHex: '#f43f5e', power: '1.5 Quadrillion (God Ki)', powerScore: 86 },
         { label: 'Super Saiyan Blue (SSB)', spriteUrl: 'assets/renders/goku_ssjb.webp', auraHex: '#00e5ff', power: '9 Quintillion', powerScore: 91 },
-        { label: 'Autonomous Ultra Instinct (Silver)', spriteUrl: 'assets/renders/goku_ui.webp', auraHex: '#c084fc', power: '90 Septillion', powerScore: 97 }
+        { label: 'Ultra Instinct -Sign- (Omen)', spriteUrl: 'assets/renders/goku_ui.webp', auraHex: '#94a3b8', power: '18 Septillion (UI Sign)', powerScore: 95 },
+        { label: 'Mastered Ultra Instinct (Silver Hair)', spriteUrl: 'assets/renders/goku_mui.webp', auraHex: '#e2e8f0', power: '90 Septillion (Silver UI)', powerScore: 99 }
       ],
-      kidBio: 'Cheerful, pure-hearted, and always hungry! Sent to Earth as a baby, raised by Grandpa Gohan, and trained by Master Roshi, King Kai, and Whis. Click Goku\'s 8 forms below the 3D stage to watch him power up from Base to Silver Ultra Instinct!'
+      kidBio: 'Cheerful, pure-hearted, and always hungry! Sent to Earth as a baby, raised by Grandpa Gohan, and trained by Master Roshi, King Kai, and Whis. Click Goku\'s 9 forms below the 3D stage to watch him transform from Base to Ultra Instinct -Sign- and full Silver-Haired Mastered Ultra Instinct!'
     },
     {
       id: 'vegeta',

@@ -2,5 +2,13 @@ __pycache__/
 *.py[cod]
 .DS_Store
 .env
+.env.*
 .tts_cache/
 node_modules/
+.firebase/
+.firebaserc
+firebase-debug.log
+*.pem
+*.key
+*credentials*.json
+*service-account*.json

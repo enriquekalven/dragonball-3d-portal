@@ -1,15 +1,22 @@
 /* ==========================================================================
-   DRAGON BALL 3D PORTAL — CLEAN, KID-FRIENDLY UX & UI DESIGN SYSTEM (v2)
-   Audited for zero clutter, zero nested scrollbars, WCAG focus & instant joy
+   DRAGON BALL 3D PORTAL — CLEAN, KID-FRIENDLY UX & UI DESIGN SYSTEM (v3)
+   Supports Dark Mode ("Cosmic Night") & Light Mode ("Capsule Corp Daylight"),
+   12-Language Typography + Full Arabic RTL, Zero Clutter & WCAG AA Contrast
    ========================================================================== */
 
 :root {
   --bg-main: #070b14;
+  --bg-topbar: #0b1020;
   --bg-panel: #0f1629;
   --bg-card: #162038;
   --bg-card-hover: #1e2d4f;
+  --bg-inset: #070b14;
+  --bg-stage: #070b14;
+  --bg-stage-glass: rgba(11, 16, 32, 0.88);
   --border-card: rgba(255, 255, 255, 0.14);
+  --border-subtle: rgba(255, 255, 255, 0.22);
   --border-gold: #ffd000;
+  --border-gold-soft: rgba(255, 208, 0, 0.42);
   --db-orange: #ff6b00;
   --db-gold: #ffd000;
   --db-cyan: #00e5ff;
@@ -17,10 +24,72 @@
   --text-white: #ffffff;
   --text-light: #e2e8f0;
   --text-muted: #94a3b8;
+  --text-gold: #ffd000;
+  --badge-gold-bg: rgba(255, 208, 0, 0.18);
+  --badge-gold-border: #ffd000;
+  --callout-cyan-bg: rgba(0, 229, 255, 0.12);
+  --callout-cyan-hover: rgba(0, 229, 255, 0.26);
+  --callout-cyan-border: #00e5ff;
+  --callout-cyan-text: #e0f2fe;
+  --speaking-bg: rgba(255, 208, 0, 0.28);
+  --speaking-border: #ffd000;
+  --speaking-text: #ffd000;
+  --badge-green-bg: rgba(34, 197, 94, 0.22);
+  --badge-green-border: #4ade80;
+  --badge-green-text: #86efac;
+  --portrait-well-bg: radial-gradient(circle at 50% 40%, rgba(255, 208, 0, 0.22), #070b14 85%);
+  --active-tile-bg: linear-gradient(180deg, rgba(255, 107, 0, 0.25) 0%, rgba(22, 32, 56, 0.95) 100%);
+  --active-hair-bg: rgba(255, 208, 0, 0.14);
+  --active-saga-bg: rgba(255, 107, 0, 0.16);
+  --modal-backdrop: rgba(4, 7, 16, 0.86);
+  --modal-card-bg: linear-gradient(180deg, #064e3b 0%, #0f1629 100%);
+  --card-shadow: none;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   CAPSULE CORP DAYLIGHT THEME (LIGHT MODE — WCAG AA HIGH CONTRAST)
+   ========================================================================== */
+
+[data-theme="light"] {
+  --bg-main: #f1f5f9;
+  --bg-topbar: #ffffff;
+  --bg-panel: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fff7ed;
+  --bg-inset: #f8fafc;
+  --bg-stage: #dbeafe;
+  --bg-stage-glass: rgba(255, 255, 255, 0.92);
+  --border-card: rgba(15, 23, 42, 0.14);
+  --border-subtle: rgba(15, 23, 42, 0.24);
+  --border-gold: #d97706;
+  --border-gold-soft: rgba(217, 119, 6, 0.45);
+  --text-white: #0f172a;
+  --text-light: #334155;
+  --text-muted: #64748b;
+  --text-gold: #b45309;
+  --badge-gold-bg: #fef3c7;
+  --badge-gold-border: #d97706;
+  --callout-cyan-bg: #e0f2fe;
+  --callout-cyan-hover: #bae6fd;
+  --callout-cyan-border: #0284c7;
+  --callout-cyan-text: #0c4a6e;
+  --speaking-bg: #fef3c7;
+  --speaking-border: #d97706;
+  --speaking-text: #92400e;
+  --badge-green-bg: #dcfce7;
+  --badge-green-border: #16a34a;
+  --badge-green-text: #14532d;
+  --portrait-well-bg: radial-gradient(circle at 50% 40%, #fffbeb 0%, #e2e8f0 90%);
+  --active-tile-bg: linear-gradient(180deg, #ffedd5 0%, #ffffff 100%);
+  --active-hair-bg: #fffbeb;
+  --active-saga-bg: #ffedd5;
+  --modal-backdrop: rgba(15, 23, 42, 0.62);
+  --modal-card-bg: linear-gradient(180deg, #ecfdf5 0%, #ffffff 100%);
+  --card-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
 }
 
 * {
@@ -36,6 +105,7 @@ html, body {
   font-family: var(--font-main);
   line-height: 1.5;
   overflow: hidden;
+  transition: background-color 0.18s ease, color 0.18s ease;
 }
 
 body {
@@ -46,7 +116,7 @@ body {
 button:focus-visible,
 select:focus-visible,
 input:focus-visible {
-  outline: 3px solid var(--db-cyan);
+  outline: 3px solid var(--callout-cyan-border);
   outline-offset: 2px;
 }
 
@@ -60,10 +130,12 @@ input:focus-visible {
   justify-content: space-between;
   gap: 0.85rem;
   padding: 0.7rem 1.25rem;
-  background: #0b1020;
+  background: var(--bg-topbar);
   border-bottom: 2px solid var(--db-orange);
+  box-shadow: var(--card-shadow);
   flex-shrink: 0;
   flex-wrap: wrap;
+  z-index: 5;
 }
 
 .brand {
@@ -91,12 +163,13 @@ input:focus-visible {
   font-size: 1.08rem;
   font-weight: 900;
   letter-spacing: 0.03em;
+  color: var(--text-white);
 }
 
 .brand-sub {
   font-size: 0.7rem;
-  color: var(--db-gold);
-  font-weight: 700;
+  color: var(--text-gold);
+  font-weight: 800;
   letter-spacing: 0.08em;
 }
 
@@ -121,14 +194,14 @@ input:focus-visible {
 
 .nav-pill:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(255, 208, 0, 0.55);
+  border-color: var(--border-gold);
 }
 
 .nav-pill.active {
   background: linear-gradient(135deg, #ff6b00 0%, #ffa600 100%);
   color: #070b14;
-  border-color: #ffffff;
-  box-shadow: 0 0 16px rgba(255, 136, 0, 0.55);
+  border-color: #d97706;
+  box-shadow: 0 2px 14px rgba(255, 136, 0, 0.42);
 }
 
 .top-actions {
@@ -141,7 +214,7 @@ input:focus-visible {
 .action-select {
   padding: 0.46rem 0.68rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 208, 0, 0.45);
+  border: 1px solid var(--border-gold-soft);
   background: var(--bg-card);
   color: var(--text-white);
   font-size: 0.78rem;
@@ -150,11 +223,11 @@ input:focus-visible {
 }
 
 .action-select:hover {
-  border-color: var(--db-gold);
+  border-color: var(--border-gold);
 }
 
 .action-chip {
-  padding: 0.48rem 0.85rem;
+  padding: 0.48rem 0.82rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-card);
   background: var(--bg-card);
@@ -162,16 +235,18 @@ input:focus-visible {
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .action-chip:hover {
-  border-color: var(--db-gold);
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
 }
 
 body.scouter-on #toggle-scouter-btn {
-  background: rgba(34, 197, 94, 0.25);
-  border-color: #4ade80;
-  color: #86efac;
+  background: var(--badge-green-bg);
+  border-color: var(--badge-green-border);
+  color: var(--badge-green-text);
 }
 
 /* ==========================================================================
@@ -188,7 +263,7 @@ body.scouter-on #toggle-scouter-btn {
 
 .character-stage {
   position: relative;
-  background: #070b14;
+  background: var(--bg-stage);
   border-right: 1px solid var(--border-card);
   display: flex;
   flex-direction: column;
@@ -214,12 +289,13 @@ body.scouter-on #toggle-scouter-btn {
 .stage-header-card {
   position: relative;
   z-index: 2;
-  background: rgba(11, 16, 32, 0.84);
-  border: 1px solid rgba(255, 208, 0, 0.42);
+  background: var(--bg-stage-glass);
+  border: 1px solid var(--border-gold-soft);
   border-radius: var(--radius-md);
   padding: 0.7rem 0.95rem;
-  max-width: 325px;
-  backdrop-filter: blur(8px);
+  max-width: 335px;
+  backdrop-filter: blur(10px);
+  box-shadow: var(--card-shadow);
   pointer-events: none;
 }
 
@@ -238,6 +314,7 @@ body.scouter-on #toggle-scouter-btn {
   font-size: 1.22rem;
   font-weight: 900;
   line-height: 1.2;
+  color: var(--text-white);
 }
 
 .stage-power-readout {
@@ -247,7 +324,7 @@ body.scouter-on #toggle-scouter-btn {
 }
 
 .stage-power-readout strong {
-  color: var(--db-gold);
+  color: var(--text-gold);
   font-size: 0.96rem;
 }
 
@@ -266,24 +343,25 @@ body.scouter-on #toggle-scouter-btn {
 .arena-select {
   padding: 0.45rem 0.7rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 208, 0, 0.45);
-  background: rgba(11, 16, 32, 0.9);
+  border: 1px solid var(--border-gold-soft);
+  background: var(--bg-stage-glass);
   color: var(--text-white);
   font-size: 0.78rem;
   font-weight: 800;
+  box-shadow: var(--card-shadow);
   cursor: pointer;
 }
 
 .btn-power-up {
   padding: 0.6rem 1.05rem;
   border-radius: var(--radius-md);
-  border: 2px solid #fff3b0;
+  border: 2px solid #f59e0b;
   background: linear-gradient(135deg, #ff6b00 0%, #ffd000 100%);
   color: #070b14;
   font-size: 0.85rem;
   font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 0 18px rgba(255, 165, 0, 0.55);
+  box-shadow: 0 3px 16px rgba(255, 140, 0, 0.45);
   transition: transform 0.15s ease;
 }
 
@@ -295,17 +373,18 @@ body.scouter-on #toggle-scouter-btn {
 .stage-transform-dock {
   position: relative;
   z-index: 2;
-  background: rgba(11, 16, 32, 0.9);
-  border: 1px solid rgba(255, 208, 0, 0.45);
+  background: var(--bg-stage-glass);
+  border: 1px solid var(--border-gold-soft);
   border-radius: var(--radius-lg);
   padding: 0.75rem 0.95rem;
   backdrop-filter: blur(10px);
+  box-shadow: var(--card-shadow);
 }
 
 .dock-label {
   font-size: 0.72rem;
   font-weight: 900;
-  color: var(--db-gold);
+  color: var(--text-gold);
   letter-spacing: 0.05em;
   margin-bottom: 0.45rem;
 }
@@ -322,7 +401,7 @@ body.scouter-on #toggle-scouter-btn {
   gap: 0.4rem;
   padding: 0.4rem 0.72rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--border-subtle);
   background: var(--bg-card);
   color: var(--text-white);
   font-size: 0.78rem;
@@ -333,15 +412,15 @@ body.scouter-on #toggle-scouter-btn {
 
 .stage-form-btn:hover {
   background: var(--bg-card-hover);
-  border-color: var(--db-gold);
+  border-color: var(--border-gold);
 }
 
 .stage-form-btn.active {
   background: var(--db-gold);
   color: #070b14;
-  border-color: #ffffff;
+  border-color: #d97706;
   font-weight: 900;
-  box-shadow: 0 0 14px rgba(255, 208, 0, 0.7);
+  box-shadow: 0 2px 12px rgba(245, 158, 11, 0.55);
 }
 
 .form-dot {
@@ -349,7 +428,7 @@ body.scouter-on #toggle-scouter-btn {
   height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(15, 23, 42, 0.35);
 }
 
 /* Scouter Visor Overlay */
@@ -361,7 +440,7 @@ body.scouter-on #toggle-scouter-btn {
   opacity: 0;
   transition: opacity 0.2s ease;
   background: radial-gradient(circle at 50% 45%, rgba(34, 197, 94, 0.08), rgba(16, 185, 129, 0.24));
-  border: 3px solid rgba(74, 222, 128, 0.7);
+  border: 3px solid rgba(22, 163, 74, 0.75);
 }
 
 body.scouter-on .scouter-hud {
@@ -376,14 +455,14 @@ body.scouter-on .scouter-hud {
   height: 230px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 2px dashed rgba(74, 222, 128, 0.65);
+  border: 2px dashed rgba(22, 163, 74, 0.7);
 }
 
 .scouter-box {
   position: absolute;
   top: 7.2rem;
   left: 1rem;
-  background: rgba(4, 47, 46, 0.88);
+  background: rgba(4, 47, 46, 0.9);
   border: 1px solid #4ade80;
   padding: 0.55rem 0.8rem;
   border-radius: var(--radius-sm);
@@ -415,6 +494,7 @@ body.scouter-on .scouter-hud {
   font-size: 1.35rem;
   font-weight: 900;
   margin-bottom: 0.2rem;
+  color: var(--text-white);
 }
 
 .section-intro p {
@@ -425,18 +505,19 @@ body.scouter-on .scouter-hud {
 .sub-section-heading {
   font-size: 1.05rem;
   font-weight: 900;
-  color: var(--db-gold);
+  color: var(--text-gold);
 }
 
 /* Story / Detail Card */
 .character-story-card {
   background: var(--bg-card);
-  border: 1px solid rgba(255, 208, 0, 0.32);
+  border: 1px solid var(--border-gold-soft);
   border-radius: var(--radius-lg);
   padding: 1.15rem;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+  box-shadow: var(--card-shadow);
 }
 
 .story-banner {
@@ -450,8 +531,8 @@ body.scouter-on .scouter-hud {
   width: 108px;
   height: 126px;
   border-radius: var(--radius-md);
-  border: 2px solid var(--db-gold);
-  background: radial-gradient(circle at 50% 40%, rgba(255, 208, 0, 0.22), #070b14 85%);
+  border: 2px solid var(--border-gold);
+  background: var(--portrait-well-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -476,6 +557,7 @@ body.scouter-on .scouter-hud {
 .story-title-row h3 {
   font-size: 1.22rem;
   font-weight: 900;
+  color: var(--text-white);
 }
 
 .card-inline-actions {
@@ -488,22 +570,23 @@ body.scouter-on .scouter-hud {
 .btn-read-aloud {
   padding: 0.28rem 0.65rem;
   border-radius: 6px;
-  border: 1px solid var(--db-cyan);
-  background: rgba(0, 229, 255, 0.14);
-  color: #e0f2fe;
+  border: 1px solid var(--callout-cyan-border);
+  background: var(--callout-cyan-bg);
+  color: var(--callout-cyan-text);
   font-size: 0.76rem;
   font-weight: 800;
   cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
 .btn-read-aloud:hover {
-  background: rgba(0, 229, 255, 0.28);
+  background: var(--callout-cyan-hover);
 }
 
 .gold-badge {
-  background: rgba(255, 208, 0, 0.18);
-  border: 1px solid var(--db-gold);
-  color: var(--db-gold);
+  background: var(--badge-gold-bg);
+  border: 1px solid var(--badge-gold-border);
+  color: var(--text-gold);
   font-size: 0.78rem;
   font-weight: 800;
   padding: 0.22rem 0.6rem;
@@ -517,12 +600,12 @@ body.scouter-on .scouter-hud {
 }
 
 .moves-callout {
-  background: rgba(0, 229, 255, 0.1);
-  border-left: 4px solid var(--db-cyan);
+  background: var(--callout-cyan-bg);
+  border-left: 4px solid var(--callout-cyan-border);
   padding: 0.6rem 0.85rem;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-size: 0.86rem;
-  color: #e0f2fe;
+  color: var(--callout-cyan-text);
 }
 
 /* Roster Search + Filters + Portrait Grid (View 1) */
@@ -537,16 +620,21 @@ body.scouter-on .scouter-hud {
 .roster-header-bar h3 {
   font-size: 1.1rem;
   font-weight: 900;
+  color: var(--text-white);
 }
 
 .roster-search-input {
   padding: 0.5rem 0.85rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 208, 0, 0.4);
-  background: #070b14;
+  border: 1px solid var(--border-gold-soft);
+  background: var(--bg-inset);
   color: var(--text-white);
   font-size: 0.85rem;
   min-width: 235px;
+}
+
+.roster-search-input::placeholder {
+  color: var(--text-muted);
 }
 
 .filter-pills {
@@ -566,10 +654,14 @@ body.scouter-on .scouter-hud {
   cursor: pointer;
 }
 
+.filter-btn:hover {
+  background: var(--bg-card-hover);
+}
+
 .filter-btn.active {
   background: var(--db-gold);
   color: #070b14;
-  border-color: #ffffff;
+  border-color: #d97706;
   font-weight: 900;
 }
 
@@ -591,19 +683,20 @@ body.scouter-on .scouter-hud {
   align-items: center;
   text-align: center;
   gap: 0.4rem;
+  box-shadow: var(--card-shadow);
   transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
 .char-tile-btn:hover {
   transform: translateY(-2px);
   background: var(--bg-card-hover);
-  border-color: rgba(255, 208, 0, 0.6);
+  border-color: var(--border-gold);
 }
 
 .char-tile-btn.active {
-  border-color: var(--db-gold);
-  background: linear-gradient(180deg, rgba(255, 107, 0, 0.25) 0%, rgba(22, 32, 56, 0.95) 100%);
-  box-shadow: 0 0 16px rgba(255, 208, 0, 0.35);
+  border-color: var(--border-gold);
+  background: var(--active-tile-bg);
+  box-shadow: 0 3px 16px rgba(245, 158, 11, 0.28);
 }
 
 .char-tile-img-wrap {
@@ -618,7 +711,7 @@ body.scouter-on .scouter-hud {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.28));
 }
 
 .char-tile-name {
@@ -629,7 +722,7 @@ body.scouter-on .scouter-hud {
 
 .char-tile-sub {
   font-size: 0.72rem;
-  color: var(--db-gold);
+  color: var(--text-gold);
   font-weight: 700;
 }
 
@@ -651,24 +744,26 @@ body.scouter-on .scouter-hud {
   color: var(--text-white);
   text-align: left;
   cursor: pointer;
+  box-shadow: var(--card-shadow);
   transition: all 0.15s ease;
 }
 
 .hair-card-btn:hover {
   background: var(--bg-card-hover);
+  border-color: var(--border-gold);
 }
 
 .hair-card-btn.active {
-  border-color: var(--db-gold);
-  background: rgba(255, 208, 0, 0.14);
+  border-color: var(--border-gold);
+  background: var(--active-hair-bg);
 }
 
 .hair-card-avatar {
   width: 54px;
   height: 62px;
   border-radius: var(--radius-sm);
-  border: 2px solid var(--db-gold);
-  background: #070b14;
+  border: 2px solid var(--border-gold);
+  background: var(--bg-inset);
   object-fit: contain;
   flex-shrink: 0;
   padding: 2px;
@@ -681,7 +776,8 @@ body.scouter-on .scouter-hud {
 
 .hair-card-meta small {
   font-size: 0.74rem;
-  color: var(--db-gold);
+  color: var(--text-gold);
+  font-weight: 700;
 }
 
 /* Fusion Lab (View 3) */
@@ -692,9 +788,9 @@ body.scouter-on .scouter-hud {
   justify-content: center;
   gap: 0.65rem;
   padding: 0.7rem;
-  background: #070b14;
+  background: var(--bg-inset);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border-card);
 }
 
 .fusion-fighter-pill {
@@ -708,11 +804,13 @@ body.scouter-on .scouter-hud {
   border: 1px solid var(--border-card);
   font-size: 0.8rem;
   font-weight: 800;
+  color: var(--text-white);
 }
 
 .fusion-result-highlight {
   border-width: 2px;
-  background: rgba(0, 229, 255, 0.12);
+  background: var(--callout-cyan-bg);
+  color: var(--callout-cyan-text);
 }
 
 /* Timeline Sagas (View 4) */
@@ -739,23 +837,27 @@ body.scouter-on .scouter-hud {
   color: var(--text-white);
   text-align: left;
   cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .saga-row-btn:hover {
   background: var(--bg-card-hover);
+  border-color: var(--border-gold);
 }
 
 .saga-row-btn.active {
-  border-color: var(--db-gold);
-  background: rgba(255, 107, 0, 0.16);
+  border-color: var(--border-gold);
+  background: var(--active-saga-bg);
 }
 
 .saga-row-img {
   width: 54px;
   height: 62px;
   object-fit: contain;
-  background: #070b14;
+  background: var(--bg-inset);
   border-radius: var(--radius-sm);
+  border: 1px solid var(--border-card);
   padding: 3px;
 }
 
@@ -781,16 +883,16 @@ body.scouter-on .scouter-hud {
 .picker-col label {
   font-size: 0.72rem;
   font-weight: 800;
-  color: var(--db-gold);
+  color: var(--text-gold);
   margin-top: 0.2rem;
 }
 
 .big-select {
   padding: 0.55rem;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: #070b14;
-  color: #ffffff;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-inset);
+  color: var(--text-white);
   font-size: 0.84rem;
   font-weight: 700;
 }
@@ -814,8 +916,8 @@ body.scouter-on .scouter-hud {
 }
 
 .battle-result-box {
-  background: #070b14;
-  border: 1px solid rgba(255, 208, 0, 0.35);
+  background: var(--bg-inset);
+  border: 1px solid var(--border-gold-soft);
   border-radius: var(--radius-md);
   padding: 0.95rem;
   display: flex;
@@ -841,7 +943,7 @@ body.scouter-on .scouter-hud {
   height: 20px;
   border-radius: 999px;
   overflow: hidden;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--border-subtle);
   background: #ef4444;
 }
 
@@ -855,13 +957,13 @@ body.scouter-on .scouter-hud {
 .btn-mash-beam {
   padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
-  border: 2px solid #ffffff;
+  border: 2px solid #0284c7;
   background: linear-gradient(135deg, #00e5ff 0%, #3b82f6 50%, #facc15 100%);
   color: #070b14;
   font-size: 0.95rem;
   font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 0 22px rgba(0, 229, 255, 0.65);
+  box-shadow: 0 3px 18px rgba(0, 229, 255, 0.45);
 }
 
 .btn-mash-beam:active {
@@ -869,8 +971,9 @@ body.scouter-on .scouter-hud {
 }
 
 .winner-banner-text {
-  color: var(--db-gold);
+  color: var(--text-gold);
   font-size: 0.95rem;
+  font-weight: 800;
   text-align: center;
 }
 
@@ -886,8 +989,8 @@ body.scouter-on .scouter-hud {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 2px dashed rgba(255, 208, 0, 0.4);
-  background: #070b14;
+  border: 2px dashed var(--border-gold-soft);
+  background: var(--bg-inset);
   color: var(--text-muted);
   font-size: 0.74rem;
   font-weight: 900;
@@ -898,10 +1001,10 @@ body.scouter-on .scouter-hud {
 
 .db-star-orb.collected {
   border-style: solid;
-  border-color: #fff3b0;
+  border-color: #f59e0b;
   background: radial-gradient(circle at 30% 30%, #ffe66d 0%, #ff7b00 68%, #b83700 100%);
   color: #991b1b;
-  box-shadow: 0 0 12px rgba(255, 136, 0, 0.8);
+  box-shadow: 0 0 12px rgba(255, 136, 0, 0.7);
 }
 
 .quiz-top-row {
@@ -913,9 +1016,9 @@ body.scouter-on .scouter-hud {
 }
 
 .score-badge {
-  background: rgba(34, 197, 94, 0.2);
-  border: 1px solid #4ade80;
-  color: #86efac;
+  background: var(--badge-green-bg);
+  border: 1px solid var(--badge-green-border);
+  color: var(--badge-green-text);
   padding: 0.25rem 0.7rem;
   border-radius: 999px;
   font-size: 0.78rem;
@@ -937,26 +1040,30 @@ body.scouter-on .scouter-hud {
   padding: 0.68rem 0.95rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-card);
-  background: #070b14;
+  background: var(--bg-inset);
   color: var(--text-white);
   text-align: left;
   font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
 .quiz-option-btn:hover {
-  border-color: var(--db-gold);
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
 }
 
 .quiz-option-btn.correct {
-  background: rgba(34, 197, 94, 0.28);
-  border-color: #4ade80;
+  background: var(--badge-green-bg);
+  border-color: var(--badge-green-border);
+  color: var(--badge-green-text);
+  font-weight: 800;
 }
 
 .quiz-option-btn.wrong {
-  background: rgba(239, 68, 68, 0.28);
-  border-color: #f87171;
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #ef4444;
 }
 
 /* Shenron Modal */
@@ -964,7 +1071,7 @@ body.scouter-on .scouter-hud {
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: rgba(4, 7, 16, 0.86);
+  background: var(--modal-backdrop);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -975,21 +1082,21 @@ body.scouter-on .scouter-hud {
 .shenron-modal-card {
   max-width: 520px;
   width: 100%;
-  background: linear-gradient(180deg, #064e3b 0%, #0f1629 100%);
-  border: 3px solid var(--db-gold);
+  background: var(--modal-card-bg);
+  border: 3px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
-  box-shadow: 0 0 40px rgba(34, 197, 94, 0.55);
+  box-shadow: 0 12px 42px rgba(22, 163, 74, 0.35);
 }
 
 .shenron-stars-banner {
   font-size: 1rem;
   font-weight: 900;
-  color: var(--db-gold);
+  color: var(--text-gold);
   letter-spacing: 0.14em;
 }
 
@@ -1000,10 +1107,10 @@ body.scouter-on .scouter-hud {
 }
 
 .btn-read-aloud.speaking {
-  background: rgba(255, 208, 0, 0.28);
-  border-color: var(--db-gold);
-  color: var(--db-gold);
-  box-shadow: 0 0 12px rgba(255, 208, 0, 0.45);
+  background: var(--speaking-bg);
+  border-color: var(--speaking-border);
+  color: var(--speaking-text);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
 }
 
 /* ==========================================================================
@@ -1028,7 +1135,7 @@ body.scouter-on .scouter-hud {
 
 [dir="rtl"] .moves-callout {
   border-left: none;
-  border-right: 4px solid var(--db-cyan);
+  border-right: 4px solid var(--callout-cyan-border);
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
 }
 

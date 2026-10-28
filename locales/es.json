@@ -117,7 +117,7 @@
     },
     "ui-silver": {
       "name": "Ultra Instinto Autónomo (Plateado Celestial)",
-      "shortLabel": "Blanco Plateado (Ultra Instinto)",
+      "shortLabel": "Ultra Instinto Dominado (Cabello Plateado)",
       "characterName": "Goku Ultra Instinto Autónomo",
       "era": "DRAGON BALL SUPER (TORNEO DE LA FUERZA)",
       "multiplier": "Técnica del Reino Angelical",
@@ -150,6 +150,18 @@
       "howUnlocked": "¡Gohan superando los límites de su estado definitivo para proteger a Piccoro y a Pan frente a Cell Max!",
       "meaningForKids": "¡Una colosal cabellera gris plateada que se eleva más alto que nunca, ojos de un rojo rubí ardiente y centellas carmesí! Al mismo tiempo, Shenlong recompensó a Piccoro con su imponente transformación de \"Piccolo Naranja\".",
       "funFact": "¡Gohan Bestia destruyó al gigantesco Cell Max utilizando la técnica maestra de su tutor Piccoro: el legendario Makankosappo!"
+    },
+    "ui-sign": {
+      "name": "Ultra Instinto «Señal» (Cabello Negro + Ojos Plateados)",
+      "shortLabel": "UI «Señal» (Ojos Plata)",
+      "characterName": "Son Goku (Ultra Instinto «Señal»)",
+      "era": "DRAGON BALL SUPER (TORNEO DEL PODER)",
+      "multiplier": "Umbral del Reino de los Ángeles",
+      "powerExample": "18 Septillones",
+      "whoUsesIt": "Son Goku",
+      "howUnlocked": "¡Rompiendo todos sus límites en el Torneo del Poder para despertar reflejos automáticos!",
+      "meaningForKids": "¡La etapa previa al cabello plateado! El cabello de Goku sigue negro con reflejos plateados y ojos color plata mientras su cuerpo esquiva ataques solo.",
+      "funFact": "¡Aunque es la fase previa, Goku a veces prefiere usar «Señal» porque le permite combinar sus emociones Saiyajin!"
     }
   },
   "timelineSagas": {
@@ -270,7 +282,7 @@
       "series": "DB • DBZ • GT • DBS",
       "race": "Saiyajin criado en la Tierra",
       "signatureMove": "Kamehameha, Teletransportación, Kaio-ken y Genkidama",
-      "peakPowerLabel": "Ultra Instinto Autónomo (90 Septillones)",
+      "peakPowerLabel": "Ultra Instinto Dominado (Cabello Plateado) (90 Septillones)",
       "kidBio": "¡Alegre, de corazón noble y siempre hambriento! Enviado a la Tierra siendo un bebé, fue criado por el abuelito Gohan y entrenado por el Maestro Roshi, Kaio-sama y Whis. ¡Haz clic en las 8 formas de Goku para verlo ascender desde su estado Base hasta el Ultra Instinto Plateado!",
       "forms": [
         {
@@ -302,7 +314,11 @@
           "power": "9 Quintillones"
         },
         {
-          "label": "Ultra Instinto Autónomo (Plateado)",
+          "label": "Ultra Instinto «Señal»",
+          "power": "18 Septillones"
+        },
+        {
+          "label": "Ultra Instinto Dominado (Cabello Plateado)",
           "power": "90 Septillones"
         }
       ]

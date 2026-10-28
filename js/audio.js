@@ -249,7 +249,37 @@
     window.speechSynthesis.speak(utter);
   }
 
-  function speakText(text, lang, onStateChange) {
+  let liveTtsApiAvailable = null; // null = untested, true = live server, false = static CDN
+
+  function playStaticChirpOrFallback(cleaned, targetLang, audioKey, token, finishClean) {
+    if (!audioKey) {
+      speakBrowserFallback(cleaned, targetLang, token, finishClean);
+      return;
+    }
+    const safeLang = /^[a-z]{2,3}$/.test(targetLang) ? targetLang : 'en';
+    const safeKey = String(audioKey).replace(/[^a-zA-Z0-9_-]/g, '');
+    const staticUrl = 'assets/audio/' + safeLang + '/' + safeKey + '.mp3';
+
+    const audio = new Audio(staticUrl);
+    activeAudioEl = audio;
+    audio.onended = function () {
+      finishClean();
+    };
+    audio.onerror = function () {
+      if (token === speechToken) {
+        activeAudioEl = null;
+        speakBrowserFallback(cleaned, targetLang, token, finishClean);
+      }
+    };
+    audio.play().catch(function () {
+      if (token === speechToken) {
+        activeAudioEl = null;
+        speakBrowserFallback(cleaned, targetLang, token, finishClean);
+      }
+    });
+  }
+
+  function speakText(text, lang, onStateChange, audioKey) {
     stopSpeaking();
     if (!soundEnabled) return false;
 
@@ -276,6 +306,12 @@
       }
     }
 
+    // On static Firebase Hosting (once /api/tts returns 404/405), go straight to pre-rendered Chirp 3 HD CDN MP3!
+    if (liveTtsApiAvailable === false) {
+      playStaticChirpOrFallback(cleaned, targetLang, audioKey, token, finishClean);
+      return true;
+    }
+
     const ctrl = new AbortController();
     activeAbortCtrl = ctrl;
 
@@ -291,9 +327,17 @@
       signal: ctrl.signal
     })
       .then((res) => {
+        if (res.status === 404 || res.status === 405) {
+          liveTtsApiAvailable = false;
+          throw new Error('Static host — use pre-rendered Chirp CDN MP3');
+        }
         if (!res.ok) throw new Error('TTS HTTP ' + res.status);
         const ct = res.headers.get('Content-Type') || '';
-        if (ct.indexOf('audio') === -1) throw new Error('Invalid TTS Content-Type');
+        if (ct.indexOf('audio') === -1) {
+          liveTtsApiAvailable = false;
+          throw new Error('Invalid TTS Content-Type');
+        }
+        liveTtsApiAvailable = true;
         return res.blob();
       })
       .then((blob) => {
@@ -316,20 +360,20 @@
         audio.onerror = function () {
           cleanupUrl();
           if (token === speechToken) {
-            speakBrowserFallback(cleaned, targetLang, token, finishClean);
+            playStaticChirpOrFallback(cleaned, targetLang, audioKey, token, finishClean);
           }
         };
         audio.play().catch(function () {
           cleanupUrl();
           if (token === speechToken) {
-            speakBrowserFallback(cleaned, targetLang, token, finishClean);
+            playStaticChirpOrFallback(cleaned, targetLang, audioKey, token, finishClean);
           }
         });
       })
       .catch((err) => {
         if (err && err.name === 'AbortError') return;
         if (token !== speechToken) return;
-        speakBrowserFallback(cleaned, targetLang, token, finishClean);
+        playStaticChirpOrFallback(cleaned, targetLang, audioKey, token, finishClean);
       });
 
     return true;
