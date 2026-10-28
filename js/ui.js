@@ -12,8 +12,26 @@
   const I18N = window.DB_I18N;
   const AUDIO = window.DB_AUDIO;
   const RENDERER = window.DB_RENDERER_3D;
+  const ANALYTICS = window.DB_ANALYTICS;
 
   let activeData = BASE_DATA;
+
+  function track(eventName, params) {
+    if (ANALYTICS && typeof ANALYTICS.trackEvent === 'function') {
+      ANALYTICS.trackEvent(eventName, params);
+    }
+  }
+
+  function centerActiveRailItem(containerEl) {
+    if (!containerEl) return;
+    window.requestAnimationFrame(() => {
+      const activeBtn = containerEl.querySelector('.active');
+      if (!activeBtn || containerEl.scrollWidth <= containerEl.clientWidth) return;
+      const targetLeft =
+        activeBtn.offsetLeft - containerEl.clientWidth * 0.5 + activeBtn.offsetWidth * 0.5;
+      containerEl.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+    });
+  }
 
   function findFighterById(dataObj, id) {
     return dataObj.fighters.find((f) => f.id === id) || dataObj.fighters[0];
@@ -47,6 +65,10 @@
 
   function applyThemeToDom(theme) {
     document.documentElement.setAttribute('data-theme', theme);
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', theme === 'light' ? '#ffffff' : '#070b14');
+    }
     const themeBtn = document.getElementById('toggle-theme-btn');
     const themeLabel = document.getElementById('theme-state-label');
     if (themeBtn) {
@@ -141,6 +163,10 @@
         AUDIO.stopSpeaking();
         return;
       }
+      track('read_aloud', {
+        audio_key: String(audioKey || 'custom'),
+        language: state.lang
+      });
       AUDIO.speakText(
         getSpeechString(),
         state.lang,
@@ -330,6 +356,12 @@
           state.selectedFighterFormIndex = idx;
           state.powerBurstTimer = 65;
           AUDIO.playSound('transform');
+          track('transform_fighter', {
+            fighter_id: fighter.id,
+            form_index: idx,
+            form_label: formItem.label,
+            language: state.lang
+          });
           renderActiveFighterStory();
           syncStageUI(true);
         });
@@ -362,6 +394,7 @@
           state.selectedHairForm = formItem;
           state.powerBurstTimer = 65;
           AUDIO.playSound('transform');
+          track('select_hair_form', { hair_id: formItem.id, language: state.lang });
           renderHairGuideView();
           syncStageUI(true);
         });
@@ -415,6 +448,8 @@
       dockContainer.classList.add('hidden');
     }
 
+    centerActiveRailItem(dockBtns);
+
     if (animatePower) {
       animatePowerReadout(targetPowerStr);
     } else {
@@ -442,7 +477,8 @@
     img.alt = fighter.name + ' - ' + activeForm.label;
     portraitBox.appendChild(img);
 
-    const infoCol = createEl('div');
+    const infoCol = createEl('div', 'story-info-col');
+    const headerMeta = createEl('div', 'story-header-meta');
     const titleRow = createEl('div', 'story-title-row');
     titleRow.appendChild(createEl('h3', '', fighter.name));
 
@@ -456,13 +492,12 @@
     );
     titleRow.appendChild(actionsWrap);
 
-    const subMeta = createEl('p', 'story-text', fighter.race + ' • ' + fighter.series);
-    subMeta.style.fontWeight = '700';
-    subMeta.style.marginBottom = '0.35rem';
+    const subMeta = createEl('p', 'story-submeta', fighter.race + ' • ' + fighter.series);
+    headerMeta.appendChild(titleRow);
+    headerMeta.appendChild(subMeta);
 
-    infoCol.appendChild(titleRow);
-    infoCol.appendChild(subMeta);
-    infoCol.appendChild(createEl('p', 'story-text', fighter.kidBio));
+    infoCol.appendChild(headerMeta);
+    infoCol.appendChild(createEl('p', 'story-text story-bio-text', fighter.kidBio));
 
     banner.appendChild(portraitBox);
     banner.appendChild(infoCol);
@@ -536,9 +571,20 @@
         state.selectedFighterFormIndex = 0;
         state.powerBurstTimer = 55;
         AUDIO.playSound('scouter');
+        track('select_fighter', {
+          fighter_id: fighter.id,
+          fighter_name: fighter.name,
+          language: state.lang
+        });
         renderActiveFighterStory();
         renderFighterGridOnly();
         syncStageUI(true);
+        if (window.innerWidth <= 1080) {
+          const stageSection = document.querySelector('.character-stage');
+          if (stageSection) {
+            stageSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
       });
 
       grid.appendChild(tile);
@@ -592,7 +638,8 @@
     img.alt = hf.name;
     portraitBox.appendChild(img);
 
-    const info = createEl('div');
+    const info = createEl('div', 'story-info-col');
+    const headerMeta = createEl('div', 'story-header-meta');
     const titleRow = createEl('div', 'story-title-row');
     titleRow.appendChild(createEl('h3', '', hf.name));
 
@@ -605,9 +652,10 @@
       )
     );
     titleRow.appendChild(actionsWrap);
+    headerMeta.appendChild(titleRow);
 
-    info.appendChild(titleRow);
-    info.appendChild(createEl('p', 'story-text', hf.meaningForKids));
+    info.appendChild(headerMeta);
+    info.appendChild(createEl('p', 'story-text story-bio-text', hf.meaningForKids));
     banner.appendChild(portraitBox);
     banner.appendChild(info);
 
@@ -644,8 +692,12 @@
         state.selectedHairForm = item;
         state.powerBurstTimer = 65;
         AUDIO.playSound('transform');
+        track('select_hair_form', { hair_id: item.id, language: state.lang });
         renderHairGuideView();
         syncStageUI(true);
+        if (window.innerWidth <= 1080) {
+          detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       });
 
       grid.appendChild(btn);
@@ -666,6 +718,11 @@
     state.fusionAnimTimer = 80;
     state.powerBurstTimer = 85;
     AUDIO.playSound('fusion');
+    track('trigger_fusion', {
+      recipe_id: recipe.id,
+      result_name: recipe.resultName,
+      language: state.lang
+    });
     renderFusionLabView();
     syncStageUI(true);
   }
@@ -744,17 +801,23 @@
       thumb.alt = item.resultName;
       thumb.loading = 'lazy';
 
-      const mid = createEl('div');
+      const mid = createEl('div', 'saga-row-mid');
       mid.appendChild(createEl('strong', '', item.resultName));
       mid.appendChild(createEl('p', 'muted-sub', item.methodName));
 
-      const badge = createEl('span', 'gold-badge', item.power);
+      const badge = createEl('span', 'gold-badge saga-row-badge', item.power);
 
       btn.appendChild(thumb);
       btn.appendChild(mid);
       btn.appendChild(badge);
 
-      btn.addEventListener('click', () => triggerFusionSequence(item));
+      btn.addEventListener('click', () => {
+        triggerFusionSequence(item);
+        if (window.innerWidth <= 1080) {
+          const stageSection = document.querySelector('.character-stage');
+          if (stageSection) stageSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
       recipeGrid.appendChild(btn);
     });
   }
@@ -808,7 +871,8 @@
     sImg.alt = saga.title;
     pBox.appendChild(sImg);
 
-    const sInfo = createEl('div');
+    const sInfo = createEl('div', 'story-info-col');
+    const headerMeta = createEl('div', 'story-header-meta');
     const tRow = createEl('div', 'story-title-row');
     tRow.appendChild(createEl('h3', '', saga.title));
 
@@ -821,9 +885,10 @@
       )
     );
     tRow.appendChild(actionsWrap);
+    headerMeta.appendChild(tRow);
 
-    sInfo.appendChild(tRow);
-    sInfo.appendChild(createEl('p', 'story-text', saga.keyEvents));
+    sInfo.appendChild(headerMeta);
+    sInfo.appendChild(createEl('p', 'story-text story-bio-text', saga.keyEvents));
     banner.appendChild(pBox);
     banner.appendChild(sInfo);
 
@@ -850,11 +915,11 @@
       rImg.alt = item.title;
       rImg.loading = 'lazy';
 
-      const mid = createEl('div');
+      const mid = createEl('div', 'saga-row-mid');
       mid.appendChild(createEl('strong', '', item.title));
       mid.appendChild(createEl('p', 'muted-sub', tr('villainShort') + item.mainEnemy));
 
-      const tag = createEl('span', 'gold-badge', item.era);
+      const tag = createEl('span', 'gold-badge saga-row-badge', item.era);
 
       row.appendChild(rImg);
       row.appendChild(mid);
@@ -866,8 +931,12 @@
         state.selectedSaga = item;
         state.powerBurstTimer = 45;
         AUDIO.playSound('scouter');
+        track('select_saga', { saga_id: item.id, era: item.era, language: state.lang });
         renderTimelineView();
         syncStageUI(false);
+        if (window.innerWidth <= 1080) {
+          detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
       });
 
       list.appendChild(row);
@@ -977,6 +1046,13 @@
     state.beamGame.winnerSide = null;
     state.powerBurstTimer = 60;
     AUDIO.playSound('burst');
+    track('start_beam_struggle', {
+      fighter_a: state.battleFighterIdA,
+      form_a: state.battleFormA.label,
+      fighter_b: state.battleFighterIdB,
+      form_b: state.battleFormB.label,
+      language: state.lang
+    });
     renderBattleOutcomeBox();
     syncStageUI(false);
 
@@ -1099,6 +1175,7 @@
 
   function openShenronModal() {
     AUDIO.playSound('shenron');
+    track('summon_shenron', { language: state.lang });
     document.getElementById('shenron-modal').classList.remove('hidden');
   }
 
@@ -1207,6 +1284,13 @@
           AUDIO.playSound('scouter');
         }
 
+        track('quiz_answer', {
+          correct: isCorrectOpt,
+          score: state.quizScore,
+          dragon_balls: state.dragonBallsCollected,
+          language: state.lang
+        });
+
         populateFeedback(isCorrectOpt);
       });
 
@@ -1252,12 +1336,14 @@
     AUDIO.stopSpeaking();
     state.activeMode = newMode;
     AUDIO.playSound('scouter');
+    track('switch_mode', { mode: newMode, language: state.lang });
 
     document.querySelectorAll('.nav-pill').forEach((btn) => {
       const isMatch = btn.getAttribute('data-mode') === newMode;
       btn.classList.toggle('active', isMatch);
       btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
     });
+    centerActiveRailItem(document.querySelector('.main-tabs'));
 
     const views = {
       'fighters': 'view-fighters',
@@ -1290,12 +1376,19 @@
       langSelect.appendChild(opt);
     });
     langSelect.addEventListener('change', () => {
+      const prevLang = state.lang;
       AUDIO.playSound('scouter');
+      track('switch_language', { from_language: prevLang, to_language: langSelect.value });
       applyLanguage(langSelect.value);
     });
 
-    // Chirp 3 HD Voice Persona Selector
+    // Chirp 3 HD Voice Persona Selector (active when local server.py live proxy is running)
     const personaSelect = document.getElementById('chirp-persona-select');
+    const isLocalProxyHost =
+      window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isLocalProxyHost && personaSelect) {
+      personaSelect.classList.add('hidden');
+    }
     personaSelect.addEventListener('change', () => {
       AUDIO.setPersona(personaSelect.value);
       AUDIO.stopSpeaking();
@@ -1318,6 +1411,7 @@
         state.selectedArena = found;
         state.powerBurstTimer = 40;
         AUDIO.playSound('scouter');
+        track('select_arena', { arena_id: state.selectedArenaId, language: state.lang });
       }
     });
 
@@ -1390,6 +1484,7 @@
         } catch (_e) {}
         AUDIO.playSound('scouter');
         applyThemeToDom(state.theme);
+        track('toggle_theme', { theme: state.theme, language: state.lang });
       });
     }
 

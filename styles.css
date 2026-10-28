@@ -279,10 +279,23 @@ body.scouter-on #toggle-scouter-btn {
   width: 100%;
   height: 100%;
   cursor: grab;
+  touch-action: pan-y;
 }
 
 #db-3d-canvas:active {
   cursor: grabbing;
+}
+
+/* Non-Overlapping Top Stage Bar: Left Character Readout + Right Arena & Power-Up */
+.stage-top-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.65rem;
+  width: 100%;
+  pointer-events: none;
 }
 
 /* Top-Left Character Name & Power Card */
@@ -294,6 +307,7 @@ body.scouter-on #toggle-scouter-btn {
   border-radius: var(--radius-md);
   padding: 0.7rem 0.95rem;
   max-width: 335px;
+  min-width: 0;
   backdrop-filter: blur(10px);
   box-shadow: var(--card-shadow);
   pointer-events: none;
@@ -330,14 +344,14 @@ body.scouter-on #toggle-scouter-btn {
 
 /* Top-Right 3D Arena Selector + Power Up Button */
 .stage-top-right {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 0.45rem;
+  flex-shrink: 0;
+  pointer-events: auto;
 }
 
 .arena-select {
@@ -545,6 +559,12 @@ body.scouter-on .scouter-hud {
   object-fit: contain;
 }
 
+.story-info-col,
+.story-header-meta,
+.saga-row-mid {
+  min-width: 0;
+}
+
 .story-title-row {
   display: flex;
   flex-wrap: wrap;
@@ -558,6 +578,13 @@ body.scouter-on .scouter-hud {
   font-size: 1.22rem;
   font-weight: 900;
   color: var(--text-white);
+}
+
+.story-submeta {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-gold);
+  margin-bottom: 0.38rem;
 }
 
 .card-inline-actions {
@@ -596,7 +623,7 @@ body.scouter-on .scouter-hud {
 .story-text {
   font-size: 0.92rem;
   color: var(--text-light);
-  line-height: 1.52;
+  line-height: 1.56;
 }
 
 .moves-callout {
@@ -1123,8 +1150,6 @@ body.scouter-on .scouter-hud {
 }
 
 [dir="rtl"] .stage-top-right {
-  right: auto;
-  left: 1rem;
   align-items: flex-start;
 }
 
@@ -1145,28 +1170,499 @@ body.scouter-on .scouter-hud {
   text-align: right;
 }
 
+/* ==========================================================================
+   TABLET & MOBILE READABILITY OVERHAUL (<= 1080px and <= 768px)
+   ========================================================================== */
+
 @media (max-width: 1080px) {
-  html, body {
-    overflow: auto;
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-text-size-adjust: 100%;
   }
+
+  .top-bar {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .app-layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: 520px auto;
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
     overflow: visible;
+  }
+
+  .character-stage,
+  [dir="rtl"] .character-stage {
+    min-width: 0;
+    max-width: 100%;
+    height: clamp(370px, 54vh, 470px);
+    min-height: 365px;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--border-card);
+    padding: 0.75rem;
+  }
+
+  .stage-transform-dock,
+  .content-panel,
+  .view-section,
+  .character-story-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .content-panel {
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 1rem 0.95rem calc(1.75rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
-@media (max-width: 640px) {
-  .story-banner {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
+@media (max-width: 768px) {
+  /* 1. Compact Header + Horizontal Swipeable Action & Mode Rails */
+  .top-bar {
+    padding: calc(0.5rem + env(safe-area-inset-top, 0px)) 0.75rem 0.55rem;
+    gap: 0.45rem;
+    overflow-x: hidden;
   }
+
+  .brand {
+    gap: 0.48rem;
+    min-width: 0;
+  }
+
+  .db-ball-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.58rem;
+  }
+
+  .brand-title {
+    font-size: 0.92rem;
+    line-height: 1.15;
+  }
+
+  .brand-sub {
+    display: none;
+  }
+
+  .top-actions {
+    order: 2;
+    width: 100%;
+    min-width: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.35rem;
+    padding-bottom: 2px;
+  }
+
+  .top-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .action-select {
+    flex: 0 0 auto;
+    max-width: 158px;
+    font-size: 16px;
+    padding: 0.34rem 0.55rem;
+    text-overflow: ellipsis;
+  }
+
+  .action-chip {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 36px;
+    padding: 0.38rem 0.64rem;
+    font-size: 0.77rem;
+  }
+
+  .main-tabs {
+    order: 3;
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.4rem;
+    padding-bottom: 2px;
+  }
+
+  .main-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-pill {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 40px;
+    padding: 0.46rem 0.85rem;
+    font-size: 0.84rem;
+  }
+
+  /* 2. Unobstructed 3D Stage + Non-Overlapping Top Bar + Single-Row Form Dock */
+  .character-stage,
+  [dir="rtl"] .character-stage {
+    height: clamp(355px, 52vh, 445px);
+    min-height: 350px;
+    padding: 0.6rem;
+  }
+
+  .stage-top-bar {
+    gap: 0.45rem;
+  }
+
+  .stage-header-card {
+    flex: 1 1 0;
+    max-width: none;
+    padding: 0.46rem 0.65rem;
+  }
+
+  .stage-era-pill {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+    margin-bottom: 0.14rem;
+  }
+
+  #stage-char-name {
+    font-size: 0.96rem;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .stage-power-readout {
+    font-size: 0.73rem;
+    margin-top: 0.12rem;
+  }
+
+  .stage-power-readout strong {
+    font-size: 0.81rem;
+  }
+
+  .stage-top-right {
+    gap: 0.35rem;
+  }
+
+  .arena-select {
+    max-width: 150px;
+    font-size: 16px;
+    padding: 0.32rem 0.5rem;
+    text-overflow: ellipsis;
+  }
+
+  .stage-top-right .btn-power-up {
+    padding: 0.42rem 0.66rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    border-width: 1.5px;
+  }
+
+  .stage-transform-dock {
+    padding: 0.48rem 0.65rem;
+    border-radius: var(--radius-md);
+  }
+
+  .dock-label {
+    font-size: 0.66rem;
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .stage-form-buttons {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.38rem;
+    padding-bottom: 2px;
+  }
+
+  .stage-form-buttons::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stage-form-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 38px;
+    padding: 0.4rem 0.72rem;
+    font-size: 0.8rem;
+  }
+
+  .scouter-reticle {
+    width: 165px;
+    height: 165px;
+  }
+
+  .scouter-box {
+    top: 5.5rem;
+    left: 0.6rem;
+    font-size: 0.7rem;
+    padding: 0.38rem 0.58rem;
+  }
+
+  [dir="rtl"] .scouter-box {
+    left: auto;
+    right: 0.6rem;
+  }
+
+  /* 3. High-Readability Story Cards, Left/Start-Aligned Body Copy & Touch Controls */
+  .content-panel {
+    padding: 0.85rem 0.8rem calc(1.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .view-section {
+    gap: 0.9rem;
+  }
+
+  .section-intro h2 {
+    font-size: 1.18rem;
+    line-height: 1.28;
+  }
+
+  .section-intro p {
+    font-size: 0.94rem;
+    line-height: 1.52;
+  }
+
+  .character-story-card {
+    padding: 0.95rem;
+    gap: 0.75rem;
+  }
+
+  .story-banner {
+    grid-template-columns: 76px minmax(0, 1fr);
+    align-items: start;
+    gap: 0.75rem;
+    text-align: start;
+  }
+
+  .story-info-col {
+    display: contents;
+  }
+
+  .story-portrait {
+    width: 76px;
+    height: 90px;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .story-header-meta {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .story-bio-text {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .story-title-row {
+    align-items: flex-start;
+    gap: 0.4rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .story-title-row h3 {
+    font-size: 1.08rem;
+    line-height: 1.26;
+  }
+
+  .card-inline-actions {
+    gap: 0.38rem;
+  }
+
+  .btn-read-aloud {
+    min-height: 36px;
+    padding: 0.36rem 0.72rem;
+    font-size: 0.8rem;
+  }
+
+  .gold-badge {
+    font-size: 0.76rem;
+    padding: 0.24rem 0.55rem;
+  }
+
+  .story-text {
+    font-size: 0.98rem;
+    line-height: 1.62;
+    text-align: start;
+  }
+
+  .moves-callout {
+    font-size: 0.91rem;
+    line-height: 1.54;
+    padding: 0.65rem 0.8rem;
+  }
+
+  .roster-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .roster-search-input {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    padding: 0.58rem 0.9rem;
+  }
+
+  .filter-pills,
+  .era-tabs-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.38rem;
+    padding-bottom: 2px;
+  }
+
+  .filter-pills::-webkit-scrollbar,
+  .era-tabs-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 38px;
+    padding: 0.42rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .visual-character-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.58rem;
+  }
+
+  .char-tile-btn {
+    padding: 0.62rem 0.5rem;
+  }
+
+  .char-tile-img-wrap {
+    width: 78px;
+    height: 92px;
+  }
+
+  .char-tile-name {
+    font-size: 0.86rem;
+  }
+
+  .char-tile-sub {
+    font-size: 0.73rem;
+  }
+
+  .hair-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+  }
+
+  .hair-card-btn {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .hair-card-meta strong {
+    font-size: 0.92rem;
+  }
+
+  .hair-card-meta small {
+    font-size: 0.78rem;
+  }
+
+  .fusion-formula-row {
+    gap: 0.4rem;
+    padding: 0.55rem;
+  }
+
+  .fusion-fighter-pill {
+    padding: 0.38rem 0.52rem;
+    font-size: 0.75rem;
+  }
+
+  .battle-mini-img {
+    width: 52px;
+    height: 62px;
+  }
+
+  .saga-row-btn {
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 0.65rem;
+    padding: 0.7rem 0.78rem;
+  }
+
+  .saga-row-img {
+    width: 50px;
+    height: 58px;
+    grid-row: 1 / span 2;
+  }
+
+  .saga-row-badge {
+    grid-column: 2;
+    justify-self: start;
+  }
+
   .vs-picker-grid {
     grid-template-columns: 1fr;
     justify-items: stretch;
+    gap: 0.55rem;
   }
+
   .vs-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.82rem;
     margin: 0 auto;
+  }
+
+  .big-select {
+    width: 100%;
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  .btn-power-up.full-btn {
+    min-height: 46px;
+    font-size: 0.92rem;
+    padding: 0.72rem 1rem;
+  }
+
+  .btn-mash-beam {
+    min-height: 50px;
+    font-size: 0.96rem;
+  }
+
+  .quiz-option-btn {
+    min-height: 46px;
+    font-size: 0.94rem;
+    line-height: 1.46;
+    padding: 0.72rem 0.88rem;
+  }
+
+  .shenron-modal-backdrop {
+    padding: 0.85rem;
+  }
+
+  .shenron-modal-card {
+    padding: 1.15rem;
+    gap: 0.75rem;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 }

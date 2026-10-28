@@ -2,10 +2,12 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self' blob: data:; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com; media-src 'self' blob: data:; connect-src 'self' blob: data: https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <meta name="theme-color" content="#070b14" />
   <title>Dragon Ball Interactive 3D Multiverse Portal — DB • DBZ • GT • Super</title>
   <link rel="stylesheet" href="styles.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWW7MHLDJE"></script>
 </head>
 <body class="scouter-off">
   <!-- Clean, Kid-Friendly Top Navigation Bar with 12 Languages + Chirp 3 HD -->
@@ -78,22 +80,23 @@
         </div>
       </div>
 
-      <!-- Top-Left Live Character Badge & Animated Power Level -->
-      <div class="stage-header-card">
-        <span id="stage-era-badge" class="stage-era-pill">DB • DBZ • GT • DBS</span>
-        <h2 id="stage-char-name">Son Goku (Kakarot)</h2>
-        <div class="stage-power-readout">
-          <span id="ui-power-level-label">⚡ POWER LEVEL:</span>
-          <strong id="stage-power-number">60,000,000</strong>
+      <!-- Non-Overlapping Top Stage Bar: Left Character Readout + Right Arena & Power-Up -->
+      <div class="stage-top-bar">
+        <div class="stage-header-card">
+          <span id="stage-era-badge" class="stage-era-pill">DB • DBZ • GT • DBS</span>
+          <h2 id="stage-char-name">Son Goku (Kakarot)</h2>
+          <div class="stage-power-readout">
+            <span id="ui-power-level-label">⚡ POWER LEVEL:</span>
+            <strong id="stage-power-number">60,000,000</strong>
+          </div>
         </div>
-      </div>
 
-      <!-- Top-Right 3D Battle Arena Selector + Power Up Button -->
-      <div class="stage-top-right">
-        <select id="arena-select" class="arena-select" aria-label="Select 3D Battle Arena"></select>
-        <button id="power-up-burst-btn" class="btn-power-up" type="button">
-          ⚡ POWER UP AURA!
-        </button>
+        <div class="stage-top-right">
+          <select id="arena-select" class="arena-select" aria-label="Select 3D Battle Arena"></select>
+          <button id="power-up-burst-btn" class="btn-power-up" type="button">
+            ⚡ POWER UP AURA!
+          </button>
+        </div>
       </div>
 
       <!-- Bottom Dock: Instant Transformation Buttons Right Below the Character! -->
@@ -226,6 +229,7 @@
     </div>
   </div>
 
+  <script src="js/analytics.js"></script>
   <script src="data.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/audio.js"></script>

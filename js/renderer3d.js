@@ -321,10 +321,11 @@
 
   function drawSingleCharacterStage(t, width, height, state, spriteUrl, auraHex, showSparks) {
     const cam = state.camera;
+    const isCompactViewport = width < 520;
     const burstActive = state.powerBurstTimer > 0;
     const burstScale = burstActive ? 1.24 : 1.0;
     const floatBob = Math.sin(t * 2.6) * 6;
-    const center = project3D(0, -14, 0, width, height, cam);
+    const center = project3D(0, isCompactViewport ? 14 : -14, 0, width, height, cam);
 
     // Ground shadow directly on arena floor
     drawGroundShadow(0, 0, 72 - floatBob * 0.8, width, height, cam);
@@ -369,11 +370,14 @@
       ctx.fill();
     });
 
-    // Authentic Character Render
+    // Authentic Character Render (responsive to narrow phone viewports)
+    const singleSpriteMaxH = isCompactViewport
+      ? Math.min(height * 0.46, width * 0.68, 212)
+      : Math.min(height * 0.62, 365);
     drawCharacterSprite(
       spriteUrl,
       center,
-      Math.min(height * 0.62, 365),
+      singleSpriteMaxH,
       auraHex,
       floatBob,
       burstActive,
@@ -406,11 +410,13 @@
     const recipe = state.selectedFusionRecipe;
     const cam = state.camera;
     const timer = state.fusionAnimTimer || 0;
+    const maxSpread = Math.min(185, Math.max(105, width * 0.32));
+    const duoSpriteH = width < 520 ? 175 : 230;
 
     if (timer > 14) {
       // Spiraling Convergence of Warrior A and Warrior B!
       const progress = 1 - (timer - 14) / 66; // 0.0 -> 1.0
-      const dist = (1 - progress) * 185;
+      const dist = (1 - progress) * maxSpread;
       const spinAngle = progress * Math.PI * 3.0;
 
       const xA = -Math.cos(spinAngle) * dist;
@@ -421,8 +427,8 @@
       const posA = project3D(xA, -12, zA, width, height, cam);
       const posB = project3D(xB, -12, zB, width, height, cam);
 
-      drawCharacterSprite(state.fusionSpriteA, posA, 230, '#f97316', 0, true, cam);
-      drawCharacterSprite(state.fusionSpriteB, posB, 230, '#38bdf8', 0, true, cam);
+      drawCharacterSprite(state.fusionSpriteA, posA, duoSpriteH, '#f97316', 0, true, cam);
+      drawCharacterSprite(state.fusionSpriteB, posB, duoSpriteH, '#38bdf8', 0, true, cam);
 
       // Growing Fusion Core Starburst in Center
       const center = project3D(0, -12, 0, width, height, cam);
@@ -461,16 +467,20 @@
     const auraA = formA.auraHex || '#00e5ff';
     const auraB = formB.auraHex || '#ef4444';
 
-    const leftPos = project3D(-175, -8, 0, width, height, cam);
-    const rightPos = project3D(175, -8, 0, width, height, cam);
+    const spreadX = Math.min(175, Math.max(98, width * 0.30));
+    const clashSpan = spreadX * 0.77;
+    const clashSpriteH = width < 520 ? 168 : 220;
 
-    // Tug-of-war beam clash X coordinate (-130 to +130 based on beamPosition 0..1)
+    const leftPos = project3D(-spreadX, -8, 0, width, height, cam);
+    const rightPos = project3D(spreadX, -8, 0, width, height, cam);
+
+    // Tug-of-war beam clash X coordinate based on beamPosition 0..1
     const beamRatio = Math.max(0.05, Math.min(0.95, state.beamGame.position));
-    const clashX3D = -135 + beamRatio * 270;
+    const clashX3D = -clashSpan + beamRatio * (clashSpan * 2);
     const clashCenter = project3D(clashX3D, -8, 0, width, height, cam);
 
-    drawGroundShadow(-175, 0, 52, width, height, cam);
-    drawGroundShadow(175, 0, 52, width, height, cam);
+    drawGroundShadow(-spreadX, 0, 52, width, height, cam);
+    drawGroundShadow(spreadX, 0, 52, width, height, cam);
 
     [
       { spriteUrl: formA.spriteUrl, aura: auraA, pos: leftPos, dir: 1 },
@@ -513,7 +523,7 @@
       drawCharacterSprite(
         side.spriteUrl,
         side.pos,
-        220,
+        clashSpriteH,
         side.aura,
         Math.sin(t * 3.2 + side.dir) * 4,
         state.beamGame.active,
@@ -639,10 +649,12 @@
       st.camera.rotX = Math.max(-0.45, Math.min(0.45, st.camera.rotX + dy * 0.006));
     });
 
-    window.addEventListener('pointerup', () => {
+    function endDrag() {
       const st = getState();
       if (st) st.camera.isDragging = false;
-    });
+    }
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
 
     canvas.addEventListener(
       'wheel',
