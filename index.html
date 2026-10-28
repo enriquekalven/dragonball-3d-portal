@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self'; img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com; media-src 'self' blob: data:; connect-src 'self' blob: data: https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
   <meta name="theme-color" content="#070b14" />
-  <title>Dragon Ball Interactive 3D Multiverse Portal — DB • DBZ • GT • Super</title>
+  <title>Dragon Ball Interactive 3D Multiverse Portal — DB • DBZ • Daima • GT • Super</title>
   <link rel="stylesheet" href="styles.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KWW7MHLDJE"></script>
 </head>
@@ -13,10 +13,10 @@
   <!-- Clean, Kid-Friendly Top Navigation Bar with 12 Languages + Chirp 3 HD -->
   <header class="top-bar" role="banner">
     <div class="brand">
-      <div class="db-ball-icon" aria-hidden="true">★★★★</div>
+      <div id="brand-four-star-ball" class="db-ball-icon" aria-hidden="true"></div>
       <div>
         <h1 id="ui-brand-title" class="brand-title">DRAGON BALL 3D PORTAL</h1>
-        <p id="ui-brand-sub" class="brand-sub">DB • DBZ • DB GT • DB SUPER</p>
+        <p id="ui-brand-sub" class="brand-sub">DB • DBZ • DAIMA • GT • SUPER</p>
       </div>
     </div>
 
@@ -114,7 +114,7 @@
         <div class="character-story-card" id="active-fighter-story"></div>
 
         <div class="roster-header-bar">
-          <h3 id="roster-count-heading">Choose Any Character (24 Fighters)</h3>
+          <h3 id="roster-count-heading">Choose Any Character (25 Fighters)</h3>
           <input
             id="roster-search-input"
             class="roster-search-input"
@@ -132,7 +132,7 @@
       <section id="view-hair-guide" class="view-section hidden">
         <div class="section-intro">
           <h2 id="ui-hair-intro-title">🎨 What Every Saiyan Hair Color Means!</h2>
-          <p id="ui-hair-intro-sub">Tap any of the 12 hair colors below (including Flame-Red Super Saiyan God, Rose-Pink, Silver Ultra Instinct &amp; Purple Ultra Ego) to transform in 3D!</p>
+          <p id="ui-hair-intro-sub">Tap any of the 13 hair &amp; transformation colors below (including Flame-Red Super Saiyan God, Rose-Pink, Silver Ultra Instinct, Purple Ultra Ego &amp; Black Freezer) to transform in 3D!</p>
         </div>
 
         <div id="hair-selected-detail" class="character-story-card"></div>
@@ -153,11 +153,11 @@
         <div id="fusion-recipes-grid" class="saga-cards-stack"></div>
       </section>
 
-      <!-- VIEW 4: STORY TIMELINE (DB -> DBZ -> DBGT -> DBS) -->
+      <!-- VIEW 4: STORY TIMELINE (DB -> DBZ -> DAIMA -> DBGT -> DBS) -->
       <section id="view-timeline" class="view-section hidden">
         <div class="section-intro">
-          <h2 id="ui-timeline-intro-title">🌌 The 4 Dragon Ball Series Timeline</h2>
-          <p id="ui-timeline-intro-sub">Follow Goku's journey from a 12-year-old boy with a monkey tail all the way to the Gods of Destruction and Grand Zeno!</p>
+          <h2 id="ui-timeline-intro-title">🌌 The 5 Dragon Ball Series Timeline</h2>
+          <p id="ui-timeline-intro-sub">Follow Goku's journey from a 12-year-old boy with a monkey tail through Dragon Ball Z, Demon Realm Daima, GT, and the Gods of Dragon Ball Super!</p>
         </div>
 
         <div id="era-filter-tabs" class="era-tabs-row"></div>
@@ -196,7 +196,7 @@
         <div class="character-story-card">
           <div class="quiz-top-row">
             <h3 id="ui-quiz-title">🎓 Kids' Saiyan Academy Quiz</h3>
-            <span id="quiz-score-badge" class="score-badge">SCORE: 0 / 12</span>
+            <span id="quiz-score-badge" class="score-badge">SCORE: 0 / 13</span>
           </div>
           <p id="ui-quiz-sub" class="muted-sub">Answer 7 questions right to collect all 7 Dragon Balls and summon Eternal Shenron!</p>
           <div id="dragon-balls-progress" class="dragon-balls-progress" aria-label="Collected Dragon Balls"></div>
@@ -210,7 +210,10 @@
   <!-- Celebratory Eternal Shenron 7-Star Master Modal -->
   <div id="shenron-modal" class="shenron-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="shenron-title">
     <div class="shenron-modal-card">
-      <div class="shenron-stars-banner" aria-hidden="true">1★ 2★ 3★ 4★ 5★ 6★ 7★</div>
+      <div class="shenron-hero-wrap" aria-hidden="true">
+        <img src="assets/renders/shenron.webp" alt="Eternal Dragon Shenron" class="shenron-hero-img" />
+      </div>
+      <div id="shenron-balls-row" class="shenron-stars-banner" aria-hidden="true"></div>
       <h2 id="shenron-title">🐉 ETERNAL SHENRON HAS APPEARED!</h2>
       <p id="shenron-speech" class="story-text">
         "YOU HAVE GATHERED ALL 7 DRAGON BALLS AT SAIYAN ACADEMY! STATE YOUR WISH, YOUNG Z-FIGHTER MASTER!"
@@ -220,7 +223,7 @@
           ⚡ Wish 1: Awaken Silver Ultra Instinct Goku!
         </button>
         <button id="wish-gogeta-btn" class="btn-power-up full-btn" type="button">
-          ✨ Wish 2: Launch Gogeta Blue Evolved Fusion!
+          ✨ Wish 2: Launch Full-Power Gogeta Blue Fusion!
         </button>
         <button id="close-shenron-btn" class="action-chip full-btn" type="button">
           🎓 Keep Exploring as an Official Z-Fighter Master!

@@ -92,8 +92,8 @@
     rosterSearchQuery: '',
     selectedFighterId: 'goku',
     selectedFighter: BASE_DATA.fighters[0],
-    selectedFighterFormIndex: 0,
-    activeFighterForm: BASE_DATA.fighters[0].forms[0],
+    selectedFighterFormIndex: 1,
+    activeFighterForm: BASE_DATA.fighters[0].forms[1] || BASE_DATA.fighters[0].forms[0],
     selectedHairFormId: 'ui-silver',
     selectedHairForm: BASE_DATA.hairForms.find((h) => h.id === 'ui-silver') || BASE_DATA.hairForms[0],
     selectedFusionRecipeId: BASE_DATA.fusionRecipes[0].id,
@@ -103,11 +103,13 @@
     fusionAnimTimer: 0,
     selectedEraFilter: 'ALL',
     selectedSagaId: 'dbs-gods-frieza',
-    selectedSaga: BASE_DATA.timelineSagas[8],
+    selectedSaga: BASE_DATA.timelineSagas.find((s) => s.id === 'dbs-gods-frieza') || BASE_DATA.timelineSagas[0],
     battleFighterIdA: 'goku',
     battleFighterA: findFighterById(BASE_DATA, 'goku'),
-    battleFormIndexA: 8,
-    battleFormA: findFighterById(BASE_DATA, 'goku').forms[8] || findFighterById(BASE_DATA, 'goku').forms[0],
+    battleFormIndexA: Math.max(0, findFighterById(BASE_DATA, 'goku').forms.length - 1),
+    battleFormA:
+      findFighterById(BASE_DATA, 'goku').forms[findFighterById(BASE_DATA, 'goku').forms.length - 1] ||
+      findFighterById(BASE_DATA, 'goku').forms[0],
     battleFighterIdB: 'beerus',
     battleFighterB: findFighterById(BASE_DATA, 'beerus'),
     battleFormIndexB: 0,
@@ -150,6 +152,152 @@
       el.textContent = String(text);
     }
     return el;
+  }
+
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  // Canonical Akira Toriyama manga/anime star constellations inside a 100x100 crystal sphere
+  function getCanonicalStarLayout(starCount) {
+    const ring = (n, radius, offsetDeg) => {
+      const pts = [];
+      for (let i = 0; i < n; i++) {
+        const rad = ((offsetDeg + (360 / n) * i) * Math.PI) / 180;
+        pts.push([50 + Math.cos(rad) * radius, 50 + Math.sin(rad) * radius]);
+      }
+      return pts;
+    };
+    switch (starCount) {
+      case 1:
+        return { r: 13.0, points: [[50, 50]] };
+      case 2:
+        return { r: 10.6, points: [[37, 40], [63, 60]] };
+      case 3:
+        return { r: 9.8, points: [[50, 31], [33.5, 59.5], [66.5, 59.5]] };
+      case 4:
+        // Grandpa Gohan's 4-Star Ball (Sushinchu): symmetric diamond/square
+        return { r: 9.2, points: [[50, 28.5], [28.5, 50], [71.5, 50], [50, 71.5]] };
+      case 5:
+        return { r: 8.4, points: [[33, 33], [67, 33], [50, 50], [33, 67], [67, 67]] };
+      case 6:
+        return { r: 7.8, points: [[50, 50]].concat(ring(5, 23.5, -90)) };
+      case 7:
+      default:
+        return { r: 7.5, points: [[50, 50]].concat(ring(6, 24.0, -90)) };
+    }
+  }
+
+  function buildFivePointStarPolygonPoints(cx, cy, outerR) {
+    const innerR = outerR * 0.42;
+    const coords = [];
+    for (let i = 0; i < 10; i++) {
+      const r = i % 2 === 0 ? outerR : innerR;
+      const angle = ((-90 + i * 36) * Math.PI) / 180;
+      const x = (cx + Math.cos(angle) * r).toFixed(2);
+      const y = (cy + Math.sin(angle) * r).toFixed(2);
+      coords.push(x + ',' + y);
+    }
+    return coords.join(' ');
+  }
+
+  function createDragonBallSvg(starCount, idSuffix) {
+    const gradId = 'db-grad-' + idSuffix + '-' + starCount;
+    const glowId = 'db-glow-' + idSuffix + '-' + starCount;
+
+    const svg = document.createElementNS(SVG_NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('class', 'db-crystal-svg');
+    svg.setAttribute('aria-hidden', 'true');
+
+    const defs = document.createElementNS(SVG_NS, 'defs');
+
+    const radGrad = document.createElementNS(SVG_NS, 'radialGradient');
+    radGrad.setAttribute('id', gradId);
+    radGrad.setAttribute('cx', '35%');
+    radGrad.setAttribute('cy', '28%');
+    radGrad.setAttribute('r', '70%');
+
+    const stops = [
+      ['0%', '#fff7b2'],
+      ['32%', '#ffbe0b'],
+      ['72%', '#fb6f00'],
+      ['94%', '#c2410c'],
+      ['100%', '#7c2d12']
+    ];
+    stops.forEach(([offset, color]) => {
+      const st = document.createElementNS(SVG_NS, 'stop');
+      st.setAttribute('offset', offset);
+      st.setAttribute('stop-color', color);
+      radGrad.appendChild(st);
+    });
+
+    const innerGlow = document.createElementNS(SVG_NS, 'radialGradient');
+    innerGlow.setAttribute('id', glowId);
+    innerGlow.setAttribute('cx', '58%');
+    innerGlow.setAttribute('cy', '68%');
+    innerGlow.setAttribute('r', '45%');
+    const gStop1 = document.createElementNS(SVG_NS, 'stop');
+    gStop1.setAttribute('offset', '0%');
+    gStop1.setAttribute('stop-color', '#fde047');
+    gStop1.setAttribute('stop-opacity', '0.52');
+    const gStop2 = document.createElementNS(SVG_NS, 'stop');
+    gStop2.setAttribute('offset', '100%');
+    gStop2.setAttribute('stop-color', '#fb6f00');
+    gStop2.setAttribute('stop-opacity', '0');
+    innerGlow.appendChild(gStop1);
+    innerGlow.appendChild(gStop2);
+
+    defs.appendChild(radGrad);
+    defs.appendChild(innerGlow);
+    svg.appendChild(defs);
+
+    const sphere = document.createElementNS(SVG_NS, 'circle');
+    sphere.setAttribute('cx', '50');
+    sphere.setAttribute('cy', '50');
+    sphere.setAttribute('r', '46.5');
+    sphere.setAttribute('fill', 'url(#' + gradId + ')');
+    sphere.setAttribute('stroke', '#9a3412');
+    sphere.setAttribute('stroke-width', '2.4');
+    svg.appendChild(sphere);
+
+    const caustic = document.createElementNS(SVG_NS, 'circle');
+    caustic.setAttribute('cx', '54');
+    caustic.setAttribute('cy', '60');
+    caustic.setAttribute('r', '36');
+    caustic.setAttribute('fill', 'url(#' + glowId + ')');
+    svg.appendChild(caustic);
+
+    // Embedded crimson 5-pointed stars inside the amber glass
+    const layout = getCanonicalStarLayout(starCount);
+    layout.points.forEach(([sx, sy]) => {
+      const poly = document.createElementNS(SVG_NS, 'polygon');
+      poly.setAttribute('points', buildFivePointStarPolygonPoints(sx, sy, layout.r));
+      poly.setAttribute('fill', '#dc2626');
+      poly.setAttribute('stroke', '#7f1d1d');
+      poly.setAttribute('stroke-width', '1.1');
+      poly.setAttribute('stroke-linejoin', 'round');
+      svg.appendChild(poly);
+    });
+
+    // Top-left curved glass specular highlight (drawn over stars for authentic refractive depth!)
+    const specMain = document.createElementNS(SVG_NS, 'ellipse');
+    specMain.setAttribute('cx', '32');
+    specMain.setAttribute('cy', '24');
+    specMain.setAttribute('rx', '16');
+    specMain.setAttribute('ry', '8.5');
+    specMain.setAttribute('transform', 'rotate(-28 32 24)');
+    specMain.setAttribute('fill', '#ffffff');
+    specMain.setAttribute('fill-opacity', '0.58');
+    svg.appendChild(specMain);
+
+    const specDot = document.createElementNS(SVG_NS, 'circle');
+    specDot.setAttribute('cx', '20');
+    specDot.setAttribute('cy', '36');
+    specDot.setAttribute('r', '3.4');
+    specDot.setAttribute('fill', '#ffffff');
+    specDot.setAttribute('fill-opacity', '0.48');
+    svg.appendChild(specDot);
+
+    return svg;
   }
 
   function makeReadAloudButton(getSpeechString, audioKey) {
@@ -568,7 +716,7 @@
         AUDIO.stopSpeaking();
         state.selectedFighterId = fighter.id;
         state.selectedFighter = fighter;
-        state.selectedFighterFormIndex = 0;
+        state.selectedFighterFormIndex = fighter.id === 'goku' ? 1 : 0;
         state.powerBurstTimer = 55;
         AUDIO.playSound('scouter');
         track('select_fighter', {
@@ -713,8 +861,8 @@
     state.selectedFusionRecipe = recipe;
     const fA = findFighterById(activeData, recipe.warriorA);
     const fB = findFighterById(activeData, recipe.warriorB);
-    state.fusionSpriteA = fA.spriteUrl;
-    state.fusionSpriteB = fB.spriteUrl;
+    state.fusionSpriteA = recipe.spriteA || fA.spriteUrl;
+    state.fusionSpriteB = recipe.spriteB || fB.spriteUrl;
     state.fusionAnimTimer = 80;
     state.powerBurstTimer = 85;
     AUDIO.playSound('fusion');
@@ -736,26 +884,28 @@
     const rec = state.selectedFusionRecipe;
     const fA = findFighterById(activeData, rec.warriorA);
     const fB = findFighterById(activeData, rec.warriorB);
+    const displayLabelA = rec.labelA || fA.name.split('(')[0].trim();
+    const displayLabelB =
+      rec.labelB ||
+      (rec.warriorA === rec.warriorB ? tr('kamiShenron') : fB.name.split('(')[0].trim());
 
     const formulaRow = createEl('div', 'fusion-formula-row');
 
     const boxA = createEl('div', 'fusion-fighter-pill');
     const imgA = createEl('img', 'battle-mini-img');
-    imgA.src = fA.spriteUrl;
-    imgA.alt = fA.name;
+    imgA.src = rec.spriteA || fA.spriteUrl;
+    imgA.alt = displayLabelA;
     boxA.appendChild(imgA);
-    boxA.appendChild(createEl('span', '', fA.name.split('(')[0].trim()));
+    boxA.appendChild(createEl('span', '', displayLabelA));
 
     const plusSign = createEl('div', 'vs-circle', '+');
 
     const boxB = createEl('div', 'fusion-fighter-pill');
     const imgB = createEl('img', 'battle-mini-img');
-    imgB.src = fB.spriteUrl;
-    imgB.alt = fB.name;
+    imgB.src = rec.spriteB || fB.spriteUrl;
+    imgB.alt = displayLabelB;
     boxB.appendChild(imgB);
-    boxB.appendChild(
-      createEl('span', '', rec.warriorA === rec.warriorB ? tr('kamiShenron') : fB.name.split('(')[0].trim())
-    );
+    boxB.appendChild(createEl('span', '', displayLabelB));
 
     const eqSign = createEl('div', 'vs-circle', '⇒');
 
@@ -838,6 +988,7 @@
       { id: 'ALL', label: tr('eraAll') },
       { id: 'DB', label: tr('eraDB') },
       { id: 'DBZ', label: tr('eraDBZ') },
+      { id: 'DAIMA', label: tr('eraDaima') },
       { id: 'DBGT', label: tr('eraDBGT') },
       { id: 'DBS', label: tr('eraDBS') }
     ];
@@ -1158,6 +1309,23 @@
     state.lastQuizSelectedPermIdx = -1;
   }
 
+  function mountStaticDragonBalls() {
+    const brandOrb = document.getElementById('brand-four-star-ball');
+    if (brandOrb) {
+      brandOrb.replaceChildren();
+      brandOrb.appendChild(createDragonBallSvg(4, 'brand'));
+    }
+    const modalRow = document.getElementById('shenron-balls-row');
+    if (modalRow) {
+      modalRow.replaceChildren();
+      for (let star = 1; star <= 7; star++) {
+        const wrap = createEl('span', 'shenron-modal-ball');
+        wrap.appendChild(createDragonBallSvg(star, 'shenron'));
+        modalRow.appendChild(wrap);
+      }
+    }
+  }
+
   function renderDragonBallStarsBar() {
     const bar = document.getElementById('dragon-balls-progress');
     if (!bar) return;
@@ -1166,9 +1334,10 @@
     for (let star = 1; star <= 7; star++) {
       const orb = createEl(
         'span',
-        star <= state.dragonBallsCollected ? 'db-star-orb collected' : 'db-star-orb',
-        star + '★'
+        star <= state.dragonBallsCollected ? 'db-star-orb collected' : 'db-star-orb'
       );
+      orb.title = star + '★';
+      orb.appendChild(createDragonBallSvg(star, 'quiz'));
       bar.appendChild(orb);
     }
   }
@@ -1549,18 +1718,23 @@
   }
 
   function collectAllRenderUrls() {
-    const urls = [];
+    const urls = ['assets/renders/shenron.webp'];
     BASE_DATA.fighters.forEach((f) => {
       urls.push(f.spriteUrl);
       (f.forms || []).forEach((sf) => urls.push(sf.spriteUrl));
     });
     BASE_DATA.hairForms.forEach((hf) => urls.push(hf.spriteUrl));
-    BASE_DATA.fusionRecipes.forEach((r) => urls.push(r.resultSprite));
+    BASE_DATA.fusionRecipes.forEach((r) => {
+      urls.push(r.resultSprite);
+      if (r.spriteA) urls.push(r.spriteA);
+      if (r.spriteB) urls.push(r.spriteB);
+    });
     BASE_DATA.timelineSagas.forEach((s) => urls.push(s.spriteUrl));
     return urls;
   }
 
   async function init() {
+    mountStaticDragonBalls();
     RENDERER.getCharacterImage(BASE_DATA.fighters[0].spriteUrl);
     RENDERER.warmImageQueue(collectAllRenderUrls());
 

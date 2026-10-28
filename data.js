@@ -1,6 +1,9 @@
 /* ==========================================================================
    DRAGON BALL 3D MULTIVERSE PORTAL — COMPLETE ENCYCLOPEDIA DATA ARCHIVE
-   Covers Dragon Ball, Dragon Ball Z, Dragon Ball GT, and Dragon Ball Super
+   Covers Dragon Ball, Dragon Ball Z, Dragon Ball Daima, GT, and Super
+   Note on Power Levels: Official Daizenshuu 7 scouter numbers end at Namek
+   (SSJ1 Goku = 150,000,000; Final Freezer = 120,000,000). Later eras are
+   clearly marked "(Est.)" using canonical multiplier tiers for 1v1 play!
    ========================================================================== */
 
 window.DB_PORTAL_DATA = {
@@ -66,16 +69,16 @@ window.DB_PORTAL_DATA = {
       shortLabel: 'Jet Black (Base Goku)',
       characterName: 'Son Goku (Base Form)',
       spriteUrl: 'assets/renders/goku_base.webp',
-      era: 'DRAGON BALL / DBZ / DBS',
+      era: 'DRAGON BALL / DBZ / DAIMA / DBS',
       multiplier: '1x Base Power',
-      powerExample: '60,000,000',
+      powerExample: '3,000,000 (Official Namek)',
       hairHex: '#18181b',
       auraHex: '#f97316',
       hasLightning: false,
-      whoUsesIt: 'Goku, Vegeta, Gohan, Vegetto, Gogeta, Bardock, Raditz',
+      whoUsesIt: 'Goku, Vegeta, Gohan, Goten, Vegetto, Gogeta, Bardock, Raditz',
       howUnlocked: 'Natural pure-blooded Saiyan biology from birth!',
       meaningForKids: 'Pure-blooded Saiyans like Goku and Vegeta are born with jet-black spiky hair that NEVER changes its shape or grows longer after childhood! Goku\'s trademark hair has 4 spikes on one side and 3 on the other.',
-      funFact: 'When Kid Goku had his brown monkey tail and looked at a Full Moon, he transformed into a 50-foot Great Ape (Oozaru) with 10x power!'
+      funFact: 'When Kid Goku had his brown monkey tail and looked at a Full Moon, he transformed into a giant Great Ape (Oozaru) with 10x power!'
     },
     {
       id: 'ssj1-gold',
@@ -84,15 +87,15 @@ window.DB_PORTAL_DATA = {
       characterName: 'Super Saiyan Son Goku',
       spriteUrl: 'assets/renders/goku_ssj1.webp',
       era: 'DRAGON BALL Z (NAMEK SAGA)',
-      multiplier: '50x Base Power',
-      powerExample: '150,000,000 → 3,000,000,000',
+      multiplier: '50x Base Power (Official)',
+      powerExample: '150,000,000 (Official Namek)',
       hairHex: '#facc15',
       auraHex: '#eab308',
       hasLightning: false,
-      whoUsesIt: 'Goku, Vegeta, Gohan, Future Trunks, Vegetto, Gogeta, Goten, Cabba',
+      whoUsesIt: 'Goku, Vegeta, Gohan, Future Trunks, Goten, Kid Trunks, Vegetto, Gogeta, Cabba',
       howUnlocked: 'A pure heart combined with an explosive emotional trigger (or focusing tingling Ki in the upper back!).',
-      meaningForKids: 'The legendary transformation! Hair stands straight up and turns glowing golden-yellow, eyebrows turn gold, and eyes turn emerald-teal. It multiplies a Saiyan\'s power by 50 times!',
-      funFact: 'Goku first turned Super Saiyan on Planet Namek after Freezer hurt his best friend Krillin, fulfilling a 1,000-year-old Saiyan legend!'
+      meaningForKids: 'The legendary transformation! Hair stands straight up and turns glowing golden-yellow, eyebrows turn gold, and eyes turn emerald-teal. Official Daizenshuu guidebooks confirm it multiplies Base Power by 50x!',
+      funFact: '150,000,000 on Planet Namek (vs. Freezer\'s 120,000,000) is the highest official scouter number ever published—all later saga numbers are fun scale estimates!'
     },
     {
       id: 'ssj2-sparks',
@@ -102,7 +105,7 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/goku_ssj2.webp',
       era: 'DRAGON BALL Z (CELL & BUU SAGAS)',
       multiplier: '100x Base Power (2x SSJ1)',
-      powerExample: '6,000,000,000 — 10,200,000,000',
+      powerExample: '6B — 10.2B (Est.)',
       hairHex: '#fde047',
       auraHex: '#38bdf8',
       hasLightning: true,
@@ -117,33 +120,33 @@ window.DB_PORTAL_DATA = {
       shortLabel: 'Long Gold Mane (SSJ3)',
       characterName: 'Super Saiyan 3 Son Goku',
       spriteUrl: 'assets/renders/goku_ssj3.webp',
-      era: 'DRAGON BALL Z (MAJIN BUU SAGA)',
+      era: 'DBZ (BUU SAGA) & DB DAIMA',
       multiplier: '400x Base Power (4x SSJ2)',
-      powerExample: '24,000,000,000 — 45,600,000,000',
+      powerExample: '24B — 45.6B (Est.)',
       hairHex: '#eab308',
       auraHex: '#facc15',
       hasLightning: true,
-      whoUsesIt: 'Goku & Gotenks (Fusion of Goten + Trunks)',
+      whoUsesIt: 'Goku, Gotenks (Goten + Trunks) & Vegeta (in Dragon Ball Daima!)',
       howUnlocked: 'Drawing out every single drop of dormant Saiyan stamina—first achieved by Goku training in Other World!',
       meaningForKids: 'Golden hair explodes all the way down to the waist like a glowing lion\'s mane, blue lightning storms crackle nonstop, and the Saiyan\'s EYEBROWS completely vanish into a fierce brow ridge!',
-      funFact: 'When Goku first powered up to Super Saiyan 3 against Majin Buu, his energy shook the entire planet Earth!'
+      funFact: 'After decades of fans wondering, Vegeta finally unveiled his own Super Saiyan 3 transformation in Dragon Ball Daima!'
     },
     {
       id: 'ssj4-crimson',
-      name: 'Super Saiyan 4 (Black Hair + Crimson Fur)',
+      name: 'Super Saiyan 4 (Primal Fur & Tail)',
       shortLabel: 'Primal Red & Black (SSJ4)',
-      characterName: 'Super Saiyan 4 Goku (Dragon Ball GT)',
+      characterName: 'Super Saiyan 4 Son Goku',
       spriteUrl: 'assets/renders/goku_ssj4.webp',
-      era: 'DRAGON BALL GT (BABY & SHADOW DRAGONS)',
-      multiplier: '4,000x+ Primal Great Ape Power',
-      powerExample: '2 Quadrillion',
+      era: 'DRAGON BALL GT & DB DAIMA',
+      multiplier: '4,000x+ Primal Saiyan Power',
+      powerExample: '1.8 Quadrillion (Est.)',
       hairHex: '#dc2626',
       auraHex: '#ef4444',
       hasLightning: true,
-      whoUsesIt: 'Goku, Vegeta & Gogeta (in Dragon Ball GT)',
-      howUnlocked: 'Transforming into a Golden Great Ape while keeping a calm, loving human heart!',
-      meaningForKids: 'Exclusive to Dragon Ball GT! Instead of gold hair, the Saiyan grows wild black shoulder-length hair, crimson-red fur over their torso and tail, and golden eyes with red eyeliner!',
-      funFact: 'When SSJ4 Goku and SSJ4 Vegeta fuse into Super Saiyan 4 Gogeta, his hair turns fiery crimson-red!'
+      whoUsesIt: 'Goku, Vegeta & Gogeta (Dragon Ball GT & Dragon Ball Daima)',
+      howUnlocked: 'Mastering primal Great Ape / Saiyan power with a calm, heroic heart!',
+      meaningForKids: 'First created for Dragon Ball GT and later reimagined by Akira Toriyama in Dragon Ball Daima! Goku grows wild shoulder-length hair, crimson-red fur over his torso and tail, and fierce red-rimmed eyes!',
+      funFact: 'When SSJ4 Goku and SSJ4 Vegeta fuse into Super Saiyan 4 Gogeta in GT, his hair turns fiery crimson-red!'
     },
     {
       id: 'ssg-red',
@@ -152,8 +155,8 @@ window.DB_PORTAL_DATA = {
       characterName: 'Super Saiyan God Son Goku',
       spriteUrl: 'assets/renders/goku_ssg.webp',
       era: 'DRAGON BALL SUPER (BATTLE OF GODS)',
-      multiplier: 'Divine Realm (20,000x+ Base)',
-      powerExample: '1.5 Quadrillion+ (God Ki)',
+      multiplier: 'Divine Realm (God Ki)',
+      powerExample: '2.5 Quadrillion+ (Est.)',
       hairHex: '#e11d48',
       auraHex: '#f43f5e',
       hasLightning: false,
@@ -170,13 +173,13 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/goku_ssjb.webp',
       era: 'DRAGON BALL SUPER',
       multiplier: '50x Super Saiyan God',
-      powerExample: '9 Quintillion',
+      powerExample: '125 Quadrillion+ (Est.)',
       hairHex: '#06b6d4',
       auraHex: '#00e5ff',
       hasLightning: false,
-      whoUsesIt: 'Goku, Vegeta, Vegetto Blue, Gogeta Blue',
+      whoUsesIt: 'Goku, Vegeta (plus Royal-Blue SSB Evolved!), Vegetto Blue, Gogeta Blue',
       howUnlocked: 'Transforming into a Super Saiyan WHILE holding the tranquil divine energy of a Super Saiyan God!',
-      meaningForKids: 'Official full name: "Super Saiyan God Super Saiyan"! Why is it blue? Because blue flames are hotter and calmer than red flames—showing total peace of mind and God Ki control!',
+      meaningForKids: 'Official full name: "Super Saiyan God Super Saiyan"! Why is it blue? Because blue flames are hotter and calmer than red flames—and Vegeta pushed it even further into sparkling Royal-Blue SSB Evolved!',
       funFact: 'Goku can even stack his crimson Kaio-ken x20 ON TOP of Super Saiyan Blue for a double red-and-blue aura!'
     },
     {
@@ -187,7 +190,7 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/goku_rose.webp',
       era: 'DRAGON BALL SUPER (FUTURE TRUNKS SAGA)',
       multiplier: 'Supreme Kai Divine Super Saiyan',
-      powerExample: '12 Quintillion+',
+      powerExample: '150 Quadrillion+ (Est.)',
       hairHex: '#f472b6',
       auraHex: '#ec4899',
       hasLightning: true,
@@ -200,11 +203,11 @@ window.DB_PORTAL_DATA = {
       id: 'lssj-green',
       name: 'Full Power Legendary Super Saiyan (Lime Green)',
       shortLabel: 'Mutant Lime-Green (Broly)',
-      characterName: 'Broly (Legendary Super Saiyan)',
+      characterName: 'Broly (Full-Power Super Saiyan)',
       spriteUrl: 'assets/renders/broly_lssj.webp',
-      era: 'DBZ MOVIES / DB SUPER: BROLY',
+      era: 'DRAGON BALL SUPER: BROLY',
       multiplier: 'Ever-Rising Berserker Mutant Power',
-      powerExample: '11.2 Septillion',
+      powerExample: '11.2 Septillion (Est.)',
       hairHex: '#84cc16',
       auraHex: '#22c55e',
       hasLightning: true,
@@ -221,14 +224,14 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/goku_ui.webp',
       era: 'DRAGON BALL SUPER (TOURNAMENT OF POWER)',
       multiplier: 'Gateway to the Angel Realm',
-      powerExample: '18 Septillion',
+      powerExample: '18 Septillion (Est.)',
       hairHex: '#64748b',
       auraHex: '#94a3b8',
       hasLightning: false,
       whoUsesIt: 'Son Goku',
       howUnlocked: 'Breaking through his absolute shell in the Tournament of Power to awaken instinctive defense!',
       meaningForKids: 'The gateway stage before Silver Ultra Instinct! Goku\'s hair stays jet-black with glowing silver highlights and piercing silver eyes while his body dodges attacks automatically!',
-      funFact: 'Even though it is an incomplete gateway form, Goku sometimes chooses Ultra Instinct -Sign- on purpose because it lets him use Saiyan emotions!'
+      funFact: 'Even though it is an incomplete gateway form, Goku later developed "True Ultra Instinct" using this black-haired Sign state so he could fight with Saiyan emotions!'
     },
     {
       id: 'ui-silver',
@@ -238,7 +241,7 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/goku_mui.webp',
       era: 'DRAGON BALL SUPER (TOURNAMENT OF POWER)',
       multiplier: 'Complete Angel Realm Technique',
-      powerExample: '90 Septillion',
+      powerExample: '90 Septillion (Est.)',
       hairHex: '#f1f5f9',
       auraHex: '#c084fc',
       hasLightning: false,
@@ -255,13 +258,13 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/vegeta_ultra_ego.webp',
       era: 'DRAGON BALL SUPER (GRANOLAH SAGA)',
       multiplier: 'God of Destruction Instinct',
-      powerExample: '19.84 Septillion+',
+      powerExample: '85 Septillion+ (Est.)',
       hairHex: '#9333ea',
       auraHex: '#c026d3',
       hasLightning: true,
       whoUsesIt: 'Prince Vegeta (Trained by Lord Beerus)',
       howUnlocked: 'Mastering the Hakaishin (God of Destruction) power of Lord Beerus and letting battle spirit fuel his strength!',
-      meaningForKids: 'While Goku chose the calm Silver Angel path (Ultra Instinct), Vegeta chose the fierce Purple God of Destruction path (Ultra Ego)! His hair turns deep royal purple, his eyebrows vanish, and he gets stronger every time he takes a hit!',
+      meaningForKids: 'While Goku chose the calm Silver Angel path (Ultra Instinct), Vegeta chose the fierce Purple God of Destruction path (Ultra Ego)! His hair turns deep royal purple, his eyebrows vanish, and he gets stronger as his battle spirit burns!',
       funFact: 'Vegeta named the form "Ultra Ego" himself to contrast with Goku\'s "Ultra Instinct"!'
     },
     {
@@ -272,7 +275,7 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/gohan_beast.webp',
       era: 'DRAGON BALL SUPER: SUPER HERO',
       multiplier: 'Ultimate Hybrid Evolution',
-      powerExample: '25.6 Septillion',
+      powerExample: '88 Septillion (Est.)',
       hairHex: '#cbd5e1',
       auraHex: '#e11d48',
       hasLightning: true,
@@ -283,20 +286,20 @@ window.DB_PORTAL_DATA = {
     }
   ],
 
-  // 2. Complete 4-Era Timeline (Dragon Ball -> DBZ -> DBGT -> DBS)
+  // 2. Complete 5-Era Timeline (Dragon Ball -> DBZ -> DB Daima -> DBGT -> DBS)
   timelineSagas: [
     {
       id: 'db-pilaf-tournament',
       era: 'DB',
       eraFullName: 'Dragon Ball (Original)',
       years: 'Age 749 – 750',
-      title: 'Emperor Pilaf & 21st World Tournament',
-      spriteUrl: 'assets/renders/roshi.webp',
+      title: 'Kid Goku, Bulma, Emperor Pilaf & 21st World Tournament',
+      spriteUrl: 'assets/renders/kid_goku.webp',
       planetColor: '#fb923c',
-      mainHero: 'Kid Goku, Bulma, Krillin, Yamcha & Master Roshi',
-      mainEnemy: 'Emperor Pilaf, Shu, Mai & Great Ape Rampage',
-      keyEvents: 'Genius inventor Bulma finds 12-year-old Kid Goku in Mount Paozu holding his Grandpa Gohan\'s 4-Star Dragon Ball! Together with Krillin and Yamcha, they search for the 7 Dragon Balls and train under Master Roshi carrying heavy milk crates and turtle shells.',
-      hairOrFormUnlocked: 'Great Ape (Oozaru) — 10x Power under the Full Moon',
+      mainHero: 'Kid Goku (Power Pole & Nimbus), Bulma, Krillin, Yamcha & Master Roshi',
+      mainEnemy: 'Emperor Pilaf, Shu, Mai & Full-Moon Great Ape Rampage',
+      keyEvents: 'Genius inventor Bulma finds 12-year-old monkey-tailed Kid Goku in Mount Paozu guarding his Grandpa Gohan\'s 4-Star Dragon Ball! Riding the pure-hearted Flying Nimbus with his magic extending Power Pole, Goku trains under Master Roshi alongside his new best friend Krillin.',
+      hairOrFormUnlocked: 'Power Pole, Flying Nimbus & Great Ape (Oozaru — 10x Power)',
       kidLesson: 'Training hard with your best friend makes you strong even before any glowing transformations!'
     },
     {
@@ -307,7 +310,7 @@ window.DB_PORTAL_DATA = {
       title: 'Red Ribbon Army & Demon King Piccolo Saga',
       spriteUrl: 'assets/renders/piccolo_base.webp',
       planetColor: '#22c55e',
-      mainHero: 'Kid / Teen Goku (Power Level: 180 → 910) & Tien Shinhan',
+      mainHero: 'Kid / Teen Goku (Official Power: 180 → 910) & Tien Shinhan',
       mainEnemy: 'Mercenary Tao, Demon King Piccolo & Piccolo Jr.',
       keyEvents: 'Goku climbs Korin Tower, defeats the entire Red Ribbon Army, and stops Demon King Piccolo! Years later, Teen Goku defeats Piccolo Jr. to win the 23rd World Martial Arts Tournament.',
       hairOrFormUnlocked: 'Ultra Divine Water Awakening & Super Kamehameha',
@@ -322,8 +325,8 @@ window.DB_PORTAL_DATA = {
       spriteUrl: 'assets/renders/vegeta_base.webp',
       planetColor: '#ef4444',
       mainHero: 'Goku (Kaio-ken), Piccolo, Kid Gohan & Krillin',
-      mainEnemy: 'Raditz (1,500), Nappa (4,000), Prince Vegeta (18,000)',
-      keyEvents: 'Goku learns from his brother Raditz that he is an alien Saiyan named Kakarot! After training with King Kai, Goku returns to Earth and unleashes a Power Level "OVER 9,000!" using Kaio-ken x4 against Vegeta\'s Galick Gun!',
+      mainEnemy: 'Raditz (1,500), Nappa (4,000), Prince Vegeta (18,000 — Official)',
+      keyEvents: 'Goku learns from his brother Raditz that he is an alien Saiyan named Kakarot! After training with King Kai, Goku returns to Earth and unleashes a Battle Power over 8,000 ("OVER 9,000!" in the English dub) using Kaio-ken x4 against Vegeta\'s Galick Gun!',
       hairOrFormUnlocked: 'Kaio-ken (Crimson Red Aura) & Spirit Bomb (Genki Dama)',
       kidLesson: 'Even a "low-class" warrior like Goku can surpass an elite prince like Vegeta through relentless effort!'
     },
@@ -335,10 +338,10 @@ window.DB_PORTAL_DATA = {
       title: 'Planet Namek, Ginyu Force & Emperor Freezer (Frieza)',
       spriteUrl: 'assets/renders/freezer_final.webp',
       planetColor: '#10b981',
-      mainHero: 'Super Saiyan Goku (150,000,000), Vegeta, Piccolo, Gohan & Krillin',
-      mainEnemy: 'Captain Ginyu (120,000) & Final Form Freezer (120,000,000)',
+      mainHero: 'Super Saiyan Goku (150,000,000 Official), Vegeta, Piccolo, Gohan & Krillin',
+      mainEnemy: 'Captain Ginyu (120,000) & Final Form Freezer (120,000,000 Official)',
       keyEvents: 'The heroes fly to Planet Namek to wish back their friends! After battling Captain Ginyu, Goku faces galactic emperor Freezer—and unlocks GOLDEN SUPER SAIYAN for the first time in 1,000 years!',
-      hairOrFormUnlocked: 'Super Saiyan 1 (Golden Hair — 50x Base Multiplier)',
+      hairOrFormUnlocked: 'Super Saiyan 1 (Golden Hair — Official 50x Base Multiplier)',
       kidLesson: 'True strength comes in response to a need, not a desire—Goku unlocked Super Saiyan to protect his friends.'
     },
     {
@@ -360,14 +363,28 @@ window.DB_PORTAL_DATA = {
       era: 'DBZ',
       eraFullName: 'Dragon Ball Z',
       years: 'Age 774',
-      title: 'Majin Buu, Gotenks, Ultimate Gohan & Vegetto Saga',
-      spriteUrl: 'assets/renders/vegetto_base.webp',
+      title: 'Majin Buu, Gotenks, Ultimate Gohan & Super Vegetto Saga',
+      spriteUrl: 'assets/renders/vegetto_ssj1.webp',
       planetColor: '#f472b6',
-      mainHero: 'Vegetto (Vegito), SSJ3 Goku, Majin Vegeta, Ultimate Gohan, Gotenks & Mr. Satan',
+      mainHero: 'Super Vegetto, SSJ3 Goku, Majin Vegeta, Ultimate Gohan, Gotenks & Mr. Satan',
       mainEnemy: 'Babidi, Fat Majin Buu, Super Buu (Buuhan) & Kid Buu',
-      keyEvents: 'Ancient genie Majin Buu awakens! Goten and Trunks fuse into Gotenks SSJ3, Goku reveals Super Saiyan 3, Goku and Vegeta fuse with Potara Earrings into VEGETTO, and Mr. Satan rallies everyone on Earth to power Goku\'s Super Spirit Bomb!',
-      hairOrFormUnlocked: 'Super Saiyan 3 (400x), Ultimate Gohan & Potara Fusion Vegetto!',
+      keyEvents: 'Ancient genie Majin Buu awakens! Young Goten and Trunks fuse into Gotenks SSJ3, Goku reveals Super Saiyan 3, Goku and Vegeta fuse with Potara Earrings into golden SUPER VEGETTO, and Mr. Satan rallies everyone on Earth to power Goku\'s Super Spirit Bomb!',
+      hairOrFormUnlocked: 'Super Saiyan 3 (400x), Ultimate Gohan & Potara Fusion Super Vegetto!',
       kidLesson: 'Even Mr. Satan saved the universe by convincing everyone on Earth to share their energy!'
+    },
+    {
+      id: 'db-daima-demon-realm',
+      era: 'DAIMA',
+      eraFullName: 'Dragon Ball Daima',
+      years: 'Age 775',
+      title: 'Demon Realm Adventure: Goku (Mini), Glorio, Panzy & King Gomah',
+      spriteUrl: 'assets/renders/goku_daima.webp',
+      planetColor: '#f59e0b',
+      mainHero: 'Goku (Mini), Vegeta (Mini), Piccolo (Mini), Supreme Kai (Nahare), Glorio & Panzy',
+      mainEnemy: 'Supreme Demon King Gomah (Evil Third Eye), Degesu, Dr. Arinsu & Tamagami Guardians',
+      keyEvents: 'Right after Majin Buu\'s defeat, new Supreme Demon King Gomah uses Earth\'s Dragon Balls to turn Goku and his friends into Mini kids! Wielding his classic red Power Pole again, Goku journeys through the Three Worlds of the Demon Realm—culminating in SSJ3 Vegeta and canon Demon Realm Super Saiyan 4!',
+      hairOrFormUnlocked: 'Goku (Mini) Power Pole, Super Saiyan 3 Vegeta & Daima Super Saiyan 4!',
+      kidLesson: 'Akira Toriyama\'s final Dragon Ball story proves adventure, curiosity, and friendship shine at every size!'
     },
     {
       id: 'dbgt-baby-ssj4',
@@ -393,8 +410,8 @@ window.DB_PORTAL_DATA = {
       planetColor: '#991b1b',
       mainHero: 'Super Saiyan 4 Gogeta, SSJ4 Goku & SSJ4 Vegeta',
       mainEnemy: 'Super 17, Eis & Nuova Shenron, and Omega Shenron',
-      keyEvents: 'Overusing the Dragon Balls spawns 7 Shadow Dragons led by Omega Shenron! Goku and Vegeta both reach Super Saiyan 4, fuse into red-haired SSJ4 GOGETA, and save the cosmos with the Universal Spirit Bomb!',
-      hairOrFormUnlocked: 'Super Saiyan 4 Gogeta (Fiery Red Hair & Golden Aura)',
+      keyEvents: 'Overusing the Dragon Balls spawns 7 Shadow Dragons led by Omega Shenron! Goku and Vegeta both reach Super Saiyan 4, fuse into fiery crimson-haired SSJ4 GOGETA, and save the cosmos with the Universal Spirit Bomb!',
+      hairOrFormUnlocked: 'Super Saiyan 4 Gogeta (Fiery Crimson Hair & Golden Aura)',
       kidLesson: 'The Dragon Balls taught the heroes to rely on their own courage instead of wishing away every problem.'
     },
     {
@@ -430,63 +447,65 @@ window.DB_PORTAL_DATA = {
       era: 'DBS',
       eraFullName: 'Dragon Ball Super',
       years: 'Age 780 – 783',
-      title: 'Tournament of Power (Jiren), Broly, Ultra Ego & Super Hero',
+      title: 'Tournament of Power (Jiren), Broly, Ultra Ego, Black Freezer & Super Hero',
       spriteUrl: 'assets/renders/goku_mui.webp',
       planetColor: '#c084fc',
-      mainHero: 'Mastered Silver Ultra Instinct Goku, Ultra Ego Vegeta, Gogeta Blue, Gohan Beast & Orange Piccolo',
-      mainEnemy: 'Jiren, Toppo, Dyspo, Legendary Broly & Cell Max',
-      keyEvents: 'Grand Zeno hosts an 80-fighter Tournament of Power where Goku awakens Ultra Instinct -Sign- and completes Mastered Silver-Hair Ultra Instinct against Jiren while Android 17 wins MVP! Later, Gogeta Blue battles Broly, Vegeta unlocks Purple Ultra Ego, and Gohan & Piccolo awaken Gohan Beast and Orange Piccolo!',
-      hairOrFormUnlocked: 'Silver Mastered Ultra Instinct, Purple Ultra Ego, Gohan Beast & Orange Piccolo',
-      kidLesson: 'Every hero now shines with their own unique color: Goku (Silver), Vegeta (Purple), Gohan (Beast Silver), and Piccolo (Orange)!'
+      mainHero: 'Silver Ultra Instinct Goku, Ultra Ego Vegeta, Gogeta Blue, Gohan Beast & Orange Piccolo',
+      mainEnemy: 'Jiren, Legendary Broly, Moro, Gas, Black Freezer & Cell Max',
+      keyEvents: 'Goku masters Silver-Hair Ultra Instinct while Vegeta unlocks Royal-Blue SSB Evolved in the Tournament of Power (won by Android 17)! Afterward, Gogeta Blue stops Broly, Vegeta awakens Purple Ultra Ego, Freezer unveils Black Freezer after 10 years in a Time Chamber, and Gohan & Piccolo unlock Gohan Beast and Orange Piccolo!',
+      hairOrFormUnlocked: 'Silver Ultra Instinct, SSB Evolved, Purple Ultra Ego, Black Freezer, Gohan Beast & Orange Piccolo',
+      kidLesson: 'Every hero now shines with their own unique path: Goku (Silver), Vegeta (Purple), Gohan (Beast Silver), and Piccolo (Orange)!'
     }
   ],
 
-  // 3. Expanded Individual Character Roster (25 Standalone Heroes, Fusions, Villains & Deities!)
+  // 3. Expanded Individual Character Roster (21 Fighter Entries Covering 65+ Transformations!)
   //    Every form includes a numeric `powerScore` (1 - 100) for accurate Form-vs-Form 1v1 Beam Struggles!
   fighters: [
     {
       id: 'goku',
       name: 'Son Goku (Kakarot)',
       alignment: 'hero',
-      series: 'DB • DBZ • GT • DBS',
+      series: 'DB • DBZ • Daima • GT • DBS',
       race: 'Saiyan raised on Earth',
-      signatureMove: 'Kamehameha, Instant Transmission, Kaio-ken & Spirit Bomb',
+      signatureMove: 'Kamehameha, Power Pole, Instant Transmission, Kaio-ken & Spirit Bomb',
       auraColor: '#00e5ff',
-      peakPowerLabel: 'Mastered Ultra Instinct — Silver Hair (90 Septillion)',
+      peakPowerLabel: 'Mastered Ultra Instinct — Silver Hair (90 Septillion Est.)',
       spriteUrl: 'assets/renders/goku_base.webp',
       forms: [
-        { label: 'Base Goku', spriteUrl: 'assets/renders/goku_base.webp', auraHex: '#f97316', power: '60,000,000', powerScore: 52 },
-        { label: 'Super Saiyan 1 (Gold)', spriteUrl: 'assets/renders/goku_ssj1.webp', auraHex: '#facc15', power: '3,000,000,000', powerScore: 68 },
-        { label: 'Super Saiyan 2 (Sparks)', spriteUrl: 'assets/renders/goku_ssj2.webp', auraHex: '#38bdf8', power: '6,000,000,000', powerScore: 74 },
-        { label: 'Super Saiyan 3 (Mane)', spriteUrl: 'assets/renders/goku_ssj3.webp', auraHex: '#eab308', power: '24,000,000,000', powerScore: 80 },
-        { label: 'Super Saiyan 4 (GT)', spriteUrl: 'assets/renders/goku_ssj4.webp', auraHex: '#ef4444', power: '2 Quadrillion', powerScore: 87 },
-        { label: 'Super Saiyan God (Red)', spriteUrl: 'assets/renders/goku_ssg.webp', auraHex: '#f43f5e', power: '1.5 Quadrillion (God Ki)', powerScore: 86 },
-        { label: 'Super Saiyan Blue (SSB)', spriteUrl: 'assets/renders/goku_ssjb.webp', auraHex: '#00e5ff', power: '9 Quintillion', powerScore: 91 },
-        { label: 'Ultra Instinct -Sign- (Omen)', spriteUrl: 'assets/renders/goku_ui.webp', auraHex: '#94a3b8', power: '18 Septillion (UI Sign)', powerScore: 95 },
-        { label: 'Mastered Ultra Instinct (Silver Hair)', spriteUrl: 'assets/renders/goku_mui.webp', auraHex: '#e2e8f0', power: '90 Septillion (Silver UI)', powerScore: 99 }
+        { label: 'Kid Goku (Power Pole & Nimbus)', spriteUrl: 'assets/renders/kid_goku.webp', auraHex: '#fb923c', power: '10 → 260 (Official DB)', powerScore: 28 },
+        { label: 'Base Goku (Adult)', spriteUrl: 'assets/renders/goku_base.webp', auraHex: '#f97316', power: '3,000,000 (Official Namek)', powerScore: 52 },
+        { label: 'Super Saiyan 1 (Gold)', spriteUrl: 'assets/renders/goku_ssj1.webp', auraHex: '#facc15', power: '150,000,000 (Official Namek)', powerScore: 68 },
+        { label: 'Super Saiyan 2 (Sparks)', spriteUrl: 'assets/renders/goku_ssj2.webp', auraHex: '#38bdf8', power: '6,000,000,000 (Est. 100x)', powerScore: 74 },
+        { label: 'Super Saiyan 3 (Mane)', spriteUrl: 'assets/renders/goku_ssj3.webp', auraHex: '#eab308', power: '24,000,000,000 (Est. 400x)', powerScore: 80 },
+        { label: 'Super Saiyan 4 (Primal Fur)', spriteUrl: 'assets/renders/goku_ssj4.webp', auraHex: '#ef4444', power: '1.8 Quadrillion (Est.)', powerScore: 86 },
+        { label: 'Super Saiyan God (Red)', spriteUrl: 'assets/renders/goku_ssg.webp', auraHex: '#f43f5e', power: '2.5 Quadrillion+ (God Ki Est.)', powerScore: 88 },
+        { label: 'Super Saiyan Blue (SSB)', spriteUrl: 'assets/renders/goku_ssjb.webp', auraHex: '#00e5ff', power: '125 Quadrillion+ (Est.)', powerScore: 92 },
+        { label: 'Ultra Instinct -Sign- (Omen)', spriteUrl: 'assets/renders/goku_ui.webp', auraHex: '#94a3b8', power: '18 Septillion (UI Sign Est.)', powerScore: 95 },
+        { label: 'Mastered Ultra Instinct (Silver Hair)', spriteUrl: 'assets/renders/goku_mui.webp', auraHex: '#e2e8f0', power: '90 Septillion (Silver UI Est.)', powerScore: 99 }
       ],
-      kidBio: 'Cheerful, pure-hearted, and always hungry! Sent to Earth as a baby, raised by Grandpa Gohan, and trained by Master Roshi, King Kai, and Whis. Click Goku\'s 9 forms below the 3D stage to watch him transform from Base to Ultra Instinct -Sign- and full Silver-Haired Mastered Ultra Instinct!'
+      kidBio: 'Cheerful, pure-hearted, and always hungry! Found in Mount Paozu as a monkey-tailed boy with Grandpa Gohan\'s 4-Star Dragon Ball, his red Power Pole, and the Flying Nimbus, Goku trained with Master Roshi, King Kai, and Whis—rising across 10 iconic forms all the way to Silver-Haired Mastered Ultra Instinct!'
     },
     {
       id: 'vegeta',
       name: 'Prince Vegeta IV',
       alignment: 'hero',
-      series: 'DBZ • GT • DBS',
+      series: 'DBZ • Daima • GT • DBS',
       race: 'Royal Saiyan Prince',
       signatureMove: 'Galick Gun, Final Flash, Big Bang Attack & Hakai',
       auraColor: '#9333ea',
-      peakPowerLabel: 'Ultra Ego (19.84 Septillion+)',
+      peakPowerLabel: 'Ultra Ego (85 Septillion+ Est.)',
       spriteUrl: 'assets/renders/vegeta_base.webp',
       forms: [
-        { label: 'Base Vegeta', spriteUrl: 'assets/renders/vegeta_base.webp', auraHex: '#3b82f6', power: '54,000,000', powerScore: 51 },
-        { label: 'Super Saiyan 1', spriteUrl: 'assets/renders/vegeta_ssj1.webp', auraHex: '#facc15', power: '330,000,000', powerScore: 67 },
-        { label: 'Super Saiyan 2', spriteUrl: 'assets/renders/vegeta_ssj2.webp', auraHex: '#38bdf8', power: '24,000,000,000', powerScore: 75 },
-        { label: 'Super Saiyan 4 (GT)', spriteUrl: 'assets/renders/vegeta_ssj4.webp', auraHex: '#ef4444', power: '1.8 Trillion', powerScore: 86 },
-        { label: 'Super Saiyan God (Red)', spriteUrl: 'assets/renders/vegeta_ssg.webp', auraHex: '#f43f5e', power: '1.6 Quadrillion (God Ki)', powerScore: 86 },
-        { label: 'Super Saiyan Blue', spriteUrl: 'assets/renders/vegeta_ssjb.webp', auraHex: '#00e5ff', power: '100 Quintillion', powerScore: 92 },
-        { label: 'Ultra Ego (Destruction Purple)', spriteUrl: 'assets/renders/vegeta_ultra_ego.webp', auraHex: '#a855f7', power: '19.84 Septillion+', powerScore: 97 }
+        { label: 'Base Vegeta', spriteUrl: 'assets/renders/vegeta_base.webp', auraHex: '#3b82f6', power: '18,000 (Official) → 54M (Est.)', powerScore: 51 },
+        { label: 'Super Saiyan 1', spriteUrl: 'assets/renders/vegeta_ssj1.webp', auraHex: '#facc15', power: '2,700,000,000 (Est. 50x)', powerScore: 67 },
+        { label: 'Super Saiyan 2 (Lightning)', spriteUrl: 'assets/renders/vegeta_ssj2.webp', auraHex: '#38bdf8', power: '5,400,000,000+ (Est. 100x)', powerScore: 75 },
+        { label: 'Super Saiyan 4 (GT)', spriteUrl: 'assets/renders/vegeta_ssj4.webp', auraHex: '#ef4444', power: '1.8 Quadrillion (Est.)', powerScore: 86 },
+        { label: 'Super Saiyan God (Red)', spriteUrl: 'assets/renders/vegeta_ssg.webp', auraHex: '#f43f5e', power: '2.5 Quadrillion+ (God Ki Est.)', powerScore: 88 },
+        { label: 'Super Saiyan Blue (SSB)', spriteUrl: 'assets/renders/vegeta_ssjb.webp', auraHex: '#00e5ff', power: '125 Quadrillion+ (Est.)', powerScore: 92 },
+        { label: 'Super Saiyan Blue Evolved (Royal Blue)', spriteUrl: 'assets/renders/vegeta_ssjbe.webp', auraHex: '#2563eb', power: '2.5 Quintillion+ (20x SSB Est.)', powerScore: 95 },
+        { label: 'Ultra Ego (Destruction Purple)', spriteUrl: 'assets/renders/vegeta_ultra_ego.webp', auraHex: '#a855f7', power: '85 Septillion+ (Hakai Est.)', powerScore: 98 }
       ],
-      kidBio: 'The proud Prince of all Saiyans! Once Goku\'s invader rival, Vegeta became Bulma\'s husband, Trunks\'s dad, and Earth\'s fiercest protector—unlocking Super Saiyan God, Blue, and Purple Ultra Ego!'
+      kidBio: 'The proud Prince of all Saiyans! Once Goku\'s invader rival with an official 18,000 scouter reading, Vegeta became Bulma\'s husband, Trunks and Bulla\'s dad, and Earth\'s fiercest protector—unlocking Royal-Blue SSB Evolved and Purple Ultra Ego!'
     },
     {
       id: 'vegetto',
@@ -496,32 +515,33 @@ window.DB_PORTAL_DATA = {
       race: 'Potara Earring Fusion (Goku + Vegeta)',
       signatureMove: 'Final Kamehameha, Spirit Sword & Banshee Blast',
       auraColor: '#00e5ff',
-      peakPowerLabel: 'Vegetto Blue (10.8 Septillion+)',
+      peakPowerLabel: 'Vegetto Blue (120 Septillion+ Est.)',
       spriteUrl: 'assets/renders/vegetto_ssjb.webp',
       forms: [
-        { label: 'Super Vegetto (Gold)', spriteUrl: 'assets/renders/vegetto_base.webp', auraHex: '#facc15', power: '9 Trillion', powerScore: 85 },
-        { label: 'Vegetto Super Saiyan Blue', spriteUrl: 'assets/renders/vegetto_ssjb.webp', auraHex: '#00e5ff', power: '10.8 Septillion+', powerScore: 98 }
+        { label: 'Base Vegetto (Black Hair)', spriteUrl: 'assets/renders/vegetto_base.webp', auraHex: '#f97316', power: '180 Billion (Est.)', powerScore: 82 },
+        { label: 'Super Vegetto (Gold SSJ1)', spriteUrl: 'assets/renders/vegetto_ssj1.webp', auraHex: '#facc15', power: '9 Trillion (Est. 50x)', powerScore: 87 },
+        { label: 'Vegetto Super Saiyan Blue', spriteUrl: 'assets/renders/vegetto_ssjb.webp', auraHex: '#00e5ff', power: '120 Septillion+ (Est.)', powerScore: 99 }
       ],
-      kidBio: 'Born when Goku and Vegeta clip the Supreme Kai\'s magical Potara Earrings onto opposite ears! Vegetto wears inverted Goku Gi colors with Vegeta\'s white gloves and boots!'
+      kidBio: 'Born when Goku and Vegeta clip the Supreme Kai\'s magical Potara Earrings onto opposite ears! Vegetto wears Goku\'s gi colors inverted (blue outer gi over orange undershirt) with Vegeta\'s white gloves and boots!'
     },
     {
       id: 'gogeta',
       name: 'Gogeta (Fusion Dance)',
       alignment: 'hero',
-      series: 'DBZ • DBGT • DBS: Broly',
+      series: 'DBZ: Fusion Reborn • DBGT • DBS: Broly',
       race: 'Metamoran Dance Fusion (Goku + Vegeta)',
       signatureMove: 'Stardust Breaker (Soul Punisher) & Big Bang Kamehameha',
       auraColor: '#00e5ff',
-      peakPowerLabel: 'Gogeta SSB Evolved (1.26 Octillion)',
+      peakPowerLabel: 'Full-Power Gogeta Blue (120 Septillion+ Est.)',
       spriteUrl: 'assets/renders/gogeta_ssjb.webp',
       forms: [
-        { label: 'Base Gogeta', spriteUrl: 'assets/renders/gogeta_base.webp', auraHex: '#f97316', power: '100 Billion', powerScore: 82 },
-        { label: 'Super Gogeta (SSJ1)', spriteUrl: 'assets/renders/gogeta_ssj1.webp', auraHex: '#facc15', power: '6.3 Sextillion', powerScore: 90 },
-        { label: 'SSJ4 Gogeta (GT Crimson)', spriteUrl: 'assets/renders/gogeta_ssj4.webp', auraHex: '#ef4444', power: '168 Quadrillion', powerScore: 94 },
-        { label: 'Gogeta Blue (SSJB)', spriteUrl: 'assets/renders/gogeta_ssjb.webp', auraHex: '#00e5ff', power: '12.6 Septillion', powerScore: 98 },
-        { label: 'Gogeta Blue Evolved', spriteUrl: 'assets/renders/gogeta_ssjbe.webp', auraHex: '#38bdf8', power: '1.26 Octillion', powerScore: 99 }
+        { label: 'Base Gogeta', spriteUrl: 'assets/renders/gogeta_base.webp', auraHex: '#f97316', power: '180 Billion (Est.)', powerScore: 82 },
+        { label: 'Super Gogeta (SSJ1)', spriteUrl: 'assets/renders/gogeta_ssj1.webp', auraHex: '#facc15', power: '9 Trillion (Est. 50x)', powerScore: 87 },
+        { label: 'SSJ4 Gogeta (GT Crimson Hair)', spriteUrl: 'assets/renders/gogeta_ssj4.webp', auraHex: '#ef4444', power: '168 Quadrillion (Est.)', powerScore: 94 },
+        { label: 'Gogeta Blue (SSJB)', spriteUrl: 'assets/renders/gogeta_ssjb.webp', auraHex: '#00e5ff', power: '60 Septillion (Est.)', powerScore: 98 },
+        { label: 'Full-Power Gogeta Blue (Stardust Breaker)', spriteUrl: 'assets/renders/gogeta_ssjbe.webp', auraHex: '#38bdf8', power: '120 Septillion+ (Est.)', powerScore: 99 }
       ],
-      kidBio: '"I am neither Goku nor Vegeta!" Created when Goku and Vegeta perform the symmetrical Fusion Dance with matching power levels! Defeated Janemba, battled Omega Shenron, and stopped Full Power Broly!'
+      kidBio: '"I am neither Goku nor Vegeta!" Created when Goku and Vegeta perform the symmetrical Metamoran Fusion Dance with matching Ki! Defeated Super Janemba, outclassed Omega Shenron, and stopped Full-Power Broly!'
     },
     {
       id: 'gohan',
@@ -531,14 +551,14 @@ window.DB_PORTAL_DATA = {
       race: 'Half-Saiyan / Half-Human Hybrid',
       signatureMove: 'Father-Son Kamehameha, Masenko & Beast Special Beam Cannon',
       auraColor: '#e11d48',
-      peakPowerLabel: 'Gohan Beast (25.6 Septillion)',
+      peakPowerLabel: 'Gohan Beast (88 Septillion Est.)',
       spriteUrl: 'assets/renders/gohan_beast.webp',
       forms: [
-        { label: 'Base Gohan', spriteUrl: 'assets/renders/gohan_base.webp', auraHex: '#f8fafc', power: '45,000,000', powerScore: 50 },
-        { label: 'Super Saiyan 1', spriteUrl: 'assets/renders/gohan_ssj1.webp', auraHex: '#facc15', power: '4.7 Billion', powerScore: 69 },
-        { label: 'Teen Gohan SSJ2 (Cell Games)', spriteUrl: 'assets/renders/gohan_ssj2.webp', auraHex: '#38bdf8', power: '10.2 Billion', powerScore: 76 },
-        { label: 'Ultimate / Mystic Gohan', spriteUrl: 'assets/renders/gohan_ultimate.webp', auraHex: '#e2e8f0', power: '43 Billion', powerScore: 82 },
-        { label: 'Gohan Beast (Silver Mane)', spriteUrl: 'assets/renders/gohan_beast.webp', auraHex: '#e11d48', power: '25.6 Septillion', powerScore: 97 }
+        { label: 'Base Gohan', spriteUrl: 'assets/renders/gohan_base.webp', auraHex: '#f8fafc', power: '45,000,000 (Est.)', powerScore: 50 },
+        { label: 'Super Saiyan 1', spriteUrl: 'assets/renders/gohan_ssj1.webp', auraHex: '#facc15', power: '4.7 Billion (Est.)', powerScore: 69 },
+        { label: 'Teen Gohan SSJ2 (Cell Games)', spriteUrl: 'assets/renders/gohan_ssj2.webp', auraHex: '#38bdf8', power: '10.2 Billion (Est.)', powerScore: 76 },
+        { label: 'Ultimate / Mystic Gohan', spriteUrl: 'assets/renders/gohan_ultimate.webp', auraHex: '#e2e8f0', power: '43 Billion (Est.)', powerScore: 82 },
+        { label: 'Gohan Beast (Silver Mane)', spriteUrl: 'assets/renders/gohan_beast.webp', auraHex: '#e11d48', power: '88 Septillion (Est.)', powerScore: 98 }
       ],
       kidBio: 'Goku\'s scholar son! First Saiyan in history to unlock Super Saiyan 2 against Cell, and awakened towering silver-haired, crimson-eyed GOHAN BEAST to protect Piccolo and Pan!'
     },
@@ -546,16 +566,16 @@ window.DB_PORTAL_DATA = {
       id: 'piccolo',
       name: 'Piccolo (Orange)',
       alignment: 'hero',
-      series: 'DB • DBZ • GT • DBS: Super Hero',
+      series: 'DB • DBZ • Daima • GT • DBS: Super Hero',
       race: 'Namekian Warrior',
       signatureMove: 'Special Beam Cannon (Makankosappo), Hellzone Grenade & Light Grenade',
       auraColor: '#f97316',
-      peakPowerLabel: 'Orange Piccolo (41.25 Quintillion)',
+      peakPowerLabel: 'Orange Piccolo (45 Septillion Est.)',
       spriteUrl: 'assets/renders/piccolo_orange.webp',
       forms: [
-        { label: 'Base Piccolo (Weighted Cape)', spriteUrl: 'assets/renders/piccolo_base.webp', auraHex: '#22c55e', power: '2,000,000', powerScore: 45 },
-        { label: 'Super Namekian (Fused w/ Kami)', spriteUrl: 'assets/renders/piccolo_super.webp', auraHex: '#eab308', power: '2.175 Billion', powerScore: 67 },
-        { label: 'Giant Orange Piccolo', spriteUrl: 'assets/renders/piccolo_orange.webp', auraHex: '#f97316', power: '41.25 Quintillion', powerScore: 93 }
+        { label: 'Base Piccolo (Weighted Cape)', spriteUrl: 'assets/renders/piccolo_base.webp', auraHex: '#22c55e', power: '1,200,000+ (Namek Fusion)', powerScore: 45 },
+        { label: 'Super Namekian (Fused w/ Kami)', spriteUrl: 'assets/renders/piccolo_super.webp', auraHex: '#eab308', power: '450,000,000+ (Est.)', powerScore: 65 },
+        { label: 'Giant Orange Piccolo', spriteUrl: 'assets/renders/piccolo_orange.webp', auraHex: '#f97316', power: '45 Septillion (Est.)', powerScore: 95 }
       ],
       kidBio: 'Gohan\'s mentor and Pan\'s favorite teacher! When Piccolo wished for Shenron to unlock his potential, Shenron added "a little extra"—giving him the giant muscular ORANGE PICCOLO form!'
     },
@@ -565,18 +585,19 @@ window.DB_PORTAL_DATA = {
       alignment: 'villain',
       series: 'DBZ • GT • DBS',
       race: 'Frost Demon Emperor',
-      signatureMove: 'Death Beam, Supernova, Death Ball & Golden Emperor\'s Wrath',
-      auraColor: '#facc15',
-      peakPowerLabel: 'Golden Freezer (100 Quintillion)',
-      spriteUrl: 'assets/renders/freezer_golden.webp',
+      signatureMove: 'Death Beam, Supernova, Death Ball & Black Emperor\'s Rush',
+      auraColor: '#a855f7',
+      peakPowerLabel: 'Black Freezer — Manga Ch. 87 (150 Septillion+ Est.)',
+      spriteUrl: 'assets/renders/freezer_black.webp',
       forms: [
-        { label: '1st Form Freezer', spriteUrl: 'assets/renders/freezer_1st.webp', auraHex: '#a855f7', power: '530,000', powerScore: 38 },
-        { label: '2nd Form (Giant Horns)', spriteUrl: 'assets/renders/freezer_2nd.webp', auraHex: '#ec4899', power: '1,060,000', powerScore: 42 },
-        { label: '3rd Form (Alien)', spriteUrl: 'assets/renders/freezer_3rd.webp', auraHex: '#c084fc', power: '2,120,000', powerScore: 46 },
-        { label: 'Final / Perfect Form', spriteUrl: 'assets/renders/freezer_final.webp', auraHex: '#e879f9', power: '120,000,000', powerScore: 65 },
-        { label: 'Golden Freezer (DBS)', spriteUrl: 'assets/renders/freezer_golden.webp', auraHex: '#facc15', power: '100 Quintillion', powerScore: 92 }
+        { label: '1st Form Freezer', spriteUrl: 'assets/renders/freezer_1st.webp', auraHex: '#a855f7', power: '530,000 (Official Namek)', powerScore: 38 },
+        { label: '2nd Form (Giant Horns)', spriteUrl: 'assets/renders/freezer_2nd.webp', auraHex: '#ec4899', power: '1,060,000 (Official Namek)', powerScore: 42 },
+        { label: '3rd Form (Alien)', spriteUrl: 'assets/renders/freezer_3rd.webp', auraHex: '#c084fc', power: '2,120,000 (Est.)', powerScore: 46 },
+        { label: 'Final Form (100% Namek)', spriteUrl: 'assets/renders/freezer_final.webp', auraHex: '#e879f9', power: '120,000,000 (Official Namek)', powerScore: 65 },
+        { label: 'Golden Freezer (DBS)', spriteUrl: 'assets/renders/freezer_golden.webp', auraHex: '#facc15', power: '130 Quadrillion+ (Est.)', powerScore: 92 },
+        { label: 'Black Freezer (Manga Ch. 87)', spriteUrl: 'assets/renders/freezer_black.webp', auraHex: '#9333ea', power: '150 Septillion+ (10-Yr Chamber Est.)', powerScore: 99 }
       ],
-      kidBio: 'The galactic emperor of Universe 7! Freezer created his first 3 forms just to hold back his huge power—and in Dragon Ball Super, 4 months of training unlocked GOLDEN FREEZER!'
+      kidBio: 'The galactic emperor of Universe 7! Freezer created his first 3 forms just to suppress his 120,000,000 Namek power—then unlocked Golden Freezer, and trained 10 full years in a Hyperbolic Time Chamber to unveil obsidian BLACK FREEZER!'
     },
     {
       id: 'cell',
@@ -741,6 +762,22 @@ window.DB_PORTAL_DATA = {
       kidBio: 'Vegeta and Bulma\'s polite, sword-wielding son from the future! Traveled back in Bulma\'s Time Machine to warn Goku about the Androids and later unlocked Super Saiyan Rage!'
     },
     {
+      id: 'goten',
+      name: 'Son Goten & Kid Trunks',
+      alignment: 'hero',
+      series: 'DBZ • DB Daima • DBS',
+      race: 'Half-Saiyan Best Friends',
+      signatureMove: 'Kamekameha, Double Buster & Metamoran Fusion Dance!',
+      auraColor: '#fb923c',
+      peakPowerLabel: 'Youngest Super Saiyans in History (Age 7 & 8!)',
+      spriteUrl: 'assets/renders/goten.webp',
+      forms: [
+        { label: 'Son Goten (Goku\'s Youngest Son)', spriteUrl: 'assets/renders/goten.webp', auraHex: '#fb923c', power: '120,000,000+ (Youngest SSJ Est.)', powerScore: 58 },
+        { label: 'Kid Trunks (Vegeta\'s Young Son)', spriteUrl: 'assets/renders/kid_trunks.webp', auraHex: '#22c55e', power: '130,000,000+ (World Jr. Champ Est.)', powerScore: 59 }
+      ],
+      kidBio: 'Best friends since diapers! Goku\'s youngest son Son Goten (age 7) and Vegeta\'s young son Kid Trunks (age 8) unlocked Golden Super Saiyan just by sparring together—and team up for the Fusion Dance to become Gotenks!'
+    },
+    {
       id: 'gotenks',
       name: 'Gotenks (Goten + Trunks)',
       alignment: 'hero',
@@ -748,12 +785,12 @@ window.DB_PORTAL_DATA = {
       race: 'Kids\' Metamoran Dance Fusion',
       signatureMove: 'Super Ghost Kamikaze Attack & Galactic Donut',
       auraColor: '#facc15',
-      peakPowerLabel: 'Super Saiyan 3 Gotenks (45.6 Billion)',
+      peakPowerLabel: 'Super Saiyan 3 Gotenks (45.6 Billion Est.)',
       spriteUrl: 'assets/renders/gotenks_ssj3.webp',
       forms: [
-        { label: 'Base Gotenks', spriteUrl: 'assets/renders/gotenks_base.webp', auraHex: '#a855f7', power: '65,600,000', powerScore: 66 },
-        { label: 'Super Saiyan 1 Gotenks', spriteUrl: 'assets/renders/gotenks_ssj1.webp', auraHex: '#facc15', power: '5.7 Billion', powerScore: 73 },
-        { label: 'Super Saiyan 3 Gotenks', spriteUrl: 'assets/renders/gotenks_ssj3.webp', auraHex: '#eab308', power: '45.6 Billion', powerScore: 82 }
+        { label: 'Base Gotenks', spriteUrl: 'assets/renders/gotenks_base.webp', auraHex: '#a855f7', power: '65,600,000 (Est.)', powerScore: 66 },
+        { label: 'Super Saiyan 1 Gotenks', spriteUrl: 'assets/renders/gotenks_ssj1.webp', auraHex: '#facc15', power: '5.7 Billion (Est.)', powerScore: 73 },
+        { label: 'Super Saiyan 3 Gotenks', spriteUrl: 'assets/renders/gotenks_ssj3.webp', auraHex: '#eab308', power: '45.6 Billion (Est.)', powerScore: 82 }
       ],
       kidBio: 'When 7-year-old Goten and 8-year-old Trunks do the Fusion Dance, they become the cocky superhero GOTENKS—inventing hilarious attacks like spitting exploding ghosts!'
     },
@@ -768,8 +805,8 @@ window.DB_PORTAL_DATA = {
       peakPowerLabel: 'Tournament of Power Winner Android 17',
       spriteUrl: 'assets/renders/android_17.webp',
       forms: [
-        { label: 'Android 16 (Loves Birds & Nature)', spriteUrl: 'assets/renders/android_16.webp', auraHex: '#22c55e', power: '440,000,000', powerScore: 64 },
-        { label: 'Android 18 (Krillin\'s Wife)', spriteUrl: 'assets/renders/android_18.webp', auraHex: '#38bdf8', power: '380,000,000+', powerScore: 70 },
+        { label: 'Android 16 (Loves Birds & Nature)', spriteUrl: 'assets/renders/android_16.webp', auraHex: '#22c55e', power: '440,000,000 (Est.)', powerScore: 64 },
+        { label: 'Android 18 (Krillin\'s Wife)', spriteUrl: 'assets/renders/android_18.webp', auraHex: '#38bdf8', power: '380,000,000+ (Est.)', powerScore: 70 },
         { label: 'Android 17 (DBS Park Ranger MVP!)', spriteUrl: 'assets/renders/android_17.webp', auraHex: '#10b981', power: 'Quintillion Tier (ToP Winner)', powerScore: 91 }
       ],
       kidBio: 'Built with infinite energy reactors that never get tired! Gentle Android 16 inspired Gohan, 18 married Krillin, and 17 won the entire Tournament of Power and wished all erased universes back!'
@@ -785,10 +822,10 @@ window.DB_PORTAL_DATA = {
       peakPowerLabel: 'Earth\'s Greatest Martial Artists',
       spriteUrl: 'assets/renders/krillin.webp',
       forms: [
-        { label: 'Master Roshi (Kamehameha Inventor)', spriteUrl: 'assets/renders/roshi.webp', auraHex: '#38bdf8', power: 'Max Power Master', powerScore: 44 },
-        { label: 'Yamcha (Wolf Fang Fist & Baseball Pro)', spriteUrl: 'assets/renders/yamcha.webp', auraHex: '#f97316', power: '500,000', powerScore: 39 },
-        { label: 'Tien Shinhan (Three-Eyed Master)', spriteUrl: 'assets/renders/tenshinhan.webp', auraHex: '#22c55e', power: '2,500,000+', powerScore: 48 },
-        { label: 'Krillin (Strongest Pure Human!)', spriteUrl: 'assets/renders/krillin.webp', auraHex: '#fde047', power: '5,000,000+', powerScore: 50 }
+        { label: 'Master Roshi (Kamehameha Inventor)', spriteUrl: 'assets/renders/roshi.webp', auraHex: '#38bdf8', power: '139 (Official DB) → Max Power', powerScore: 44 },
+        { label: 'Yamcha (Wolf Fang Fist & Baseball Pro)', spriteUrl: 'assets/renders/yamcha.webp', auraHex: '#f97316', power: '1,480 (Official) → 500K+ (Est.)', powerScore: 39 },
+        { label: 'Tien Shinhan (Three-Eyed Master)', spriteUrl: 'assets/renders/tenshinhan.webp', auraHex: '#22c55e', power: '1,830 (Official) → 2.5M+ (Est.)', powerScore: 48 },
+        { label: 'Krillin (Strongest Pure Human!)', spriteUrl: 'assets/renders/krillin.webp', auraHex: '#fde047', power: '75,000 (Namek) → 5M+ (Est.)', powerScore: 50 }
       ],
       kidBio: 'Goku\'s original Dragon Ball friends! Master Roshi invented the Kamehameha, and Krillin, Tien, and Yamcha prove courage and smart martial arts skills matter even without Saiyan hair!'
     },
@@ -796,7 +833,7 @@ window.DB_PORTAL_DATA = {
       id: 'bulma-satan',
       name: 'Bulma & Mr. Satan (Hercule)',
       alignment: 'hero',
-      series: 'DB • DBZ • DBGT • DBS',
+      series: 'DB • DBZ • Daima • GT • DBS',
       race: 'Earth\'s Greatest Genius & World Champion',
       signatureMove: 'Dragon Radar, Time Machine, Capsule Tech & Dynamite Kick!',
       auraColor: '#38bdf8',
@@ -819,8 +856,8 @@ window.DB_PORTAL_DATA = {
       peakPowerLabel: 'Bardock (Goku\'s Heroic Father)',
       spriteUrl: 'assets/renders/bardock.webp',
       forms: [
-        { label: 'Raditz (Goku\'s Older Brother)', spriteUrl: 'assets/renders/raditz.webp', auraHex: '#ef4444', power: '1,500', powerScore: 30 },
-        { label: 'Bardock (Goku\'s Father)', spriteUrl: 'assets/renders/bardock.webp', auraHex: '#22c55e', power: '450,000+', powerScore: 41 }
+        { label: 'Raditz (Goku\'s Older Brother)', spriteUrl: 'assets/renders/raditz.webp', auraHex: '#ef4444', power: '1,500 (Official Daizenshuu)', powerScore: 30 },
+        { label: 'Bardock (Goku\'s Father)', spriteUrl: 'assets/renders/bardock.webp', auraHex: '#22c55e', power: '10,000+ (Saiyan Rebel)', powerScore: 41 }
       ],
       kidBio: 'Goku\'s Saiyan family! Bardock sent baby Kakarot (Goku) to Earth in a round space pod to save him before standing bravely against Freezer, while long-haired Raditz was the first villain of Dragon Ball Z!'
     },
@@ -832,10 +869,10 @@ window.DB_PORTAL_DATA = {
       race: 'Leader of the Ginyu Force',
       signatureMove: 'Body Change! ("Change Now!") & Milky Cannon',
       auraColor: '#a855f7',
-      peakPowerLabel: '120,000 (Elite Namek Commander)',
+      peakPowerLabel: '120,000 (Official Namek Scouter)',
       spriteUrl: 'assets/renders/ginyu.webp',
       forms: [
-        { label: 'Captain Ginyu (Special Fighting Pose!)', spriteUrl: 'assets/renders/ginyu.webp', auraHex: '#a855f7', power: '120,000', powerScore: 36 }
+        { label: 'Captain Ginyu (Special Fighting Pose!)', spriteUrl: 'assets/renders/ginyu.webp', auraHex: '#a855f7', power: '120,000 (Official Namek)', powerScore: 36 }
       ],
       kidBio: 'Freezer\'s goofy dance-obsessed Ginyu Force captain! Whenever someone is stronger than him, Ginyu shouts "CHANGE NOW!" to swap bodies—until Goku tricked him into swapping bodies with a Namekian frog!'
     },
@@ -845,14 +882,14 @@ window.DB_PORTAL_DATA = {
       alignment: 'villain',
       series: 'DBZ: Fusion Reborn • SDBH',
       race: 'Other World Reality-Warping Demon',
-      signatureMove: 'Dimension Sword, Lightning Shower Rain & Portal Punch',
+      signatureMove: 'Dimension Sword, Lightning Shower Rain & Bunkai Teleport',
       auraColor: '#a855f7',
-      peakPowerLabel: '75,000,000,000 (Surpasses SSJ3 Goku)',
+      peakPowerLabel: '75,000,000,000 (Est. — Surpasses SSJ3 Goku)',
       spriteUrl: 'assets/renders/janemba.webp',
       forms: [
-        { label: 'Super Janemba (Dimension Sword)', spriteUrl: 'assets/renders/janemba.webp', auraHex: '#ec4899', power: '75 Billion', powerScore: 84 }
+        { label: 'Super Janemba (Dimension Sword)', spriteUrl: 'assets/renders/janemba.webp', auraHex: '#ec4899', power: '75 Billion (Est.)', powerScore: 84 }
       ],
-      kidBio: 'Born when the Soul Cleansing Machine exploded in Other World! Super Janemba teleports by breaking into pixel cubes and forced Goku and Vegeta to fuse into Super Gogeta for the very first time!'
+      kidBio: 'Born when the Soul Cleansing Machine exploded in Other World! Horned crimson-and-violet Super Janemba slices space with his Dimension Sword, teleports in pixel cubes, and forced Goku and Vegeta to fuse into Super Gogeta!'
     }
   ],
 
@@ -867,7 +904,7 @@ window.DB_PORTAL_DATA = {
       resultName: 'Vegetto Super Saiyan Blue!',
       resultSprite: 'assets/renders/vegetto_ssjb.webp',
       auraHex: '#00e5ff',
-      power: '10.8 Septillion+',
+      power: '120 Septillion+ (Est.)',
       story: 'POTARA FUSION COMPLETE! Goku and Vegeta clip the glowing Potara Earrings onto opposite ears and slam together in mid-air—creating VEGETTO BLUE with the Final Kamehameha and Spirit Sword!'
     },
     {
@@ -876,57 +913,67 @@ window.DB_PORTAL_DATA = {
       warriorB: 'vegeta',
       method: 'dance',
       methodName: '👉👈 Metamoran Fusion Dance ("Fuuu-sion... HA!")',
-      resultName: 'Gogeta Super Saiyan Blue Evolved!',
+      resultName: 'Full-Power Gogeta Blue!',
       resultSprite: 'assets/renders/gogeta_ssjbe.webp',
       auraHex: '#38bdf8',
-      power: '1.26 Octillion',
-      story: 'PERFECT SYMMETRY! Goku and Vegeta match their Ki and touch index fingers at the exact right angle—unlocking GOGETA BLUE for 30 unstoppable minutes!'
+      power: '120 Septillion+ (Est.)',
+      story: 'PERFECT SYMMETRY! Goku and Vegeta match their Ki and touch index fingers at the exact right angle—unlocking FULL-POWER GOGETA BLUE and his rainbow Stardust Breaker for 30 unstoppable minutes!'
     },
     {
       id: 'goku-vegeta-gt',
       warriorA: 'goku',
       warriorB: 'vegeta',
+      spriteA: 'assets/renders/goku_ssj4.webp',
+      spriteB: 'assets/renders/vegeta_ssj4.webp',
+      labelA: 'SSJ4 Goku',
+      labelB: 'SSJ4 Vegeta',
       method: 'gt-dance',
       methodName: '🐒 Super Saiyan 4 Fusion Dance (GT)',
       resultName: 'Super Saiyan 4 Gogeta (Crimson Hair)!',
       resultSprite: 'assets/renders/gogeta_ssj4.webp',
       auraHex: '#ef4444',
-      power: '168 Quadrillion',
-      story: 'DRAGON BALL GT ULTIMATE FUSION! SSJ4 Goku and SSJ4 Vegeta fuse into fiery red-haired SUPER SAIYAN 4 GOGETA—strong enough to kick Omega Shenron\'s Minus Energy Ball into space!'
+      power: '168 Quadrillion (Est.)',
+      story: 'DRAGON BALL GT ULTIMATE FUSION! SSJ4 Goku and SSJ4 Vegeta fuse into fiery crimson-haired SUPER SAIYAN 4 GOGETA—strong enough to kick Omega Shenron\'s Minus Energy Ball into space!'
     },
     {
       id: 'goten-trunks-dance',
-      warriorA: 'gohan',
-      warriorB: 'trunks',
+      warriorA: 'goten',
+      warriorB: 'goten',
+      spriteA: 'assets/renders/goten.webp',
+      spriteB: 'assets/renders/kid_trunks.webp',
+      labelA: 'Son Goten',
+      labelB: 'Kid Trunks',
       method: 'kids-dance',
-      methodName: '👻 Kids\' Fusion Dance (Goten + Trunks)',
+      methodName: '👻 Kids\' Fusion Dance (Goten + Kid Trunks)',
       resultName: 'Super Saiyan 3 Gotenks!',
       resultSprite: 'assets/renders/gotenks_ssj3.webp',
       auraHex: '#facc15',
-      power: '45.6 Billion',
-      story: 'TA-DA!! Young Goten and Trunks nail the Fusion Dance and jump straight past SSJ2 into waist-length golden-maned SUPER SAIYAN 3 GOTENKS!'
+      power: '45.6 Billion (Est.)',
+      story: 'TA-DA!! 7-year-old Son Goten and 8-year-old Kid Trunks nail the symmetrical Fusion Dance and leap straight past SSJ2 into waist-length golden-maned SUPER SAIYAN 3 GOTENKS!'
     },
     {
       id: 'piccolo-kami-namek',
       warriorA: 'piccolo',
       warriorB: 'piccolo',
+      spriteA: 'assets/renders/piccolo_base.webp',
+      spriteB: 'assets/renders/shenron.webp',
       method: 'namekian',
       methodName: '🟢 Namekian Assimilation + Shenron Gift',
       resultName: 'Giant Orange Piccolo!',
       resultSprite: 'assets/renders/piccolo_orange.webp',
       auraHex: '#f97316',
-      power: '41.25 Quintillion',
-      story: 'NAMEKIAN AWAKENING! Having reunited with Nail and Kami, Piccolo receives Shenron\'s bonus Dragon Clan blessing to become GIANT ORANGE PICCOLO!'
+      power: '45 Septillion (Est.)',
+      story: 'NAMEKIAN AWAKENING! Having reunited with Nail and Kami, Piccolo receives Eternal Shenron\'s bonus Dragon Clan blessing to become GIANT ORANGE PICCOLO!'
     }
   ],
 
-  // 5. Expanded Kids' Saiyan Academy Quiz (14 Questions — Collect 7 Dragon Balls to Summon Shenron!)
+  // 5. Expanded Kids' Saiyan Academy Quiz (13 Questions — Collect 7 Dragon Balls to Summon Shenron!)
   quizQuestions: [
     {
       question: 'What color does Goku\'s hair turn when he first becomes a Super Saiyan on Planet Namek?',
       options: ['Golden Yellow (with Emerald-Teal Eyes)', 'Electric Cyan-Blue', 'Neon Lime-Green', 'Rose Pink'],
       correctIndex: 0,
-      explanation: 'Super Saiyan 1 turns a Saiyan\'s hair glowing Golden-Yellow and multiplies base power by 50x!'
+      explanation: 'Super Saiyan 1 turns a Saiyan\'s hair glowing Golden-Yellow and multiplies base power by 50x (reaching an official 150,000,000 on Namek)!'
     },
     {
       question: 'What is the difference between VEGETTO (Vegito) and GOGETA?',
@@ -951,10 +998,10 @@ window.DB_PORTAL_DATA = {
       explanation: 'Super Saiyan 3 multiplies power by 400x, grows a giant golden mane to the waist, and makes eyebrows vanish!'
     },
     {
-      question: 'Which Dragon Ball series introduced Super Saiyan 4 (black hair, crimson-red fur, and a tail)?',
-      options: ['Dragon Ball GT', 'Dragon Ball Episode 1', 'Dr. Slump', 'Sand Land'],
+      question: 'Which Dragon Ball series first introduced black-haired, crimson-furred Super Saiyan 4?',
+      options: ['Dragon Ball GT (and later reimagined in Daima!)', 'Dragon Ball Episode 1', 'Dr. Slump', 'Jaco the Galactic Patrolman'],
       correctIndex: 0,
-      explanation: 'Dragon Ball GT introduced primal Super Saiyan 4 after Goku calmed his Golden Great Ape form!'
+      explanation: 'Dragon Ball GT first debuted primal Super Saiyan 4 after Goku calmed his Golden Great Ape form, and Akira Toriyama later brought SSJ4 into Dragon Ball Daima!'
     },
     {
       question: 'What does Goku\'s FLAME-RED hair in "Battle of Gods" mean?',
@@ -1021,13 +1068,24 @@ window.DB_PORTAL_DATA = {
         'Snow White'
       ],
       correctIndex: 0,
-      explanation: 'Trained by Lord Beerus, Vegeta\'s Ultra Ego turns his hair deep purple and makes him stronger with battle spirit!'
+      explanation: 'Trained by Lord Beerus, Vegeta\'s Ultra Ego turns his hair deep purple and fuels his power with pure battle spirit!'
     },
     {
       question: 'Who won the 80-fighter Tournament of Power in Dragon Ball Super and wished all erased universes back?',
       options: ['Android 17!', 'Captain Ginyu', 'Raditz', 'Super Janemba'],
       correctIndex: 0,
       explanation: 'Android 17 was the last fighter standing after Goku and Freezer knocked Jiren out together!'
+    },
+    {
+      question: 'In Akira Toriyama\'s "Dragon Ball Daima", what happens to Goku and his friends before they explore the Demon Realm?',
+      options: [
+        'King Gomah wishes on Shenron to turn them into Mini kid-sized heroes!',
+        'They swap bodies with Captain Ginyu\'s frog',
+        'They freeze inside icebergs on Planet Vampa',
+        'They forget how to use the Kamehameha'
+      ],
+      correctIndex: 0,
+      explanation: 'Set right after the Majin Buu Saga, Dragon Ball Daima shrinks Goku and his friends into Mini kids—so Goku brings back his classic red Power Pole to journey through the Demon Realm!'
     }
   ]
 };
