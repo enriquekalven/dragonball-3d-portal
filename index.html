@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
+  <title>Dragon Ball Interactive 3D Multiverse Portal — DB • DBZ • GT • Super</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="scouter-off">
+  <!-- Clean, Kid-Friendly Top Navigation Bar -->
+  <header class="top-bar" role="banner">
+    <div class="brand">
+      <div class="db-ball-icon" aria-hidden="true">★★★★</div>
+      <div>
+        <h1 class="brand-title">DRAGON BALL 3D PORTAL</h1>
+        <p class="brand-sub">DB • DBZ • DB GT • DB SUPER</p>
+      </div>
+    </div>
+
+    <!-- 5 Clear, Kid-Friendly Sections -->
+    <nav class="main-tabs" aria-label="Main Sections">
+      <button class="nav-pill active" data-mode="fighters" type="button" aria-selected="true">
+        🥋 1. Characters &amp; Forms
+      </button>
+      <button class="nav-pill" data-mode="hair-guide" type="button" aria-selected="false">
+        🎨 2. Hair Color Guide
+      </button>
+      <button class="nav-pill" data-mode="fusion-lab" type="button" aria-selected="false">
+        ✨ 3. Fusion Lab
+      </button>
+      <button class="nav-pill" data-mode="timeline" type="button" aria-selected="false">
+        🌌 4. Story Timeline
+      </button>
+      <button class="nav-pill" data-mode="battle-quiz" type="button" aria-selected="false">
+        ⚔️ 5. VS Beam Game &amp; Quiz
+      </button>
+    </nav>
+
+    <!-- Scouter & Sound Toggles -->
+    <div class="top-actions">
+      <button id="toggle-scouter-btn" class="action-chip" type="button" aria-pressed="false">
+        📟 Scouter: <span id="scouter-state-label">OFF</span>
+      </button>
+      <button id="toggle-sound-btn" class="action-chip" type="button" aria-pressed="true">
+        🔊 Sound: <span id="sound-state-label">ON</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="app-layout">
+    <!-- LEFT: Giant Unobstructed 3D Character Stage + Arena Picker + Instant Form Switcher -->
+    <section class="character-stage" aria-label="3D Character Stage">
+      <canvas id="db-3d-canvas" aria-label="3D Dragon Ball Character and Battle Arena Stage"></canvas>
+
+      <!-- Optional Scouter Visor Overlay -->
+      <div id="scouter-hud-overlay" class="scouter-hud" aria-hidden="true">
+        <div class="scouter-reticle"></div>
+        <div class="scouter-box">
+          <div>TARGET: <strong id="hud-target-name">SON GOKU</strong></div>
+          <div>FORM: <strong id="hud-target-form">BASE GOKU</strong></div>
+          <div>POWER LEVEL: <strong id="hud-target-power">60,000,000</strong></div>
+        </div>
+      </div>
+
+      <!-- Top-Left Live Character Badge & Animated Power Level -->
+      <div class="stage-header-card">
+        <span id="stage-era-badge" class="stage-era-pill">DB • DBZ • GT • DBS</span>
+        <h2 id="stage-char-name">Son Goku (Kakarot)</h2>
+        <div class="stage-power-readout">
+          <span>⚡ POWER LEVEL:</span>
+          <strong id="stage-power-number">60,000,000</strong>
+        </div>
+      </div>
+
+      <!-- Top-Right 3D Battle Arena Selector + Power Up Button -->
+      <div class="stage-top-right">
+        <select id="arena-select" class="arena-select" aria-label="Select 3D Battle Arena"></select>
+        <button id="power-up-burst-btn" class="btn-power-up" type="button">
+          ⚡ POWER UP AURA!
+        </button>
+      </div>
+
+      <!-- Bottom Dock: Instant Transformation Buttons Right Below the Character! -->
+      <div id="stage-transform-dock" class="stage-transform-dock">
+        <div class="dock-label" id="dock-label-text">CLICK TO TRANSFORM SON GOKU:</div>
+        <div id="stage-form-buttons" class="stage-form-buttons" role="group" aria-label="Character Transformations"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Single Clean Content Area (One Active View at a Time, Zero Nested Scrollbars) -->
+    <aside class="content-panel" aria-label="Character Selection and Story Info">
+
+      <!-- VIEW 1: CHARACTERS & TRANSFORMATIONS (Default!) -->
+      <section id="view-fighters" class="view-section">
+        <div class="character-story-card" id="active-fighter-story"></div>
+
+        <div class="roster-header-bar">
+          <h3 id="roster-count-heading">Choose Any Character (25 Fighters)</h3>
+          <input
+            id="roster-search-input"
+            class="roster-search-input"
+            type="search"
+            placeholder="🔍 Search Goku, God, Cell, Beerus..."
+            aria-label="Search Dragon Ball characters and forms"
+          />
+        </div>
+        <div id="roster-role-filters" class="filter-pills"></div>
+
+        <div id="fighter-roster-grid" class="visual-character-grid"></div>
+      </section>
+
+      <!-- VIEW 2: WHAT EVERY HAIR COLOR MEANS -->
+      <section id="view-hair-guide" class="view-section hidden">
+        <div class="section-intro">
+          <h2>🎨 What Every Saiyan Hair Color Means!</h2>
+          <p>Tap any of the 12 hair colors below (including Flame-Red Super Saiyan God, Rose-Pink, Silver Ultra Instinct &amp; Purple Ultra Ego) to transform in 3D!</p>
+        </div>
+
+        <div id="hair-selected-detail" class="character-story-card"></div>
+
+        <div id="hair-color-grid" class="hair-cards-grid"></div>
+      </section>
+
+      <!-- VIEW 3: INTERACTIVE FUSION LAB -->
+      <section id="view-fusion-lab" class="view-section hidden">
+        <div class="section-intro">
+          <h2>✨ Capsule Corp 3D Fusion Chamber!</h2>
+          <p>Discover the difference between Supreme Kai Potara Earrings (Vegetto) and the Metamoran Fusion Dance (Gogeta &amp; Gotenks) in live 3D!</p>
+        </div>
+
+        <div id="fusion-selected-detail" class="character-story-card"></div>
+
+        <h3 class="sub-section-heading">Select a Fusion Formula:</h3>
+        <div id="fusion-recipes-grid" class="saga-cards-stack"></div>
+      </section>
+
+      <!-- VIEW 4: STORY TIMELINE (DB -> DBZ -> DBGT -> DBS) -->
+      <section id="view-timeline" class="view-section hidden">
+        <div class="section-intro">
+          <h2>🌌 The 4 Dragon Ball Series Timeline</h2>
+          <p>Follow Goku's journey from a 12-year-old boy with a monkey tail all the way to the Gods of Destruction and Grand Zeno!</p>
+        </div>
+
+        <div id="era-filter-tabs" class="era-tabs-row"></div>
+
+        <div id="saga-selected-detail" class="character-story-card"></div>
+
+        <div id="saga-timeline-list" class="saga-cards-stack"></div>
+      </section>
+
+      <!-- VIEW 5: PLAYABLE FORM-VS-FORM BEAM STRUGGLE & 7-STAR SHENRON QUIZ -->
+      <section id="view-battle-quiz" class="view-section hidden">
+        <div class="character-story-card">
+          <h3>⚔️ Playable 1v1 Form-vs-Form Beam Struggle!</h3>
+          <p class="muted-sub">Pick ANY two characters AND their exact transformations—then mash SPACEBAR or tap PUSH to win the 3D Kamehameha clash!</p>
+          <div class="vs-picker-grid">
+            <div class="picker-col">
+              <label for="sim-fighter-a">PLAYER (FIGHTER 1)</label>
+              <select id="sim-fighter-a" class="big-select"></select>
+              <label for="sim-form-a">FIGHTER 1 FORM</label>
+              <select id="sim-form-a" class="big-select"></select>
+            </div>
+            <div class="vs-circle">VS</div>
+            <div class="picker-col">
+              <label for="sim-fighter-b">RIVAL (FIGHTER 2)</label>
+              <select id="sim-fighter-b" class="big-select"></select>
+              <label for="sim-form-b">FIGHTER 2 FORM</label>
+              <select id="sim-form-b" class="big-select"></select>
+            </div>
+          </div>
+          <button id="run-battle-btn" class="btn-power-up full-btn" type="button">
+            🔥 START LIVE 3D BEAM STRUGGLE!
+          </button>
+          <div id="battle-sim-output" class="battle-result-box" aria-live="polite"></div>
+        </div>
+
+        <div class="character-story-card">
+          <div class="quiz-top-row">
+            <h3>🎓 Kids' Saiyan Academy Quiz</h3>
+            <span id="quiz-score-badge" class="score-badge">SCORE: 0 / 12</span>
+          </div>
+          <p class="muted-sub">Answer 7 questions right to collect all 7 Dragon Balls and summon Eternal Shenron!</p>
+          <div id="dragon-balls-progress" class="dragon-balls-progress" aria-label="Collected Dragon Balls"></div>
+          <div id="quiz-question-container" class="quiz-box" aria-live="polite"></div>
+        </div>
+      </section>
+
+    </aside>
+  </main>
+
+  <!-- Celebratory Eternal Shenron 7-Star Master Modal (Non-intrusive, triggered only on 7 Quiz Stars!) -->
+  <div id="shenron-modal" class="shenron-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="shenron-title">
+    <div class="shenron-modal-card">
+      <div class="shenron-stars-banner" aria-hidden="true">1★ 2★ 3★ 4★ 5★ 6★ 7★</div>
+      <h2 id="shenron-title">🐉 ETERNAL SHENRON HAS APPEARED!</h2>
+      <p class="story-text">
+        "YOU HAVE GATHERED ALL 7 DRAGON BALLS AT SAIYAN ACADEMY! STATE YOUR WISH, YOUNG Z-FIGHTER MASTER!"
+      </p>
+      <div class="shenron-wish-buttons">
+        <button id="wish-ui-goku-btn" class="btn-power-up full-btn" type="button">
+          ⚡ Wish 1: Awaken Silver Ultra Instinct Goku!
+        </button>
+        <button id="wish-gogeta-btn" class="btn-power-up full-btn" type="button">
+          ✨ Wish 2: Launch Gogeta Blue Evolved Fusion!
+        </button>
+        <button id="close-shenron-btn" class="action-chip full-btn" type="button">
+          🎓 Keep Exploring as an Official Z-Fighter Master!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/renderer3d.js"></script>
+  <script src="js/ui.js"></script>
+</body>
+</html>
