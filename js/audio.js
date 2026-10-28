@@ -1,6 +1,9 @@
 /* ==========================================================================
-   DRAGON BALL 3D PORTAL — AUDIO SYNTH & OFFLINE VOICE NARRATOR MODULE
-   Zero external network calls: uses Web Audio API + window.speechSynthesis
+   DRAGON BALL 3D PORTAL — WEB AUDIO SYNTH & GOOGLE CLOUD CHIRP 3 HD ENGINE
+   Multi-Tier Narration across all 12 Languages (en, es, zh, yue, ja, ko, pt,
+   fr, it, de, nl, ar):
+     1. Live /api/tts Google Cloud Chirp 3 HD MP3 Synthesis (with disk cache)
+     2. Neural Browser speechSynthesis Fallback (with Eloquence filter)
    ========================================================================== */
 
 (function () {
@@ -8,6 +11,27 @@
 
   let audioCtx = null;
   let soundEnabled = true;
+  let currentPersona = 'Aoede';
+
+  let speechToken = 0;
+  let activeAudioEl = null;
+  let activeAbortCtrl = null;
+  let activeStateCallback = null;
+
+  const BCP47_MAP = {
+    en: 'en-US',
+    es: 'es-ES',
+    zh: 'zh-CN',
+    yue: 'zh-HK',
+    ja: 'ja-JP',
+    ko: 'ko-KR',
+    pt: 'pt-BR',
+    fr: 'fr-FR',
+    it: 'it-IT',
+    de: 'de-DE',
+    nl: 'nl-NL',
+    ar: 'ar-SA'
+  };
 
   function ensureAudio() {
     if (!soundEnabled) return null;
@@ -25,13 +49,23 @@
 
   function setSoundEnabled(enabled) {
     soundEnabled = Boolean(enabled);
-    if (!soundEnabled && window.speechSynthesis) {
-      window.speechSynthesis.cancel();
+    if (!soundEnabled) {
+      stopSpeaking();
     }
   }
 
   function isSoundEnabled() {
     return soundEnabled;
+  }
+
+  function setPersona(persona) {
+    if (persona) {
+      currentPersona = String(persona);
+    }
+  }
+
+  function getPersona() {
+    return currentPersona;
   }
 
   function playSound(type) {
@@ -53,7 +87,6 @@
         osc.stop(now + offset + 0.055);
       });
     } else if (type === 'transform' || type === 'burst') {
-      // Dramatic DBZ Aura Power-Up Sweep + Sub-Bass Rumble
       const osc = ctx.createOscillator();
       const sub = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -118,28 +151,202 @@
     }
   }
 
-  function speakText(text) {
-    if (!window.speechSynthesis) return false;
-    window.speechSynthesis.cancel();
-    const clean = String(text || '').replace(/[⚡🔥💡🌟🏆📟🎨🥋🌌⚔️🧬🦸😈✅🔄]/g, '');
-    const utter = new SpeechSynthesisUtterance(clean);
-    utter.rate = 1.02;
-    utter.pitch = 1.05;
-    window.speechSynthesis.speak(utter);
-    return true;
+  function cleanTextForSpeech(rawText) {
+    return String(rawText || '')
+      .replace(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF•⇒→★☆]/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function pickBestBrowserVoice(lang) {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    if (!voices.length) return null;
+
+    const regexMap = {
+      en: /^en(-|_|$)/i,
+      es: /^es(-|_|$)/i,
+      zh: /^(zh|cmn)(-|_|$)/i,
+      yue: /^(yue|zh-HK|zh_HK|zh-MO|zh_MO|zh|cmn)(-|_|$)/i,
+      ja: /^ja(-|_|$)/i,
+      ko: /^ko(-|_|$)/i,
+      pt: /^pt(-|_|$)/i,
+      fr: /^fr(-|_|$)/i,
+      it: /^it(-|_|$)/i,
+      de: /^de(-|_|$)/i,
+      nl: /^nl(-|_|$)/i,
+      ar: /^ar(-|_|$)/i
+    };
+    const langRegex = regexMap[lang] || /^en(-|_|$)/i;
+    const pool = voices.filter((v) => langRegex.test(v.lang));
+    if (!pool.length) return null;
+
+    function scoreVoice(v) {
+      const name = v.name + ' ' + v.voiceURI;
+      if (/eloquence|grandpa|grandma|reed|rocko|sandy|shelley|flo|eddy|bahh|albert|bells|boing|bubbles|cellos|organ|trinoids|whisper|zarvox|\bFred\b/i.test(name)) {
+        return -150;
+      }
+      let s = 0;
+      if (/Chirp|Natural|Online|Neural|Studio|Premium|Enhanced|Siri/i.test(name)) s += 55;
+      if (lang === 'yue' && /^(yue|zh-HK|zh_HK)/i.test(v.lang)) s += 50;
+      if (lang === 'nl' && /Google Nederlands|Xander|Claire|Colette|Fenna|Maarten/i.test(name)) s += 35;
+      if (lang === 'de' && /Google Deutsch|Anna|Petra|Katja|Conrad|Martin/i.test(name)) s += 35;
+      if (lang === 'ar' && /Google العربية|Maged|Tarik|Laila|Mariam|Zariyah|Salma/i.test(name)) s += 35;
+      if (v.localService) s += 12;
+      return s;
+    }
+
+    return pool.slice().sort((a, b) => scoreVoice(b) - scoreVoice(a))[0] || null;
   }
 
   function stopSpeaking() {
-    if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
+    speechToken += 1;
+    if (activeAbortCtrl) {
+      try {
+        activeAbortCtrl.abort();
+      } catch (_e) {}
+      activeAbortCtrl = null;
     }
+    if (activeAudioEl) {
+      try {
+        activeAudioEl.pause();
+        activeAudioEl.src = '';
+      } catch (_e) {}
+      activeAudioEl = null;
+    }
+    if (window.speechSynthesis) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch (_e) {}
+    }
+    if (activeStateCallback) {
+      const cb = activeStateCallback;
+      activeStateCallback = null;
+      cb(false);
+    }
+  }
+
+  function speakBrowserFallback(cleaned, lang, token, onDone) {
+    if (!window.speechSynthesis) {
+      onDone();
+      return;
+    }
+    try {
+      window.speechSynthesis.cancel();
+    } catch (_e) {}
+
+    const utter = new SpeechSynthesisUtterance(cleaned);
+    const voice = pickBestBrowserVoice(lang);
+    utter.lang = (voice && voice.lang) || BCP47_MAP[lang] || 'en-US';
+    if (voice) utter.voice = voice;
+    utter.rate = lang === 'yue' || lang === 'zh' || lang === 'ja' ? 0.96 : 1.0;
+    utter.onend = function () {
+      if (token === speechToken) onDone();
+    };
+    utter.onerror = function () {
+      if (token === speechToken) onDone();
+    };
+    window.speechSynthesis.speak(utter);
+  }
+
+  function speakText(text, lang, onStateChange) {
+    stopSpeaking();
+    if (!soundEnabled) return false;
+
+    const cleaned = cleanTextForSpeech(text);
+    if (!cleaned) return false;
+
+    const token = ++speechToken;
+    const targetLang = lang || 'en';
+    const ttsLang = targetLang === 'zh' ? 'zh-CN' : targetLang === 'yue' ? 'yue-HK' : targetLang;
+
+    if (typeof onStateChange === 'function') {
+      activeStateCallback = onStateChange;
+      onStateChange(true);
+    }
+
+    function finishClean() {
+      if (token !== speechToken) return;
+      activeAudioEl = null;
+      activeAbortCtrl = null;
+      if (activeStateCallback) {
+        const cb = activeStateCallback;
+        activeStateCallback = null;
+        cb(false);
+      }
+    }
+
+    const ctrl = new AbortController();
+    activeAbortCtrl = ctrl;
+
+    fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        text: cleaned,
+        lang: ttsLang,
+        persona: currentPersona,
+        speakingRate: 1.0
+      }),
+      signal: ctrl.signal
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('TTS HTTP ' + res.status);
+        const ct = res.headers.get('Content-Type') || '';
+        if (ct.indexOf('audio') === -1) throw new Error('Invalid TTS Content-Type');
+        return res.blob();
+      })
+      .then((blob) => {
+        if (token !== speechToken) return;
+        if (!blob || blob.size < 128) throw new Error('Empty MP3');
+        const blobUrl = URL.createObjectURL(blob);
+        const audio = new Audio(blobUrl);
+        activeAudioEl = audio;
+
+        function cleanupUrl() {
+          try {
+            URL.revokeObjectURL(blobUrl);
+          } catch (_e) {}
+        }
+
+        audio.onended = function () {
+          cleanupUrl();
+          finishClean();
+        };
+        audio.onerror = function () {
+          cleanupUrl();
+          if (token === speechToken) {
+            speakBrowserFallback(cleaned, targetLang, token, finishClean);
+          }
+        };
+        audio.play().catch(function () {
+          cleanupUrl();
+          if (token === speechToken) {
+            speakBrowserFallback(cleaned, targetLang, token, finishClean);
+          }
+        });
+      })
+      .catch((err) => {
+        if (err && err.name === 'AbortError') return;
+        if (token !== speechToken) return;
+        speakBrowserFallback(cleaned, targetLang, token, finishClean);
+      });
+
+    return true;
+  }
+
+  function isSpeaking() {
+    return Boolean(activeStateCallback);
   }
 
   window.DB_AUDIO = {
     playSound,
     speakText,
     stopSpeaking,
+    isSpeaking,
     setSoundEnabled,
-    isSoundEnabled
+    isSoundEnabled,
+    setPersona,
+    getPersona
   };
 })();

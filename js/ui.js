@@ -1,5 +1,6 @@
 /* ==========================================================================
-   DRAGON BALL 3D PORTAL — KID-FRIENDLY UI, FUSION LAB, BEAM GAME & QUIZ
+   DRAGON BALL 3D PORTAL — MULTILINGUAL + CHIRP 3 HD UI CONTROLLER
+   Supports all 12 Languages (en, es, zh, yue, ja, ko, pt, fr, it, de, nl, ar)
    Security Note: Strictly uses document.createElement() and textContent for
    all DOM rendering (zero innerHTML / outerHTML / insertAdjacentHTML).
    ========================================================================== */
@@ -7,12 +8,15 @@
 (function () {
   'use strict';
 
-  const DATA = window.DB_PORTAL_DATA;
+  const BASE_DATA = window.DB_PORTAL_DATA;
+  const I18N = window.DB_I18N;
   const AUDIO = window.DB_AUDIO;
   const RENDERER = window.DB_RENDERER_3D;
 
-  function findFighterById(id) {
-    return DATA.fighters.find((f) => f.id === id) || DATA.fighters[0];
+  let activeData = BASE_DATA;
+
+  function findFighterById(dataObj, id) {
+    return dataObj.fighters.find((f) => f.id === id) || dataObj.fighters[0];
   }
 
   function shuffleArray(items) {
@@ -26,43 +30,54 @@
     return arr;
   }
 
-  // Central Portal State shared with DB_RENDERER_3D
+  const initialLang = I18N.detectInitialLanguage();
+
   const state = {
-    activeMode: 'fighters', // 'fighters' | 'hair-guide' | 'fusion-lab' | 'timeline' | 'battle-quiz'
-    selectedArena: DATA.arenas[0],
+    lang: initialLang,
+    activeMode: 'fighters',
+    selectedArenaId: BASE_DATA.arenas[0].id,
+    selectedArena: BASE_DATA.arenas[0],
     selectedRoleFilter: 'all',
     rosterSearchQuery: '',
-    selectedFighter: DATA.fighters[0], // Son Goku
+    selectedFighterId: 'goku',
+    selectedFighter: BASE_DATA.fighters[0],
     selectedFighterFormIndex: 0,
-    activeFighterForm: DATA.fighters[0].forms[0],
-    selectedHairForm: DATA.hairForms[5], // Super Saiyan God (Red) highlighted initially in Hair tab!
-    selectedFusionRecipe: DATA.fusionRecipes[0],
-    fusionSpriteA: DATA.fighters[0].spriteUrl,
-    fusionSpriteB: DATA.fighters[1].spriteUrl,
+    activeFighterForm: BASE_DATA.fighters[0].forms[0],
+    selectedHairFormId: 'ssg-red',
+    selectedHairForm: BASE_DATA.hairForms[5],
+    selectedFusionRecipeId: BASE_DATA.fusionRecipes[0].id,
+    selectedFusionRecipe: BASE_DATA.fusionRecipes[0],
+    fusionSpriteA: BASE_DATA.fighters[0].spriteUrl,
+    fusionSpriteB: BASE_DATA.fighters[1].spriteUrl,
     fusionAnimTimer: 0,
     selectedEraFilter: 'ALL',
-    selectedSaga: DATA.timelineSagas[8], // Battle of Gods (Super Saiyan God vs. Beerus)
-    battleFighterA: findFighterById('goku'),
-    battleFormIndexA: 5, // Super Saiyan God (Red)
-    battleFormA: findFighterById('goku').forms[5] || findFighterById('goku').forms[0],
-    battleFighterB: findFighterById('beerus'),
+    selectedSagaId: 'dbs-gods-frieza',
+    selectedSaga: BASE_DATA.timelineSagas[8],
+    battleFighterIdA: 'goku',
+    battleFighterA: findFighterById(BASE_DATA, 'goku'),
+    battleFormIndexA: 5,
+    battleFormA: findFighterById(BASE_DATA, 'goku').forms[5] || findFighterById(BASE_DATA, 'goku').forms[0],
+    battleFighterIdB: 'beerus',
+    battleFighterB: findFighterById(BASE_DATA, 'beerus'),
     battleFormIndexB: 0,
-    battleFormB: findFighterById('beerus').forms[0],
+    battleFormB: findFighterById(BASE_DATA, 'beerus').forms[0],
     beamGame: {
       active: false,
-      position: 0.5, // 0.0 (Fighter B wins) -> 0.5 (Center) -> 1.0 (Fighter A wins)
+      position: 0.5,
       intervalId: null,
-      winnerText: ''
+      winnerSide: null // 'player' | 'rival' | null
     },
     scouterActive: false,
     powerBurstTimer: 45,
     hasLightningActive: false,
-    quizDeck: [],
+    quizOrder: [], // shuffled indices into activeData.quizQuestions
+    quizOptionPermutations: [], // per-question shuffled indices [0..3]
     quizIndex: 0,
     quizScore: 0,
     dragonBallsCollected: 0,
     shenronSummonedOnce: false,
     quizAnswered: false,
+    lastQuizSelectedPermIdx: -1,
     camera: {
       rotY: 0.16,
       rotX: 0.08,
@@ -73,7 +88,10 @@
     }
   };
 
-  // Safe DOM factory helper (strictly textContent + safe attributes)
+  function tr(key, vars) {
+    return I18N.t(state.lang, key, vars);
+  }
+
   function createEl(tag, className, text) {
     const el = document.createElement(tag);
     if (className) el.className = className;
@@ -84,16 +102,25 @@
   }
 
   function makeReadAloudButton(getSpeechString) {
-    const btn = createEl('button', 'btn-read-aloud', '🔊 Read Aloud');
+    const btn = createEl('button', 'btn-read-aloud', tr('readAloud'));
     btn.type = 'button';
+    let isThisButtonSpeaking = false;
+
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      AUDIO.speakText(getSpeechString());
+      if (isThisButtonSpeaking) {
+        AUDIO.stopSpeaking();
+        return;
+      }
+      AUDIO.speakText(getSpeechString(), state.lang, (speakingNow) => {
+        isThisButtonSpeaking = speakingNow;
+        btn.classList.toggle('speaking', speakingNow);
+        btn.textContent = speakingNow ? tr('stopReading') : tr('readAloud');
+      });
     });
     return btn;
   }
 
-  // Animated Scouter Number Roll Effect
   let powerRollInterval = null;
   function animatePowerReadout(finalPowerText) {
     const stageEl = document.getElementById('stage-power-number');
@@ -132,6 +159,90 @@
     };
   }
 
+  function syncReferencesAfterLanguageLoad() {
+    state.selectedArena =
+      activeData.arenas.find((a) => a.id === state.selectedArenaId) || activeData.arenas[0];
+    state.selectedFighter = findFighterById(activeData, state.selectedFighterId);
+    state.activeFighterForm = getActiveFighterForm(
+      state.selectedFighter,
+      state.selectedFighterFormIndex
+    );
+    state.selectedHairForm =
+      activeData.hairForms.find((h) => h.id === state.selectedHairFormId) || activeData.hairForms[0];
+    state.selectedFusionRecipe =
+      activeData.fusionRecipes.find((r) => r.id === state.selectedFusionRecipeId) ||
+      activeData.fusionRecipes[0];
+    state.selectedSaga =
+      activeData.timelineSagas.find((s) => s.id === state.selectedSagaId) ||
+      activeData.timelineSagas[0];
+    state.battleFighterA = findFighterById(activeData, state.battleFighterIdA);
+    state.battleFighterB = findFighterById(activeData, state.battleFighterIdB);
+    state.battleFormA = getActiveFighterForm(state.battleFighterA, state.battleFormIndexA);
+    state.battleFormB = getActiveFighterForm(state.battleFighterB, state.battleFormIndexB);
+  }
+
+  function renderStaticShellStrings() {
+    document.documentElement.lang = state.lang === 'yue' ? 'yue-Hant-HK' : state.lang;
+    document.documentElement.dir = I18N.getLanguageDir(state.lang);
+
+    document.getElementById('ui-brand-title').textContent = tr('brandTitle');
+    document.getElementById('ui-brand-sub').textContent = tr('brandSub');
+
+    document.getElementById('tab-btn-fighters').textContent = tr('tabFighters');
+    document.getElementById('tab-btn-hair').textContent = tr('tabHair');
+    document.getElementById('tab-btn-fusion').textContent = tr('tabFusion');
+    document.getElementById('tab-btn-timeline').textContent = tr('tabTimeline');
+    document.getElementById('tab-btn-battle').textContent = tr('tabBattleQuiz');
+
+    document.getElementById('ui-scouter-prefix').textContent = tr('scouterLabel');
+    document.getElementById('scouter-state-label').textContent = state.scouterActive ? tr('on') : tr('off');
+
+    document.getElementById('ui-sound-prefix').textContent = tr('soundLabel');
+    document.getElementById('sound-state-label').textContent = AUDIO.isSoundEnabled() ? tr('on') : tr('off');
+
+    document.getElementById('ui-power-level-label').textContent = tr('powerLevelLabel');
+    document.getElementById('power-up-burst-btn').textContent = tr('powerUpBtn');
+
+    document.getElementById('roster-search-input').placeholder = tr('searchPlaceholder');
+
+    document.getElementById('ui-hair-intro-title').textContent = tr('hairIntroTitle');
+    document.getElementById('ui-hair-intro-sub').textContent = tr('hairIntroSub');
+
+    document.getElementById('ui-fusion-intro-title').textContent = tr('fusionIntroTitle');
+    document.getElementById('ui-fusion-intro-sub').textContent = tr('fusionIntroSub');
+    document.getElementById('ui-fusion-select-heading').textContent = tr('fusionSelectHeading');
+
+    document.getElementById('ui-timeline-intro-title').textContent = tr('timelineIntroTitle');
+    document.getElementById('ui-timeline-intro-sub').textContent = tr('timelineIntroSub');
+
+    document.getElementById('ui-battle-title').textContent = tr('battleTitle');
+    document.getElementById('ui-battle-sub').textContent = tr('battleSub');
+    document.getElementById('ui-player1-label').textContent = tr('player1Label');
+    document.getElementById('ui-form1-label').textContent = tr('form1Label');
+    document.getElementById('ui-rival2-label').textContent = tr('rival2Label');
+    document.getElementById('ui-form2-label').textContent = tr('form2Label');
+    document.getElementById('run-battle-btn').textContent = tr('startBeamBtn');
+
+    document.getElementById('ui-quiz-title').textContent = tr('quizTitle');
+    document.getElementById('ui-quiz-sub').textContent = tr('quizSub');
+
+    document.getElementById('shenron-title').textContent = tr('shenronTitle');
+    document.getElementById('shenron-speech').textContent = tr('shenronSpeech');
+    document.getElementById('wish-ui-goku-btn').textContent = tr('wish1Btn');
+    document.getElementById('wish-gogeta-btn').textContent = tr('wish2Btn');
+    document.getElementById('close-shenron-btn').textContent = tr('wishCloseBtn');
+
+    // Arena dropdown options
+    const arenaSelect = document.getElementById('arena-select');
+    arenaSelect.replaceChildren();
+    activeData.arenas.forEach((arena) => {
+      const opt = createEl('option', '', arena.name);
+      opt.value = arena.id;
+      if (arena.id === state.selectedArenaId) opt.selected = true;
+      arenaSelect.appendChild(opt);
+    });
+  }
+
   // ==========================================================================
   // STAGE HEADER & BOTTOM TRANSFORMATION DOCK SYNC
   // ==========================================================================
@@ -167,8 +278,8 @@
       dockContainer.classList.remove('hidden');
       dockLabel.textContent =
         fighter.forms && fighter.forms.length > 1
-          ? 'CLICK TO TRANSFORM ' + fighter.name.toUpperCase() + ' (' + fighter.forms.length + ' FORMS):'
-          : 'CHARACTER FORM:';
+          ? tr('clickToTransform', { name: fighter.name.toUpperCase(), count: fighter.forms.length })
+          : tr('characterForm');
 
       (fighter.forms || [activeForm]).forEach((formItem, idx) => {
         const btn = createEl('button', 'stage-form-btn');
@@ -177,10 +288,9 @@
 
         const dot = createEl('span', 'form-dot');
         dot.style.backgroundColor = formItem.auraHex || fighter.auraColor;
-        const lbl = createEl('span', '', formItem.label);
-
         btn.appendChild(dot);
-        btn.appendChild(lbl);
+        btn.appendChild(createEl('span', '', formItem.label));
+
         btn.addEventListener('click', () => {
           state.selectedFighterFormIndex = idx;
           state.powerBurstTimer = 65;
@@ -200,9 +310,9 @@
       hudForm.textContent = hf.shortLabel.toUpperCase();
 
       dockContainer.classList.remove('hidden');
-      dockLabel.textContent = 'QUICK-SWITCH SAIYAN HAIR COLORS (12 FORMS):';
+      dockLabel.textContent = tr('quickSwitchHair');
 
-      DATA.hairForms.forEach((formItem) => {
+      activeData.hairForms.forEach((formItem) => {
         const btn = createEl('button', 'stage-form-btn');
         btn.type = 'button';
         if (formItem.id === hf.id) btn.classList.add('active');
@@ -213,6 +323,7 @@
         btn.appendChild(createEl('span', '', formItem.shortLabel));
 
         btn.addEventListener('click', () => {
+          state.selectedHairFormId = formItem.id;
           state.selectedHairForm = formItem;
           state.powerBurstTimer = 65;
           AUDIO.playSound('transform');
@@ -228,12 +339,12 @@
       targetPowerStr = rec.power;
 
       hudName.textContent = rec.resultName.toUpperCase();
-      hudForm.textContent = 'FUSED WARRIOR';
+      hudForm.textContent = rec.methodName;
 
       dockContainer.classList.remove('hidden');
-      dockLabel.textContent = 'CHOOSE A FUSION RECIPE TO LAUNCH IN 3D:';
+      dockLabel.textContent = tr('chooseFusionRecipe');
 
-      DATA.fusionRecipes.forEach((recipe) => {
+      activeData.fusionRecipes.forEach((recipe) => {
         const btn = createEl('button', 'stage-form-btn');
         btn.type = 'button';
         if (recipe.id === rec.id) btn.classList.add('active');
@@ -241,7 +352,7 @@
         const dot = createEl('span', 'form-dot');
         dot.style.backgroundColor = recipe.auraHex;
         btn.appendChild(dot);
-        btn.appendChild(createEl('span', '', recipe.resultName.replace('!', '')));
+        btn.appendChild(createEl('span', '', recipe.resultName.replace(/[!！]/g, '')));
 
         btn.addEventListener('click', () => {
           triggerFusionSequence(recipe);
@@ -258,14 +369,14 @@
       hudForm.textContent = saga.era;
       dockContainer.classList.add('hidden');
     } else if (state.activeMode === 'battle-quiz') {
-      eraBadge.textContent = 'LIVE 3D FORM-VS-FORM BEAM STRUGGLE';
+      eraBadge.textContent = tr('liveBeamStage');
       charName.textContent = state.battleFormA.label + ' VS ' + state.battleFormB.label;
       targetPowerStr = state.beamGame.active
-        ? 'MASH SPACEBAR OR CLICK PUSH!'
+        ? tr('mashOrClickStage')
         : state.battleFormA.power + ' vs ' + state.battleFormB.power;
 
       hudName.textContent = state.battleFighterA.name.toUpperCase() + ' VS ' + state.battleFighterB.name.toUpperCase();
-      hudForm.textContent = 'BEAM CLASH';
+      hudForm.textContent = '1V1';
       dockContainer.classList.add('hidden');
     }
 
@@ -278,7 +389,7 @@
   }
 
   // ==========================================================================
-  // VIEW 1: CHARACTERS & TRANSFORMATIONS (25 Fighters + Search + Voice)
+  // VIEW 1: CHARACTERS & TRANSFORMATIONS
   // ==========================================================================
   function renderActiveFighterStory() {
     const card = document.getElementById('active-fighter-story');
@@ -304,7 +415,7 @@
     actionsWrap.appendChild(createEl('span', 'gold-badge', '⚡ ' + activeForm.label + ': ' + activeForm.power));
     actionsWrap.appendChild(
       makeReadAloudButton(() =>
-        fighter.name + '. Current transformation: ' + activeForm.label + ', power level ' + activeForm.power + '. ' + fighter.kidBio + ' Signature moves: ' + fighter.signatureMove
+        fighter.name + '. ' + activeForm.label + ', ' + activeForm.power + '. ' + fighter.kidBio + '. ' + tr('signatureMoves') + fighter.signatureMove
       )
     );
     titleRow.appendChild(actionsWrap);
@@ -313,20 +424,14 @@
     subMeta.style.fontWeight = '700';
     subMeta.style.marginBottom = '0.35rem';
 
-    const bioP = createEl('p', 'story-text', fighter.kidBio);
-
     infoCol.appendChild(titleRow);
     infoCol.appendChild(subMeta);
-    infoCol.appendChild(bioP);
+    infoCol.appendChild(createEl('p', 'story-text', fighter.kidBio));
 
     banner.appendChild(portraitBox);
     banner.appendChild(infoCol);
 
-    const movesBox = createEl(
-      'div',
-      'moves-callout',
-      '🔥 Signature Moves: ' + fighter.signatureMove
-    );
+    const movesBox = createEl('div', 'moves-callout', tr('signatureMoves') + fighter.signatureMove);
 
     card.appendChild(banner);
     card.appendChild(movesBox);
@@ -338,13 +443,14 @@
     grid.replaceChildren();
 
     const q = state.rosterSearchQuery.trim().toLowerCase();
-    const filtered = DATA.fighters.filter((f) => {
+    const filtered = activeData.fighters.filter((f) => {
       const roleMatch = state.selectedRoleFilter === 'all' || f.alignment === state.selectedRoleFilter;
       if (!roleMatch) return false;
       if (!q) return true;
       const inForms = (f.forms || []).some((sf) => sf.label.toLowerCase().indexOf(q) !== -1);
       return (
         f.name.toLowerCase().indexOf(q) !== -1 ||
+        f.id.toLowerCase().indexOf(q) !== -1 ||
         f.series.toLowerCase().indexOf(q) !== -1 ||
         f.race.toLowerCase().indexOf(q) !== -1 ||
         f.signatureMove.toLowerCase().indexOf(q) !== -1 ||
@@ -353,20 +459,18 @@
     });
 
     if (countHeading) {
-      countHeading.textContent = 'Choose Any Character (' + filtered.length + ' Fighters)';
+      countHeading.textContent = tr('chooseCharacterHeading', { count: filtered.length });
     }
 
     if (filtered.length === 0) {
-      grid.appendChild(
-        createEl('p', 'story-text', 'No fighters matched "' + state.rosterSearchQuery + '". Try searching "Goku", "God", "Freezer", or "Fusion"!')
-      );
+      grid.appendChild(createEl('p', 'story-text', tr('noSearchMatch', { query: state.rosterSearchQuery })));
       return;
     }
 
     filtered.forEach((fighter) => {
       const tile = createEl('button', 'char-tile-btn');
       tile.type = 'button';
-      if (fighter.id === state.selectedFighter.id) {
+      if (fighter.id === state.selectedFighterId) {
         tile.classList.add('active');
       }
 
@@ -382,7 +486,7 @@
       const subEl = createEl(
         'div',
         'char-tile-sub',
-        formCount > 1 ? formCount + ' Transformations' : fighter.series
+        formCount > 1 ? tr('transformationsCount', { count: formCount }) : fighter.series
       );
 
       tile.appendChild(imgWrap);
@@ -390,6 +494,8 @@
       tile.appendChild(subEl);
 
       tile.addEventListener('click', () => {
+        AUDIO.stopSpeaking();
+        state.selectedFighterId = fighter.id;
         state.selectedFighter = fighter;
         state.selectedFighterFormIndex = 0;
         state.powerBurstTimer = 55;
@@ -410,10 +516,10 @@
     filterRow.replaceChildren();
 
     const roles = [
-      { id: 'all', label: 'All (' + DATA.fighters.length + ')' },
-      { id: 'hero', label: '🦸 Heroes & Fusions' },
-      { id: 'villain', label: '😈 Villains & Rivals' },
-      { id: 'deity', label: '👑 Gods & Angels' }
+      { id: 'all', label: tr('roleAll', { count: activeData.fighters.length }) },
+      { id: 'hero', label: tr('roleHero') },
+      { id: 'villain', label: tr('roleVillain') },
+      { id: 'deity', label: tr('roleDeity') }
     ];
 
     roles.forEach((role) => {
@@ -432,7 +538,7 @@
   }
 
   // ==========================================================================
-  // VIEW 2: WHAT EVERY HAIR COLOR MEANS (12 Hair Colors + Voice Narrator)
+  // VIEW 2: HAIR COLOR GUIDE
   // ==========================================================================
   function renderHairGuideView() {
     const detail = document.getElementById('hair-selected-detail');
@@ -458,7 +564,7 @@
     actionsWrap.appendChild(createEl('span', 'gold-badge', hf.multiplier));
     actionsWrap.appendChild(
       makeReadAloudButton(() =>
-        hf.name + '. Multiplier: ' + hf.multiplier + '. ' + hf.meaningForKids + ' Fun fact: ' + hf.funFact
+        hf.name + '. ' + hf.multiplier + '. ' + hf.meaningForKids + '. ' + tr('funFactLabel') + hf.funFact
       )
     );
     titleRow.appendChild(actionsWrap);
@@ -471,13 +577,13 @@
     const howBox = createEl(
       'div',
       'moves-callout',
-      '💡 How It Is Unlocked: ' + hf.howUnlocked + ' • 🌟 Fun Fact: ' + hf.funFact
+      tr('howUnlockedLabel') + hf.howUnlocked + ' • ' + tr('funFactLabel') + hf.funFact
     );
 
     detail.appendChild(banner);
     detail.appendChild(howBox);
 
-    DATA.hairForms.forEach((item) => {
+    activeData.hairForms.forEach((item) => {
       const btn = createEl('button', 'hair-card-btn');
       btn.type = 'button';
       if (item.id === hf.id) btn.classList.add('active');
@@ -496,6 +602,8 @@
       btn.appendChild(meta);
 
       btn.addEventListener('click', () => {
+        AUDIO.stopSpeaking();
+        state.selectedHairFormId = item.id;
         state.selectedHairForm = item;
         state.powerBurstTimer = 65;
         AUDIO.playSound('transform');
@@ -508,15 +616,17 @@
   }
 
   // ==========================================================================
-  // VIEW 3: INTERACTIVE FUSION LAB (Potara Earrings vs. Fusion Dance!)
+  // VIEW 3: INTERACTIVE FUSION LAB
   // ==========================================================================
   function triggerFusionSequence(recipe) {
+    AUDIO.stopSpeaking();
+    state.selectedFusionRecipeId = recipe.id;
     state.selectedFusionRecipe = recipe;
-    const fA = findFighterById(recipe.warriorA);
-    const fB = findFighterById(recipe.warriorB);
+    const fA = findFighterById(activeData, recipe.warriorA);
+    const fB = findFighterById(activeData, recipe.warriorB);
     state.fusionSpriteA = fA.spriteUrl;
     state.fusionSpriteB = fB.spriteUrl;
-    state.fusionAnimTimer = 80; // ~1.3s 3D convergence + flash in stage!
+    state.fusionAnimTimer = 80;
     state.powerBurstTimer = 85;
     AUDIO.playSound('fusion');
     renderFusionLabView();
@@ -530,10 +640,9 @@
     recipeGrid.replaceChildren();
 
     const rec = state.selectedFusionRecipe;
-    const fA = findFighterById(rec.warriorA);
-    const fB = findFighterById(rec.warriorB);
+    const fA = findFighterById(activeData, rec.warriorA);
+    const fB = findFighterById(activeData, rec.warriorB);
 
-    // Visual Formula Row: Fighter A + Fighter B = Fused Warrior!
     const formulaRow = createEl('div', 'fusion-formula-row');
 
     const boxA = createEl('div', 'fusion-fighter-pill');
@@ -541,7 +650,7 @@
     imgA.src = fA.spriteUrl;
     imgA.alt = fA.name;
     boxA.appendChild(imgA);
-    boxA.appendChild(createEl('span', '', fA.name.split(' ')[0]));
+    boxA.appendChild(createEl('span', '', fA.name.split('(')[0].trim()));
 
     const plusSign = createEl('div', 'vs-circle', '+');
 
@@ -550,7 +659,9 @@
     imgB.src = fB.spriteUrl;
     imgB.alt = fB.name;
     boxB.appendChild(imgB);
-    boxB.appendChild(createEl('span', '', rec.warriorA === rec.warriorB ? 'Kami + Shenron' : fB.name.split(' ')[0]));
+    boxB.appendChild(
+      createEl('span', '', rec.warriorA === rec.warriorB ? tr('kamiShenron') : fB.name.split('(')[0].trim())
+    );
 
     const eqSign = createEl('div', 'vs-circle', '⇒');
 
@@ -573,11 +684,11 @@
     const actionsWrap = createEl('div', 'card-inline-actions');
     actionsWrap.appendChild(createEl('span', 'gold-badge', '⚡ ' + rec.power));
     actionsWrap.appendChild(
-      makeReadAloudButton(() => rec.methodName + '. ' + rec.resultName + '. Power level: ' + rec.power + '. ' + rec.story)
+      makeReadAloudButton(() => rec.methodName + '. ' + rec.resultName + '. ' + rec.power + '. ' + rec.story)
     );
     headerRow.appendChild(actionsWrap);
 
-    const fuseBtn = createEl('button', 'btn-power-up full-btn', '✨ REPLAY 3D FUSION SEQUENCE! ("FUUU-SION... HA!")');
+    const fuseBtn = createEl('button', 'btn-power-up full-btn', tr('replayFusionBtn'));
     fuseBtn.type = 'button';
     fuseBtn.addEventListener('click', () => triggerFusionSequence(rec));
 
@@ -586,7 +697,7 @@
     activeCard.appendChild(createEl('p', 'story-text', rec.story));
     activeCard.appendChild(fuseBtn);
 
-    DATA.fusionRecipes.forEach((item) => {
+    activeData.fusionRecipes.forEach((item) => {
       const btn = createEl('button', 'saga-row-btn');
       btn.type = 'button';
       if (item.id === rec.id) btn.classList.add('active');
@@ -612,7 +723,7 @@
   }
 
   // ==========================================================================
-  // VIEW 4: STORY TIMELINE (DB -> DBZ -> DBGT -> DBS)
+  // VIEW 4: STORY TIMELINE
   // ==========================================================================
   function renderTimelineView() {
     const tabsRow = document.getElementById('era-filter-tabs');
@@ -624,11 +735,11 @@
     list.replaceChildren();
 
     const eras = [
-      { id: 'ALL', label: 'All 4 Series' },
-      { id: 'DB', label: '🟠 Dragon Ball (Kid Goku)' },
-      { id: 'DBZ', label: '⚡ Dragon Ball Z' },
-      { id: 'DBGT', label: '🐉 Dragon Ball GT' },
-      { id: 'DBS', label: '💠 Dragon Ball Super' }
+      { id: 'ALL', label: tr('eraAll') },
+      { id: 'DB', label: tr('eraDB') },
+      { id: 'DBZ', label: tr('eraDBZ') },
+      { id: 'DBGT', label: tr('eraDBGT') },
+      { id: 'DBS', label: tr('eraDBS') }
     ];
 
     eras.forEach((era) => {
@@ -638,9 +749,10 @@
       btn.addEventListener('click', () => {
         state.selectedEraFilter = era.id;
         const matching = era.id === 'ALL'
-          ? DATA.timelineSagas
-          : DATA.timelineSagas.filter((s) => s.era === era.id);
-        if (matching.length > 0 && matching.indexOf(state.selectedSaga) === -1) {
+          ? activeData.timelineSagas
+          : activeData.timelineSagas.filter((s) => s.era === era.id);
+        if (matching.length > 0 && !matching.some((s) => s.id === state.selectedSagaId)) {
+          state.selectedSagaId = matching[0].id;
           state.selectedSaga = matching[0];
         }
         AUDIO.playSound('scouter');
@@ -667,7 +779,7 @@
     actionsWrap.appendChild(createEl('span', 'gold-badge', saga.eraFullName + ' (' + saga.years + ')'));
     actionsWrap.appendChild(
       makeReadAloudButton(() =>
-        saga.eraFullName + ': ' + saga.title + '. Heroes: ' + saga.mainHero + '. Enemies: ' + saga.mainEnemy + '. ' + saga.keyEvents + ' Kid lesson: ' + saga.kidLesson
+        saga.eraFullName + '. ' + saga.title + '. ' + saga.keyEvents + '. ' + tr('lessonLabel') + saga.kidLesson
       )
     );
     tRow.appendChild(actionsWrap);
@@ -680,15 +792,15 @@
     const enemyCallout = createEl(
       'div',
       'moves-callout',
-      '😈 Main Villains: ' + saga.mainEnemy + ' • ⚡ Unlocked: ' + saga.hairOrFormUnlocked + ' • 💡 Lesson: ' + saga.kidLesson
+      tr('mainVillainsLabel') + saga.mainEnemy + ' • ' + tr('unlockedLabel') + saga.hairOrFormUnlocked + ' • ' + tr('lessonLabel') + saga.kidLesson
     );
 
     detail.appendChild(banner);
     detail.appendChild(enemyCallout);
 
     const filteredSagas = state.selectedEraFilter === 'ALL'
-      ? DATA.timelineSagas
-      : DATA.timelineSagas.filter((s) => s.era === state.selectedEraFilter);
+      ? activeData.timelineSagas
+      : activeData.timelineSagas.filter((s) => s.era === state.selectedEraFilter);
 
     filteredSagas.forEach((item) => {
       const row = createEl('button', 'saga-row-btn');
@@ -702,7 +814,7 @@
 
       const mid = createEl('div');
       mid.appendChild(createEl('strong', '', item.title));
-      mid.appendChild(createEl('p', 'muted-sub', 'Villain: ' + item.mainEnemy));
+      mid.appendChild(createEl('p', 'muted-sub', tr('villainShort') + item.mainEnemy));
 
       const tag = createEl('span', 'gold-badge', item.era);
 
@@ -711,6 +823,8 @@
       row.appendChild(tag);
 
       row.addEventListener('click', () => {
+        AUDIO.stopSpeaking();
+        state.selectedSagaId = item.id;
         state.selectedSaga = item;
         state.powerBurstTimer = 45;
         AUDIO.playSound('scouter');
@@ -723,7 +837,7 @@
   }
 
   // ==========================================================================
-  // VIEW 5A: FORM-VS-FORM PLAYABLE 1V1 BEAM STRUGGLE MINI-GAME
+  // VIEW 5A: FORM-VS-FORM PLAYABLE 1V1 BEAM STRUGGLE
   // ==========================================================================
   function stopBeamGameLoop() {
     if (state.beamGame.intervalId) {
@@ -746,42 +860,36 @@
     });
   }
 
-  function syncBattleFormsFromSelects() {
+  function refreshBattleSelectOptions() {
+    const selFighterA = document.getElementById('sim-fighter-a');
+    const selFormA = document.getElementById('sim-form-a');
+    const selFighterB = document.getElementById('sim-fighter-b');
+    const selFormB = document.getElementById('sim-form-b');
+
+    selFighterA.replaceChildren();
+    selFighterB.replaceChildren();
+
+    activeData.fighters.forEach((f) => {
+      const optA = createEl('option', '', f.name);
+      optA.value = f.id;
+      if (f.id === state.battleFighterIdA) optA.selected = true;
+      selFighterA.appendChild(optA);
+
+      const optB = createEl('option', '', f.name);
+      optB.value = f.id;
+      if (f.id === state.battleFighterIdB) optB.selected = true;
+      selFighterB.appendChild(optB);
+    });
+
+    populateFormSelect(selFormA, state.battleFighterA, state.battleFormIndexA);
+    populateFormSelect(selFormB, state.battleFighterB, state.battleFormIndexB);
+  }
+
+  function syncBattleFormsFromState() {
+    state.battleFighterA = findFighterById(activeData, state.battleFighterIdA);
+    state.battleFighterB = findFighterById(activeData, state.battleFighterIdB);
     state.battleFormA = getActiveFighterForm(state.battleFighterA, state.battleFormIndexA);
     state.battleFormB = getActiveFighterForm(state.battleFighterB, state.battleFormIndexB);
-  }
-
-  function pushBeamForPlayer() {
-    if (!state.beamGame.active) return;
-    const scoreA = state.battleFormA.powerScore || 70;
-    const scoreB = state.battleFormB.powerScore || 70;
-    // Give player responsive boost even in underdog matchups!
-    const diffBonus = Math.max(-0.022, Math.min(0.03, (scoreA - scoreB) * 0.0008));
-    state.beamGame.position = Math.min(0.98, state.beamGame.position + 0.068 + diffBonus);
-    state.powerBurstTimer = 20;
-    AUDIO.playSound('clash_hit');
-    updateBeamMeterDOM();
-    checkBeamWinner();
-  }
-
-  function checkBeamWinner() {
-    if (state.beamGame.position >= 0.92) {
-      stopBeamGameLoop();
-      state.powerBurstTimer = 90;
-      AUDIO.playSound('fusion');
-      state.beamGame.winnerText =
-        '🏆 PLAYER VICTORY! ' + state.battleFighterA.name + ' (' + state.battleFormA.label + ') overwhelmed ' + state.battleFighterB.name + ' (' + state.battleFormB.label + ') in the 3D Beam Struggle!';
-      renderBattleOutcomeBox();
-      syncStageUI(false);
-    } else if (state.beamGame.position <= 0.08) {
-      stopBeamGameLoop();
-      state.powerBurstTimer = 90;
-      AUDIO.playSound('burst');
-      state.beamGame.winnerText =
-        '💥 RIVAL VICTORY! ' + state.battleFighterB.name + ' (' + state.battleFormB.label + ') pushed the beam all the way back! Click START to rematch or power up Fighter 1\'s form!';
-      renderBattleOutcomeBox();
-      syncStageUI(false);
-    }
   }
 
   function updateBeamMeterDOM() {
@@ -793,12 +901,42 @@
     }
   }
 
+  function checkBeamWinner() {
+    if (state.beamGame.position >= 0.92) {
+      stopBeamGameLoop();
+      state.powerBurstTimer = 90;
+      AUDIO.playSound('fusion');
+      state.beamGame.winnerSide = 'player';
+      renderBattleOutcomeBox();
+      syncStageUI(false);
+    } else if (state.beamGame.position <= 0.08) {
+      stopBeamGameLoop();
+      state.powerBurstTimer = 90;
+      AUDIO.playSound('burst');
+      state.beamGame.winnerSide = 'rival';
+      renderBattleOutcomeBox();
+      syncStageUI(false);
+    }
+  }
+
+  function pushBeamForPlayer() {
+    if (!state.beamGame.active) return;
+    const scoreA = state.battleFormA.powerScore || 70;
+    const scoreB = state.battleFormB.powerScore || 70;
+    const diffBonus = Math.max(-0.022, Math.min(0.03, (scoreA - scoreB) * 0.0008));
+    state.beamGame.position = Math.min(0.98, state.beamGame.position + 0.068 + diffBonus);
+    state.powerBurstTimer = 20;
+    AUDIO.playSound('clash_hit');
+    updateBeamMeterDOM();
+    checkBeamWinner();
+  }
+
   function startInteractiveBeamStruggle() {
     stopBeamGameLoop();
-    syncBattleFormsFromSelects();
+    syncBattleFormsFromState();
     state.beamGame.active = true;
     state.beamGame.position = 0.5;
-    state.beamGame.winnerText = '';
+    state.beamGame.winnerSide = null;
     state.powerBurstTimer = 60;
     AUDIO.playSound('burst');
     renderBattleOutcomeBox();
@@ -806,7 +944,6 @@
 
     const scoreA = state.battleFormA.powerScore || 70;
     const scoreB = state.battleFormB.powerScore || 70;
-    // AI opponent pushes steadily every 65ms scaled by its form's powerScore
     const aiPushPerTick = Math.max(0.011, Math.min(0.032, 0.019 + (scoreB - scoreA) * 0.00035));
 
     state.beamGame.intervalId = window.setInterval(() => {
@@ -831,7 +968,11 @@
     imgA.src = formA.spriteUrl;
     imgA.alt = formA.label;
 
-    const vsTag = createEl('strong', 'gold-badge', state.beamGame.active ? '⚡ LIVE TUG-OF-WAR!' : '⚡ POWER READOUT');
+    const vsTag = createEl(
+      'strong',
+      'gold-badge',
+      state.beamGame.active ? tr('liveTugBadge') : tr('powerReadoutBadge')
+    );
 
     const imgB = createEl('img', 'battle-mini-img');
     imgB.src = formB.spriteUrl;
@@ -842,7 +983,6 @@
     portraits.appendChild(imgB);
     out.appendChild(portraits);
 
-    // Tug-of-War Progress Bar + Mash Button
     const meterTrack = createEl('div', 'beam-tug-track');
     meterTrack.style.backgroundColor = formB.auraHex || '#ef4444';
     const meterFill = createEl('div', 'beam-tug-fill');
@@ -853,48 +993,55 @@
     out.appendChild(meterTrack);
 
     if (state.beamGame.active) {
-      const pushBtn = createEl(
-        'button',
-        'btn-mash-beam',
-        '⚡ TAP FAST OR MASH SPACEBAR TO PUSH KAMEHAMEHA! ⚡'
-      );
+      const pushBtn = createEl('button', 'btn-mash-beam', tr('mashBeamBtn'));
       pushBtn.type = 'button';
       pushBtn.addEventListener('click', pushBeamForPlayer);
       out.appendChild(pushBtn);
     }
 
-    if (state.beamGame.winnerText) {
-      out.appendChild(createEl('strong', 'winner-banner-text', state.beamGame.winnerText));
+    if (state.beamGame.winnerSide === 'player') {
+      out.appendChild(
+        createEl(
+          'strong',
+          'winner-banner-text',
+          tr('playerVictory', { a: fA.name, formA: formA.label, b: fB.name, formB: formB.label })
+        )
+      );
+    } else if (state.beamGame.winnerSide === 'rival') {
+      out.appendChild(
+        createEl('strong', 'winner-banner-text', tr('rivalVictory', { b: fB.name, formB: formB.label }))
+      );
     } else {
-      const loreWinner = (formA.powerScore || 70) >= (formB.powerScore || 70) ? fA.name + ' (' + formA.label + ')' : fB.name + ' (' + formB.label + ')';
+      const loreWinner = (formA.powerScore || 70) >= (formB.powerScore || 70)
+        ? fA.name + ' (' + formA.label + ')'
+        : fB.name + ' (' + formB.label + ')';
       out.appendChild(
         createEl(
           'p',
           'story-text',
-          '📊 Scouter Comparison: ' + formA.label + ' [' + formA.power + '] vs. ' + formB.label + ' [' + formB.power + ']. Canon Power Edge: ' + loreWinner + '!'
+          tr('scouterCompare', {
+            formA: formA.label,
+            powerA: formA.power,
+            formB: formB.label,
+            powerB: formB.power,
+            winner: loreWinner
+          })
         )
       );
     }
   }
 
   // ==========================================================================
-  // VIEW 5B: RANDOMIZED KIDS' QUIZ + 7-STAR DRAGON BALL SHENRON REWARD
+  // VIEW 5B: RANDOMIZED QUIZ + 7-STAR DRAGON BALL SHENRON REWARD
   // ==========================================================================
   function resetAndShuffleQuiz() {
-    state.quizDeck = shuffleArray(DATA.quizQuestions).map((q) => {
-      const indexedOptions = q.options.map((optText, idx) => ({
-        text: optText,
-        isCorrect: idx === q.correctIndex
-      }));
-      return {
-        question: q.question,
-        explanation: q.explanation,
-        shuffledOptions: shuffleArray(indexedOptions)
-      };
-    });
+    const indices = activeData.quizQuestions.map((_, idx) => idx);
+    state.quizOrder = shuffleArray(indices);
+    state.quizOptionPermutations = state.quizOrder.map(() => shuffleArray([0, 1, 2, 3]));
     state.quizIndex = 0;
     state.quizScore = 0;
     state.quizAnswered = false;
+    state.lastQuizSelectedPermIdx = -1;
   }
 
   function renderDragonBallStarsBar() {
@@ -908,15 +1055,13 @@
         star <= state.dragonBallsCollected ? 'db-star-orb collected' : 'db-star-orb',
         star + '★'
       );
-      orb.title = star + '-Star Dragon Ball';
       bar.appendChild(orb);
     }
   }
 
   function openShenronModal() {
     AUDIO.playSound('shenron');
-    const modal = document.getElementById('shenron-modal');
-    modal.classList.remove('hidden');
+    document.getElementById('shenron-modal').classList.remove('hidden');
   }
 
   function renderQuizCard() {
@@ -925,18 +1070,24 @@
     box.replaceChildren();
 
     renderDragonBallStarsBar();
-    scoreBadge.textContent =
-      'SCORE: ' + state.quizScore + ' / ' + state.quizDeck.length + ' • 🟠 ' + state.dragonBallsCollected + '/7 BALLS';
+    const totalQ = state.quizOrder.length;
+    scoreBadge.textContent = tr('scoreBallsBadge', {
+      score: state.quizScore,
+      total: totalQ,
+      balls: state.dragonBallsCollected
+    });
 
-    const currentQ = state.quizDeck[state.quizIndex];
+    const rawQIndex = state.quizOrder[state.quizIndex];
+    const qData = activeData.quizQuestions[rawQIndex];
+    const perm = state.quizOptionPermutations[state.quizIndex];
 
     const qTopRow = createEl('div', 'story-title-row');
     qTopRow.appendChild(
-      createEl('strong', '', 'Question ' + (state.quizIndex + 1) + ' of ' + state.quizDeck.length + ': ' + currentQ.question)
+      createEl('strong', '', tr('questionCounter', { num: state.quizIndex + 1, total: totalQ }) + qData.question)
     );
     qTopRow.appendChild(
       makeReadAloudButton(() =>
-        currentQ.question + ' Options: ' + currentQ.shuffledOptions.map((o) => o.text).join('. ')
+        qData.question + '. ' + perm.map((origIdx) => qData.options[origIdx]).join('. ')
       )
     );
     box.appendChild(qTopRow);
@@ -944,29 +1095,69 @@
     const optList = createEl('div', 'quiz-options-list');
     const feedbackArea = createEl('div');
 
-    currentQ.shuffledOptions.forEach((optObj) => {
-      const btn = createEl('button', 'quiz-option-btn', optObj.text);
+    function populateFeedback(wasCorrect) {
+      feedbackArea.replaceChildren();
+      const exp = createEl(
+        'div',
+        'moves-callout',
+        (wasCorrect ? tr('awesomeJob') : tr('goodTry')) + qData.explanation
+      );
+      const isLast = state.quizIndex + 1 >= totalQ;
+      const nextBtn = createEl(
+        'button',
+        'btn-power-up full-btn',
+        isLast ? tr('playNewRound') : tr('nextQuestion')
+      );
+      nextBtn.type = 'button';
+      nextBtn.style.marginTop = '0.6rem';
+      nextBtn.addEventListener('click', () => {
+        AUDIO.stopSpeaking();
+        if (isLast) {
+          resetAndShuffleQuiz();
+        } else {
+          state.quizIndex += 1;
+          state.quizAnswered = false;
+          state.lastQuizSelectedPermIdx = -1;
+        }
+        renderQuizCard();
+      });
+      feedbackArea.appendChild(exp);
+      feedbackArea.appendChild(nextBtn);
+    }
+
+    perm.forEach((origOptIdx, permIdx) => {
+      const isCorrectOpt = origOptIdx === qData.correctIndex;
+      const btn = createEl('button', 'quiz-option-btn', qData.options[origOptIdx]);
       btn.type = 'button';
+
+      if (state.quizAnswered) {
+        if (isCorrectOpt) btn.classList.add('correct');
+        else if (permIdx === state.lastQuizSelectedPermIdx) btn.classList.add('wrong');
+      }
 
       btn.addEventListener('click', () => {
         if (state.quizAnswered) return;
         state.quizAnswered = true;
+        state.lastQuizSelectedPermIdx = permIdx;
 
         Array.from(optList.children).forEach((childBtn, cIdx) => {
-          if (currentQ.shuffledOptions[cIdx].isCorrect) {
+          if (perm[cIdx] === qData.correctIndex) {
             childBtn.classList.add('correct');
           }
         });
 
-        if (optObj.isCorrect) {
+        if (isCorrectOpt) {
           state.quizScore += 1;
           if (state.dragonBallsCollected < 7) {
             state.dragonBallsCollected += 1;
           }
           AUDIO.playSound('transform');
           renderDragonBallStarsBar();
-          scoreBadge.textContent =
-            'SCORE: ' + state.quizScore + ' / ' + state.quizDeck.length + ' • 🟠 ' + state.dragonBallsCollected + '/7 BALLS';
+          scoreBadge.textContent = tr('scoreBallsBadge', {
+            score: state.quizScore,
+            total: totalQ,
+            balls: state.dragonBallsCollected
+          });
 
           if (state.dragonBallsCollected === 7 && !state.shenronSummonedOnce) {
             state.shenronSummonedOnce = true;
@@ -977,118 +1168,44 @@
           AUDIO.playSound('scouter');
         }
 
-        const exp = createEl(
-          'div',
-          'moves-callout',
-          (optObj.isCorrect ? '✅ Awesome Job! ' : '💡 Good Try! ') + currentQ.explanation
-        );
-
-        const isLast = state.quizIndex + 1 >= state.quizDeck.length;
-        const nextBtn = createEl(
-          'button',
-          'btn-power-up full-btn',
-          isLast ? '🔄 Play New Shuffled Round!' : '➡️ Next Question'
-        );
-        nextBtn.type = 'button';
-        nextBtn.style.marginTop = '0.6rem';
-        nextBtn.addEventListener('click', () => {
-          if (isLast) {
-            resetAndShuffleQuiz();
-          } else {
-            state.quizIndex += 1;
-            state.quizAnswered = false;
-          }
-          renderQuizCard();
-        });
-
-        feedbackArea.appendChild(exp);
-        feedbackArea.appendChild(nextBtn);
+        populateFeedback(isCorrectOpt);
       });
 
       optList.appendChild(btn);
     });
 
+    if (state.quizAnswered) {
+      const chosenOrig = perm[state.lastQuizSelectedPermIdx];
+      populateFeedback(chosenOrig === qData.correctIndex);
+    }
+
     box.appendChild(optList);
     box.appendChild(feedbackArea);
   }
 
-  function initBattleAndQuiz() {
-    const selFighterA = document.getElementById('sim-fighter-a');
-    const selFormA = document.getElementById('sim-form-a');
-    const selFighterB = document.getElementById('sim-fighter-b');
-    const selFormB = document.getElementById('sim-form-b');
+  // ==========================================================================
+  // LANGUAGE SWITCHING & FULL VIEW REFRESH
+  // ==========================================================================
+  async function applyLanguage(newLang) {
+    AUDIO.stopSpeaking();
+    state.lang = newLang;
+    I18N.saveLanguagePreference(newLang);
 
-    selFighterA.replaceChildren();
-    selFighterB.replaceChildren();
+    const pack = await I18N.loadLocalePack(newLang);
+    activeData = I18N.buildLocalizedData(BASE_DATA, pack);
+    syncReferencesAfterLanguageLoad();
 
-    DATA.fighters.forEach((f) => {
-      const optA = createEl('option', '', f.name);
-      optA.value = f.id;
-      if (f.id === state.battleFighterA.id) optA.selected = true;
-      selFighterA.appendChild(optA);
-
-      const optB = createEl('option', '', f.name);
-      optB.value = f.id;
-      if (f.id === state.battleFighterB.id) optB.selected = true;
-      selFighterB.appendChild(optB);
-    });
-
-    populateFormSelect(selFormA, state.battleFighterA, state.battleFormIndexA);
-    populateFormSelect(selFormB, state.battleFighterB, state.battleFormIndexB);
-    syncBattleFormsFromSelects();
-
-    selFighterA.addEventListener('change', () => {
-      stopBeamGameLoop();
-      state.battleFighterA = findFighterById(selFighterA.value);
-      state.battleFormIndexA = Math.max(0, (state.battleFighterA.forms || []).length - 1);
-      populateFormSelect(selFormA, state.battleFighterA, state.battleFormIndexA);
-      syncBattleFormsFromSelects();
-      state.beamGame.position = 0.5;
-      state.beamGame.winnerText = '';
-      renderBattleOutcomeBox();
-      syncStageUI(false);
-    });
-
-    selFormA.addEventListener('change', () => {
-      stopBeamGameLoop();
-      state.battleFormIndexA = Number(selFormA.value) || 0;
-      syncBattleFormsFromSelects();
-      state.beamGame.position = 0.5;
-      state.beamGame.winnerText = '';
-      renderBattleOutcomeBox();
-      syncStageUI(false);
-    });
-
-    selFighterB.addEventListener('change', () => {
-      stopBeamGameLoop();
-      state.battleFighterB = findFighterById(selFighterB.value);
-      state.battleFormIndexB = Math.max(0, (state.battleFighterB.forms || []).length - 1);
-      populateFormSelect(selFormB, state.battleFighterB, state.battleFormIndexB);
-      syncBattleFormsFromSelects();
-      state.beamGame.position = 0.5;
-      state.beamGame.winnerText = '';
-      renderBattleOutcomeBox();
-      syncStageUI(false);
-    });
-
-    selFormB.addEventListener('change', () => {
-      stopBeamGameLoop();
-      state.battleFormIndexB = Number(selFormB.value) || 0;
-      syncBattleFormsFromSelects();
-      state.beamGame.position = 0.5;
-      state.beamGame.winnerText = '';
-      renderBattleOutcomeBox();
-      syncStageUI(false);
-    });
-
+    renderStaticShellStrings();
+    renderFightersView();
+    renderHairGuideView();
+    renderFusionLabView();
+    renderTimelineView();
+    refreshBattleSelectOptions();
     renderBattleOutcomeBox();
-    resetAndShuffleQuiz();
     renderQuizCard();
+    syncStageUI(false);
   }
 
-  // ==========================================================================
-  // NAVIGATION, ARENA SELECTOR, KEYBOARD & MODAL EVENTS
-  // ==========================================================================
   function switchMode(newMode) {
     if (newMode !== 'battle-quiz') {
       stopBeamGameLoop();
@@ -1124,6 +1241,28 @@
   }
 
   function setupEvents() {
+    // Populate 12-Language Selector
+    const langSelect = document.getElementById('lang-select');
+    langSelect.replaceChildren();
+    I18N.LANGUAGES.forEach((langItem) => {
+      const opt = createEl('option', '', '🌐 ' + langItem.fullLabel);
+      opt.value = langItem.code;
+      if (langItem.code === state.lang) opt.selected = true;
+      langSelect.appendChild(opt);
+    });
+    langSelect.addEventListener('change', () => {
+      AUDIO.playSound('scouter');
+      applyLanguage(langSelect.value);
+    });
+
+    // Chirp 3 HD Voice Persona Selector
+    const personaSelect = document.getElementById('chirp-persona-select');
+    personaSelect.addEventListener('change', () => {
+      AUDIO.setPersona(personaSelect.value);
+      AUDIO.stopSpeaking();
+      AUDIO.playSound('scouter');
+    });
+
     // 5 Main Mode Tabs
     document.querySelectorAll('.nav-pill').forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -1133,14 +1272,9 @@
 
     // 3D Battle Arena Selector
     const arenaSelect = document.getElementById('arena-select');
-    arenaSelect.replaceChildren();
-    DATA.arenas.forEach((arena) => {
-      const opt = createEl('option', '', arena.name);
-      opt.value = arena.id;
-      arenaSelect.appendChild(opt);
-    });
     arenaSelect.addEventListener('change', () => {
-      const found = DATA.arenas.find((a) => a.id === arenaSelect.value);
+      state.selectedArenaId = arenaSelect.value;
+      const found = activeData.arenas.find((a) => a.id === state.selectedArenaId);
       if (found) {
         state.selectedArena = found;
         state.powerBurstTimer = 40;
@@ -1155,6 +1289,58 @@
       renderFighterGridOnly();
     });
 
+    // Battle Fighter & Form Selectors
+    const selFighterA = document.getElementById('sim-fighter-a');
+    const selFormA = document.getElementById('sim-form-a');
+    const selFighterB = document.getElementById('sim-fighter-b');
+    const selFormB = document.getElementById('sim-form-b');
+
+    selFighterA.addEventListener('change', () => {
+      stopBeamGameLoop();
+      state.battleFighterIdA = selFighterA.value;
+      state.battleFighterA = findFighterById(activeData, state.battleFighterIdA);
+      state.battleFormIndexA = Math.max(0, (state.battleFighterA.forms || []).length - 1);
+      populateFormSelect(selFormA, state.battleFighterA, state.battleFormIndexA);
+      syncBattleFormsFromState();
+      state.beamGame.position = 0.5;
+      state.beamGame.winnerSide = null;
+      renderBattleOutcomeBox();
+      syncStageUI(false);
+    });
+
+    selFormA.addEventListener('change', () => {
+      stopBeamGameLoop();
+      state.battleFormIndexA = Number(selFormA.value) || 0;
+      syncBattleFormsFromState();
+      state.beamGame.position = 0.5;
+      state.beamGame.winnerSide = null;
+      renderBattleOutcomeBox();
+      syncStageUI(false);
+    });
+
+    selFighterB.addEventListener('change', () => {
+      stopBeamGameLoop();
+      state.battleFighterIdB = selFighterB.value;
+      state.battleFighterB = findFighterById(activeData, state.battleFighterIdB);
+      state.battleFormIndexB = Math.max(0, (state.battleFighterB.forms || []).length - 1);
+      populateFormSelect(selFormB, state.battleFighterB, state.battleFormIndexB);
+      syncBattleFormsFromState();
+      state.beamGame.position = 0.5;
+      state.beamGame.winnerSide = null;
+      renderBattleOutcomeBox();
+      syncStageUI(false);
+    });
+
+    selFormB.addEventListener('change', () => {
+      stopBeamGameLoop();
+      state.battleFormIndexB = Number(selFormB.value) || 0;
+      syncBattleFormsFromState();
+      state.beamGame.position = 0.5;
+      state.beamGame.winnerSide = null;
+      renderBattleOutcomeBox();
+      syncStageUI(false);
+    });
+
     // Scouter HUD Visor Toggle
     const scouterBtn = document.getElementById('toggle-scouter-btn');
     scouterBtn.addEventListener('click', () => {
@@ -1163,7 +1349,7 @@
       document.body.classList.toggle('scouter-on', state.scouterActive);
       document.body.classList.toggle('scouter-off', !state.scouterActive);
       scouterBtn.setAttribute('aria-pressed', state.scouterActive ? 'true' : 'false');
-      document.getElementById('scouter-state-label').textContent = state.scouterActive ? 'ON' : 'OFF';
+      document.getElementById('scouter-state-label').textContent = state.scouterActive ? tr('on') : tr('off');
     });
 
     // Sound Toggle
@@ -1172,7 +1358,7 @@
       const next = !AUDIO.isSoundEnabled();
       AUDIO.setSoundEnabled(next);
       soundBtn.setAttribute('aria-pressed', next ? 'true' : 'false');
-      document.getElementById('sound-state-label').textContent = next ? 'ON' : 'OFF';
+      document.getElementById('sound-state-label').textContent = next ? tr('on') : tr('off');
       if (next) AUDIO.playSound('scouter');
     });
 
@@ -1185,7 +1371,7 @@
     // Start Live Beam Struggle Button
     document.getElementById('run-battle-btn').addEventListener('click', startInteractiveBeamStruggle);
 
-    // Spacebar Mash Support for Live Beam Struggle!
+    // Spacebar Mash Support for Live Beam Struggle
     window.addEventListener('keydown', (e) => {
       if (e.code === 'Space' && state.activeMode === 'battle-quiz' && state.beamGame.active) {
         if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
@@ -1194,19 +1380,21 @@
       }
     });
 
-    // Shenron Certificate Modal Wish Buttons
+    // Shenron Modal Wish Buttons
     document.getElementById('close-shenron-btn').addEventListener('click', () => {
       document.getElementById('shenron-modal').classList.add('hidden');
     });
     document.getElementById('wish-gogeta-btn').addEventListener('click', () => {
       document.getElementById('shenron-modal').classList.add('hidden');
-      state.selectedFusionRecipe = DATA.fusionRecipes[1]; // Gogeta SSB Evolved
+      state.selectedFusionRecipeId = activeData.fusionRecipes[1].id;
+      state.selectedFusionRecipe = activeData.fusionRecipes[1];
       switchMode('fusion-lab');
     });
     document.getElementById('wish-ui-goku-btn').addEventListener('click', () => {
       document.getElementById('shenron-modal').classList.add('hidden');
-      state.selectedFighter = DATA.fighters[0];
-      state.selectedFighterFormIndex = DATA.fighters[0].forms.length - 1; // Ultra Instinct
+      state.selectedFighterId = 'goku';
+      state.selectedFighter = findFighterById(activeData, 'goku');
+      state.selectedFighterFormIndex = state.selectedFighter.forms.length - 1;
       state.powerBurstTimer = 95;
       renderFightersView();
       switchMode('fighters');
@@ -1215,28 +1403,23 @@
 
   function collectAllRenderUrls() {
     const urls = [];
-    DATA.fighters.forEach((f) => {
+    BASE_DATA.fighters.forEach((f) => {
       urls.push(f.spriteUrl);
       (f.forms || []).forEach((sf) => urls.push(sf.spriteUrl));
     });
-    DATA.hairForms.forEach((hf) => urls.push(hf.spriteUrl));
-    DATA.fusionRecipes.forEach((r) => urls.push(r.resultSprite));
-    DATA.timelineSagas.forEach((s) => urls.push(s.spriteUrl));
+    BASE_DATA.hairForms.forEach((hf) => urls.push(hf.spriteUrl));
+    BASE_DATA.fusionRecipes.forEach((r) => urls.push(r.resultSprite));
+    BASE_DATA.timelineSagas.forEach((s) => urls.push(s.spriteUrl));
     return urls;
   }
 
-  function init() {
-    // Load Goku Base immediately, warm the rest lazily during browser idle time!
-    RENDERER.getCharacterImage(state.selectedFighter.spriteUrl);
+  async function init() {
+    RENDERER.getCharacterImage(BASE_DATA.fighters[0].spriteUrl);
     RENDERER.warmImageQueue(collectAllRenderUrls());
 
-    renderFightersView();
-    renderHairGuideView();
-    renderFusionLabView();
-    renderTimelineView();
-    initBattleAndQuiz();
-    syncStageUI(false);
+    resetAndShuffleQuiz();
     setupEvents();
+    await applyLanguage(state.lang);
 
     const canvasEl = document.getElementById('db-3d-canvas');
     RENDERER.init(canvasEl, () => state);

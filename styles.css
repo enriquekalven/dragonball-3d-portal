@@ -133,7 +133,24 @@ input:focus-visible {
 
 .top-actions {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 0.45rem;
+}
+
+.action-select {
+  padding: 0.46rem 0.68rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 208, 0, 0.45);
+  background: var(--bg-card);
+  color: var(--text-white);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.action-select:hover {
+  border-color: var(--db-gold);
 }
 
 .action-chip {
@@ -980,6 +997,45 @@ body.scouter-on .scouter-hud {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+}
+
+.btn-read-aloud.speaking {
+  background: rgba(255, 208, 0, 0.28);
+  border-color: var(--db-gold);
+  color: var(--db-gold);
+  box-shadow: 0 0 12px rgba(255, 208, 0, 0.45);
+}
+
+/* ==========================================================================
+   FULL RTL LAYOUT SUPPORT FOR ARABIC (dir="rtl")
+   ========================================================================== */
+
+[dir="rtl"] .character-stage {
+  border-right: none;
+  border-left: 1px solid var(--border-card);
+}
+
+[dir="rtl"] .stage-top-right {
+  right: auto;
+  left: 1rem;
+  align-items: flex-start;
+}
+
+[dir="rtl"] .scouter-box {
+  left: auto;
+  right: 1rem;
+}
+
+[dir="rtl"] .moves-callout {
+  border-left: none;
+  border-right: 4px solid var(--db-cyan);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+[dir="rtl"] .hair-card-btn,
+[dir="rtl"] .saga-row-btn,
+[dir="rtl"] .quiz-option-btn {
+  text-align: right;
 }
 
 @media (max-width: 1080px) {

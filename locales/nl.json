@@ -1,0 +1,955 @@
+{
+  "arenas": {
+    "space-capsule": "🌌 Capsule Corp Holodeck",
+    "planet-namek": "🟢 Planeet Namek",
+    "cell-games": "🏟️ Cell Games Arena",
+    "time-chamber": "⏳ Hyperbolic Time Chamber",
+    "world-of-void": "🟣 De Leegte van het Toernooi der Kracht"
+  },
+  "hairForms": {
+    "base-black": {
+      "name": "Basis Saiyan (Gitzwart Haar)",
+      "shortLabel": "Gitzwart (Basis Goku)",
+      "characterName": "Son Goku (Basisvorm)",
+      "era": "DRAGON BALL / DBZ / DBS",
+      "multiplier": "1x Basiskracht",
+      "powerExample": "60.000.000",
+      "whoUsesIt": "Goku, Vegeta, Gohan, Vegetto, Gogeta, Bardock, Raditz",
+      "howUnlocked": "Natuurlijke biologie van volbloed Saiyans vanaf hun geboorte!",
+      "meaningForKids": "Volbloed Saiyans zoals Goku en Vegeta worden geboren met gitzwart, stekelig haar dat na hun kindertijd NOOIT meer van vorm verandert of langer groeit! Goku's herkenbare kapsel heeft 4 grote pieken aan de ene kant en 3 aan de andere.",
+      "funFact": "Toen Kid Goku nog zijn bruine apenstaart had en naar de volle maan keek, veranderde hij in een 15 meter grote Reuzenaap (Oozaru) met 10 keer zoveel kracht!"
+    },
+    "ssj1-gold": {
+      "name": "Super Saiyan 1 (Goudgeel)",
+      "shortLabel": "Goudgeel (SSJ1)",
+      "characterName": "Super Saiyan Son Goku",
+      "era": "DRAGON BALL Z (NAMEK SAGA)",
+      "multiplier": "50x Basiskracht",
+      "powerExample": "150.000.000 → 3.000.000.000",
+      "whoUsesIt": "Goku, Vegeta, Gohan, Future Trunks, Vegetto, Gogeta, Goten, Cabba",
+      "howUnlocked": "Een puur hart gecombineerd met een heftige emotionele schok (of door tintelende Ki te focussen in de bovenrug!).",
+      "meaningForKids": "De legendarische transformatie! Het haar gaat recht omhoog staan en wordt stralend goudgeel, wenkbrauwen worden goud en de ogen smaragdgroen-blauw. Het maakt een Saiyan maar liefst 50 keer sterker!",
+      "funFact": "Goku veranderde voor het eerst in een Super Saiyan op Planeet Namek nadat Freezer zijn beste vriend Krillin pijn deed – en vervulde daarmee een 1.000 jaar oude legende!"
+    },
+    "ssj2-sparks": {
+      "name": "Super Saiyan 2 (Elektrisch Goud + Bliksemschichten)",
+      "shortLabel": "Elektrisch Goud (SSJ2)",
+      "characterName": "Super Saiyan 2 Goku & Tiener Gohan",
+      "era": "DRAGON BALL Z (CELL & BUU SAGA)",
+      "multiplier": "100x Basiskracht (2x SSJ1)",
+      "powerExample": "6.000.000.000 — 10.200.000.000",
+      "whoUsesIt": "Tiener Gohan (Eerste ooit!), Goku, Majin Vegeta, Future Trunks, Caulifla",
+      "howUnlocked": "De Super Saiyan-grens doorbreken door keiharde training en de drang om onschuldigen te beschermen.",
+      "meaningForKids": "Hoe herken je Super Saiyan 2 ten opzichte van Super Saiyan 1? Kijk goed naar de knetterende BLAUWE BLIKSEMFLITSEN in de gouden aura en de nog scherpere haarstekels!",
+      "funFact": "De 11-jarige Gohan was de allereerste Saiyan in de geschiedenis die Super Saiyan 2 bereikte tijdens de Cell Games!"
+    },
+    "ssj3-mane": {
+      "name": "Super Saiyan 3 (Gouden Manen tot aan het Middel)",
+      "shortLabel": "Lange Gouden Manen (SSJ3)",
+      "characterName": "Super Saiyan 3 Son Goku",
+      "era": "DRAGON BALL Z (MAJIN BUU SAGA)",
+      "multiplier": "400x Basiskracht (4x SSJ2)",
+      "powerExample": "24.000.000.000 — 45.600.000.000",
+      "whoUsesIt": "Goku & Gotenks (Fusie van Goten + Trunks)",
+      "howUnlocked": "Elke verborgen druppel slapende Saiyan-uithoudingsvermogen naar boven halen – het eerst bereikt door Goku tijdens zijn training in de Andere Wereld!",
+      "meaningForKids": "Het gouden haar groeit explosief tot aan het middel zoals de manen van een leeuw, blauwe bliksem knettert aan één stuk door en de WENKBRAUWEN verdwijnen volledig achter een stoere wenkbrauwboog!",
+      "funFact": "Toen Goku tegen Majin Buu voor het eerst zijn Super Saiyan 3-kracht ontketende, schudde de hele aarde op haar grondvesten!"
+    },
+    "ssj4-crimson": {
+      "name": "Super Saiyan 4 (Zwart Haar + Karmijnrode Vacht)",
+      "shortLabel": "Oerkracht Rood & Zwart (SSJ4)",
+      "characterName": "Super Saiyan 4 Goku (Dragon Ball GT)",
+      "era": "DRAGON BALL GT (BABY & SHADOW DRAGONS)",
+      "multiplier": "4.000x+ Oerkracht van de Reuzenaap",
+      "powerExample": "2 Biljoen",
+      "whoUsesIt": "Goku, Vegeta & Gogeta (in Dragon Ball GT)",
+      "howUnlocked": "Transformeren in een Gouden Reuzenaap en tegelijk een kalm, liefdevol menselijk hart behouden!",
+      "meaningForKids": "Exclusief in Dragon Ball GT! In plaats van goud haar krijgt de Saiyan woest zwart haar tot op de schouders, een karmijnrode vacht over zijn bovenlichaam en staart, en gouden ogen met rode oogranden!",
+      "funFact": "Wanneer SSJ4 Goku en SSJ4 Vegeta fuseren tot Super Saiyan 4 Gogeta, kleurt zijn haar vurig karmijnrood!"
+    },
+    "ssg-red": {
+      "name": "Super Saiyan God (Vlammend Magenta-Rood)",
+      "shortLabel": "Super Saiyan God (Rood)",
+      "characterName": "Super Saiyan God Son Goku",
+      "era": "DRAGON BALL SUPER (BATTLE OF GODS)",
+      "multiplier": "Goddelijk Niveau (20.000x+ Basis)",
+      "powerExample": "1,5 Biljoen+ (God Ki)",
+      "whoUsesIt": "Son Goku & Prins Vegeta",
+      "howUnlocked": "Vijf puurhartige Saiyans pakken elkaars handen vast en bundelen het licht van hun hart in een zesde rechtvaardige Saiyan (of door goddelijke training met Whis)!",
+      "meaningForKids": "Stralend robijnrood haar en felrode ogen! In tegenstelling tot de gouden Super Saiyan behoudt Goku's haar zijn normale, rustige basisvorm, wordt zijn lichaam slanker en sneller, en lijkt zijn aura op dansende goddelijke vlammen!",
+      "funFact": "Goku ontgrendelde Super Saiyan God met de hulp van Vegeta, Gohan, Goten, Trunks en de nog ongeboren baby Pan om te vechten tegen Lord Beerus!"
+    },
+    "ssb-blue": {
+      "name": "Super Saiyan Blue (Elektrisch Cyaanblauw)",
+      "shortLabel": "Super Saiyan Blue (SSB)",
+      "characterName": "Super Saiyan Blue Goku (SSGSS)",
+      "era": "DRAGON BALL SUPER",
+      "multiplier": "50x Super Saiyan God",
+      "powerExample": "9 Triljoen",
+      "whoUsesIt": "Goku, Vegeta, Vegetto Blue, Gogeta Blue",
+      "howUnlocked": "Transformeren in een Super Saiyan TERWIJL je de kalme, goddelijke energie van een Super Saiyan God beheerst!",
+      "meaningForKids": "Officiële volledige naam: 'Super Saiyan God Super Saiyan'! Waarom is het blauw? Omdat blauwe vlammen heter en rustiger branden dan rode vlammen – het bewijs van totale innerlijke rust en controle over God Ki!",
+      "funFact": "Goku kan zelfs zijn karmijnrode Kaio-ken x20 STAPELEN bovenop Super Saiyan Blue voor een dubbele rood-blauwe aura!"
+    },
+    "ss-rose": {
+      "name": "Super Saiyan Rosé (Goddelijk Roos-Roze)",
+      "shortLabel": "Super Saiyan Rosé (Roze)",
+      "characterName": "Goku Black (Super Saiyan Rosé)",
+      "era": "DRAGON BALL SUPER (FUTURE TRUNKS SAGA)",
+      "multiplier": "Goddelijke Oppergod (Supreme Kai) Super Saiyan",
+      "powerExample": "12 Triljoen+",
+      "whoUsesIt": "Goku Black (Zamasu in Goku's lichaam)",
+      "howUnlocked": "Wanneer een wezen dat al geboren is als een echte God (een Supreme Kai) een Saiyan-lichaam in Super Saiyan laat veranderen!",
+      "meaningForKids": "Wanneer stervelingen zoals Goku of Vegeta God Ki toevoegen aan Super Saiyan, kleurt hun haar cyaanblauw. Maar wanneer een echte God (Zamasu) Goku's lichaam gebruikt, kleurt het haar stralend roos-roze!",
+      "funFact": "Goku Black kan zijn roze Rosé-energie vormen tot een vlijmscherp Ki-zwaard aan zijn hand!"
+    },
+    "lssj-green": {
+      "name": "Legendarische Super Saiyan Volle Kracht (Limoengroen)",
+      "shortLabel": "Mutant Limoengroen (Broly)",
+      "characterName": "Broly (Legendarische Super Saiyan)",
+      "era": "DBZ FILMS / DB SUPER: BROLY",
+      "multiplier": "Voortdurend stijgende Berserker Mutantenkracht",
+      "powerExample": "11,2 Triljard",
+      "whoUsesIt": "Broly (Universum 7) & Kale / Kefla (Universum 6)",
+      "howUnlocked": "Een zeldzame genetische Saiyan-mutatie die slechts eens in de 1.000 jaar voorkomt, waarbij de oerwoede van de Reuzenaap ('Ikari') fuseert met Super Saiyan!",
+      "meaningForKids": "Neon-limoengroen haar en reusachtige spieren! Groen haar betekent ontembare, niet te stoppen mutantenenergie die elke seconde van het gevecht alsmaar sterker wordt!",
+      "funFact": "In Dragon Ball Super: Broly werd Broly in zijn eerste echte gevecht zó sterk dat Goku en Vegeta moesten fuseren tot Gogeta Blue om hem tegen te houden!"
+    },
+    "ui-silver": {
+      "name": "Autonome Ultra Instinct (Hemels Zilver)",
+      "shortLabel": "Zilverwit (Ultra Instinct)",
+      "characterName": "Autonome Ultra Instinct Goku",
+      "era": "DRAGON BALL SUPER (TOERNOOI DER KRACHT)",
+      "multiplier": "Engelenrijk-Techniek",
+      "powerExample": "90 Triljard",
+      "whoUsesIt": "Son Goku (en alle Engelen zoals Whis & de Grand Priest)",
+      "howUnlocked": "De geest helemaal leegmaken zodat elke cel in het lichaam automatisch ontwijkt en terugslaat zonder na te denken!",
+      "meaningForKids": "Verblindend zilverwit haar en zilveren ogen met een melkwegachtige, kristallen aura! Zelfs de Goden van Vernietiging stonden vol ontzag op toen Goku deze engelenkracht beheerste tegen Jiren.",
+      "funFact": "Vóór het volledige zilveren haar bereikt Goku eerst 'Ultra Instinct Sign', waarbij zijn haar zwart blijft met zilveren highlights en fel oplichtende zilveren ogen!"
+    },
+    "ultra-ego-purple": {
+      "name": "Ultra Ego Vegeta (Vernietigingspaars)",
+      "shortLabel": "Vernietigingspaars (Vegeta)",
+      "characterName": "Ultra Ego Prins Vegeta",
+      "era": "DRAGON BALL SUPER (GRANOLAH SAGA)",
+      "multiplier": "God van Vernietiging Instinct",
+      "powerExample": "19,84 Triljard+",
+      "whoUsesIt": "Prins Vegeta (Getraind door Lord Beerus)",
+      "howUnlocked": "De Hakaishin-kracht (God van Vernietiging) van Lord Beerus beheersen en de pure vechtlust je kracht laten voeden!",
+      "meaningForKids": "Terwijl Goku het kalme zilveren engelenpad koos (Ultra Instinct), koos Vegeta het woeste paarse pad van de Goden van Vernietiging (Ultra Ego)! Zijn haar wordt koninklijk dieppaars, zijn wenkbrauwen verdwijnen en hij wordt met elke klap die hij incasseert sterker!",
+      "funFact": "Vegeta bedacht de naam 'Ultra Ego' zelf als krachtig tegenovergestelde van Goku's 'Ultra Instinct'!"
+    },
+    "beast-orange": {
+      "name": "Gohan Beast & Orange Piccolo (Super Hero)",
+      "shortLabel": "Beast-Zilver & Karmijnrode Ogen",
+      "characterName": "Gohan Beast (Dragon Ball Super: Super Hero)",
+      "era": "DRAGON BALL SUPER: SUPER HERO",
+      "multiplier": "Ultieme Hybride Evolutie",
+      "powerExample": "25,6 Triljard",
+      "whoUsesIt": "Son Gohan (Beast) & Piccolo (Oranje Ontwaking)",
+      "howUnlocked": "Gohan die zijn ultieme potentieel laat evolueren om Piccolo en Pan te beschermen tegen Cell Max!",
+      "meaningForKids": "Torenhoog zilvergrijs haar dat hoger reikt dan ooit tevoren, gloeiende robijnrode ogen en magentarode bliksems! Tegelijk gaf Shenron aan Piccolo zijn gigantische gespierde 'Orange Piccolo' transformatie!",
+      "funFact": "Gohan Beast versloeg de reusachtige dolgedraaide Cell Max met Piccolo's eigen beroemde techniek: de Special Beam Cannon (Makankosappo)!"
+    }
+  },
+  "timelineSagas": {
+    "db-pilaf-tournament": {
+      "eraFullName": "Dragon Ball (Origineel)",
+      "years": "Jaar 749 – 750",
+      "title": "Keizer Pilaf & het 21ste Wereldtoernooi",
+      "mainHero": "Kid Goku, Bulma, Krillin, Yamcha & Meester Roshi",
+      "mainEnemy": "Keizer Pilaf, Shu, Mai & de dolgedraaide Reuzenaap",
+      "keyEvents": "De geniale uitvindster Bulma ontmoet de 12-jarige Kid Goku op Mount Paozu, waar hij de 4-Sterren Dragon Ball van zijn grootvader bewaart! Samen met Krillin en Yamcha zoeken ze de 7 Dragon Balls en trainen ze keihard onder Meester Roshi door zware melkkratten en schildpaddenpakken te dragen.",
+      "hairOrFormUnlocked": "Reuzenaap (Oozaru) — 10x Kracht onder de Volle Maan",
+      "kidLesson": "Samen met je beste vriend trainen maakt je sterk, nog lang voordat er magische transformaties bestaan!"
+    },
+    "db-red-ribbon-piccolo": {
+      "eraFullName": "Dragon Ball (Origineel)",
+      "years": "Jaar 750 – 756",
+      "title": "Het Red Ribbon Leger & Koning Piccolo Saga",
+      "mainHero": "Goku (Gevechtskracht: 180 → 910) & Tien Shinhan",
+      "mainEnemy": "Huurmoordenaar Tao, Demonenkoning Piccolo & Piccolo Jr.",
+      "keyEvents": "Goku beklimt de Korin-toren, verslaat het hele Red Ribbon Leger in zijn eentje en stopt Demonenkoning Piccolo! Jaren later verslaat de tiener Goku Piccolo Jr. en wint hij het 23ste Wereldtoernooi voor Krijgskunsten.",
+      "hairOrFormUnlocked": "Ontwaking door het Goddelijke Water & Super Kamehameha",
+      "kidLesson": "De rivalen van vandaag kunnen de beste vrienden van morgen worden – Tien en Piccolo werden trouwe Z-Strijders!"
+    },
+    "dbz-saiyan-saga": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Jaar 761 – 762",
+      "title": "Saiyan Saga: Raditz, Nappa & Prins Vegeta",
+      "mainHero": "Goku (Kaio-ken), Piccolo, Kid Gohan & Krillin",
+      "mainEnemy": "Raditz (1.500), Nappa (4.000), Prins Vegeta (18.000)",
+      "keyEvents": "Goku ontdekt via zijn broer Raditz dat hij een buitenaardse Saiyan is genaamd Kakarot! Na training bij Koning Kai keert Goku terug naar de aarde en ontketent hij een gevechtskracht van 'BOVEN DE 9.000!' met de viervoudige Kaio-ken tegen Vegeta's Galick Gun!",
+      "hairOrFormUnlocked": "Kaio-ken (Karmijnrode Aura) & Spirit Bomb (Genki Dama)",
+      "kidLesson": "Zelfs een strijder uit een lagere klasse kan door tomeloze inzet een arrogante prins zoals Vegeta voorbijstreven!"
+    },
+    "dbz-namek-frieza": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Jaar 762",
+      "title": "Planeet Namek, Ginyu Force & Keizer Freezer",
+      "mainHero": "Super Saiyan Goku (150.000.000), Vegeta, Piccolo, Gohan & Krillin",
+      "mainEnemy": "Kapitein Ginyu (120.000) & Finale Vorm Freezer (120.000.000)",
+      "keyEvents": "De helden vliegen naar Planeet Namek om hun gevallen vrienden met de Dragon Balls terug te wensen! Na het verslaan van de Ginyu Force neemt Goku het op tegen de tiran Freezer – en ontgrendelt voor het eerst in 1.000 jaar de GOUDEN SUPER SAIYAN!",
+      "hairOrFormUnlocked": "Super Saiyan 1 (Gouden Haar — 50x Krachtvermenigvuldiger)",
+      "kidLesson": "Echte kracht ontstaat om anderen te helpen, niet uit hebzucht – Goku werd Super Saiyan om zijn vrienden te beschermen."
+    },
+    "dbz-cell-saga": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Jaar 764 – 767",
+      "title": "Androids 16, 17, 18, Future Trunks & Perfect Cell Saga",
+      "mainHero": "Super Saiyan 2 Tiener Gohan, Future Trunks, Goku, Vegeta & Piccolo",
+      "mainEnemy": "Androids 16, 17, 18, Dr. Gero & Super Perfect Cell",
+      "keyEvents": "Future Trunks arriveert in Bulma's tijdmachine! Na keiharde training in de Hyperbolic Time Chamber ontwaakt Tiener Gohan tijdens de Cell Games als Super Saiyan 2 (geïnspireerd door de zachtaardige Android 16) en verpulvert hij Cell met de Vader-Zoon Kamehameha!",
+      "hairOrFormUnlocked": "Super Saiyan 2 (Elektrisch Goud + Blauwe Bliksem — 100x)",
+      "kidLesson": "Goku vertrouwde blindelings op zijn zoon Gohan, omdat hij de pure heldenmoed diep in hem herkende."
+    },
+    "dbz-buu-saga": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Jaar 774",
+      "title": "Majin Buu, Gotenks, Ultimate Gohan & Vegetto Saga",
+      "mainHero": "Vegetto, SSJ3 Goku, Majin Vegeta, Ultimate Gohan, Gotenks & Mr. Satan",
+      "mainEnemy": "Babidi, Dikke Majin Buu, Super Buu (Buuhan) & Kid Buu",
+      "keyEvents": "Het oeroude magische wezen Majin Buu ontwaakt! Goten en Trunks fuseren tot Gotenks SSJ3, Goku onthult Super Saiyan 3, Goku en Vegeta fuseren met de Potara-oorbellen tot VEGETTO, en Mr. Satan roept alle aardbewoners op om energie te geven voor Goku's Super Spirit Bomb!",
+      "hairOrFormUnlocked": "Super Saiyan 3 (400x), Ultimate Gohan & Potara-fusie Vegetto!",
+      "kidLesson": "Zelfs Mr. Satan redde het universum door de hele aarde te overtuigen hun energie te delen!"
+    },
+    "dbgt-baby-ssj4": {
+      "eraFullName": "Dragon Ball GT",
+      "years": "Jaar 789",
+      "title": "Black Star Dragon Balls & Baby Vegeta Saga",
+      "mainHero": "Super Saiyan 4 Goku, Pan & Trunks",
+      "mainEnemy": "Generaal Rilldo & Gouden Reuzenaap Baby Vegeta",
+      "keyEvents": "Per ongeluk weer een kind geworden, reist Goku met zijn kleindochter Pan en Trunks door het heelal! Kijkend naar de aarde vanaf Planeet Plant weet Goku zijn Gouden Reuzenaap te temmen en verandert hij in de oerkrachtige SUPER SAIYAN 4!",
+      "hairOrFormUnlocked": "Gouden Reuzenaap & Super Saiyan 4 (Zwart Haar + Karmijnrode Vacht)",
+      "kidLesson": "Pan's liefde voor haar opa Goku veranderde wilde apenwoede in de heldhaftige controle over Super Saiyan 4!"
+    },
+    "dbgt-shadow-dragons": {
+      "eraFullName": "Dragon Ball GT",
+      "years": "Jaar 790",
+      "title": "Super 17, SSJ4 Vegeta & SSJ4 Gogeta tegen de Shadow Dragons",
+      "mainHero": "Super Saiyan 4 Gogeta, SSJ4 Goku & SSJ4 Vegeta",
+      "mainEnemy": "Super 17, Eis & Nuova Shenron, en Omega Shenron",
+      "keyEvents": "Het overmatig wensen met de Dragon Balls brengt 7 kwaadaardige Shadow Dragons voort onder leiding van Omega Shenron! Goku en Vegeta bereiken beiden Super Saiyan 4, fuseren tot de roodharige SSJ4 GOGETA en redden het universum met de Universele Spirit Bomb!",
+      "hairOrFormUnlocked": "Super Saiyan 4 Gogeta (Vurig Rood Haar & Gouden Aura)",
+      "kidLesson": "De Dragon Balls leerden onze helden om op eigen moed te vertrouwen in plaats van elk probleem maar weg te wensen."
+    },
+    "dbs-gods-frieza": {
+      "eraFullName": "Dragon Ball Super",
+      "years": "Jaar 778 – 779",
+      "title": "Battle of Gods (Super Saiyan God vs. Beerus) & Golden Freezer",
+      "mainHero": "Super Saiyan God (Rood) & Super Saiyan Blue Goku & Vegeta",
+      "mainEnemy": "Lord Beerus (God van Vernietiging), Whis & Golden Freezer",
+      "keyEvents": "Lord Beerus ontwaakt op zoek naar een 'Super Saiyan God'! Goku volbrengt het 6-Saiyans ritueel voor vlammend rood haar en traint daarna samen met Vegeta onder Whis om het cyaanblauwe 'Super Saiyan Blue' te beheersen tegen Golden Freezer!",
+      "hairOrFormUnlocked": "Super Saiyan God (Rood), Super Saiyan Blue (Cyaan) & Golden Freezer",
+      "kidLesson": "Zelfs na Majin Buu wachten er nog 12 hele universums, Goden van Vernietiging en Engelen om van te leren!"
+    },
+    "dbs-goku-black": {
+      "eraFullName": "Dragon Ball Super",
+      "years": "Jaar 779",
+      "title": "Future Trunks, Goku Black (SSJ Rosé) & Vegetto Blue Saga",
+      "mainHero": "Vegetto Blue, Super Saiyan Rage Trunks, Goku & Vegeta",
+      "mainEnemy": "Goku Black (Super Saiyan Rosé) & Fused Zamasu",
+      "keyEvents": "Future Trunks keert terug voor hulp tegen 'Goku Black' (de afvallige god Zamasu in Goku's lichaam met roos-roze haar)! Goku en Vegeta doen de magische Potara-oorbellen in om VEGETTO SUPER SAIYAN BLUE te worden!",
+      "hairOrFormUnlocked": "Vegetto Blue, Super Saiyan Rosé (Roze) & Trunks Super Saiyan Rage",
+      "kidLesson": "Gestolen macht kan nooit winnen van strijders die hun kracht hebben verdiend met jarenlange noeste training."
+    },
+    "dbs-top-broly-superhero": {
+      "eraFullName": "Dragon Ball Super",
+      "years": "Jaar 780 – 783",
+      "title": "Toernooi der Kracht (Jiren), Broly, Ultra Ego & Super Hero",
+      "mainHero": "Ultra Instinct Goku, Ultra Ego Vegeta, Gogeta Blue, Gohan Beast & Orange Piccolo",
+      "mainEnemy": "Jiren, Toppo, Dyspo, Legendarische Broly & Cell Max",
+      "keyEvents": "Grand Zeno organiseert het Toernooi der Kracht met 80 strijders, waarin Goku de zilveren Autonome Ultra Instinct ontketent tegen Jiren en Android 17 zegeviert! Later vecht Gogeta Blue tegen Broly, ontgrendelt Vegeta het paarse Ultra Ego en bereiken Gohan en Piccolo hun Beast- en Oranje-vormen!",
+      "hairOrFormUnlocked": "Zilveren Ultra Instinct, Paarse Ultra Ego, Gohan Beast & Orange Piccolo",
+      "kidLesson": "Elke held schittert nu in zijn eigen unieke kleur: Goku (Zilver), Vegeta (Paars), Gohan (Beast-Zilver) en Piccolo (Oranje)!"
+    }
+  },
+  "fighters": {
+    "goku": {
+      "name": "Son Goku (Kakarot)",
+      "series": "DB • DBZ • GT • DBS",
+      "race": "Saiyan opgegroeid op aarde",
+      "signatureMove": "Kamehameha, Instant Transmission, Kaio-ken & Spirit Bomb",
+      "peakPowerLabel": "Autonome Ultra Instinct (90 Triljard)",
+      "kidBio": "Vrolijk, goudhartig en altijd hongerig! Als baby naar de aarde gestuurd, opgevoed door opa Gohan en getraind door Meester Roshi, Koning Kai en Whis. Klik op Goku's 8 gedaantes onder het 3D-podium om te zien hoe hij transformeert van zijn basisvorm naar de zilveren Ultra Instinct!",
+      "forms": [
+        {
+          "label": "Basis Goku",
+          "power": "60.000.000"
+        },
+        {
+          "label": "Super Saiyan 1 (Goud)",
+          "power": "3.000.000.000"
+        },
+        {
+          "label": "Super Saiyan 2 (Bliksem)",
+          "power": "6.000.000.000"
+        },
+        {
+          "label": "Super Saiyan 3 (Manen)",
+          "power": "24.000.000.000"
+        },
+        {
+          "label": "Super Saiyan 4 (GT)",
+          "power": "2 Biljoen"
+        },
+        {
+          "label": "Super Saiyan God (Rood)",
+          "power": "1,5 Biljoen (God Ki)"
+        },
+        {
+          "label": "Super Saiyan Blue (SSB)",
+          "power": "9 Triljoen"
+        },
+        {
+          "label": "Autonome Ultra Instinct (Zilver)",
+          "power": "90 Triljard"
+        }
+      ]
+    },
+    "vegeta": {
+      "name": "Prins Vegeta IV",
+      "series": "DBZ • GT • DBS",
+      "race": "Koninklijke Saiyan-prins",
+      "signatureMove": "Galick Gun, Final Flash, Big Bang Attack & Hakai",
+      "peakPowerLabel": "Ultra Ego (19,84 Triljard+)",
+      "kidBio": "De trotse prins van alle Saiyans! Ooit Goku's aartsvijand, maar nu Bulma's echtgenoot, Trunks' vader en de vurigste beschermer van de aarde – met Super Saiyan God, Blue en het vernietigende paarse Ultra Ego!",
+      "forms": [
+        {
+          "label": "Basis Vegeta",
+          "power": "54.000.000"
+        },
+        {
+          "label": "Super Saiyan 1",
+          "power": "330.000.000"
+        },
+        {
+          "label": "Super Saiyan 2",
+          "power": "24.000.000.000"
+        },
+        {
+          "label": "Super Saiyan 4 (GT)",
+          "power": "1,8 Biljoen"
+        },
+        {
+          "label": "Super Saiyan God (Rood)",
+          "power": "1,6 Biljoen (God Ki)"
+        },
+        {
+          "label": "Super Saiyan Blue",
+          "power": "100 Triljoen"
+        },
+        {
+          "label": "Ultra Ego (Vernietigingspaars)",
+          "power": "19,84 Triljard+"
+        }
+      ]
+    },
+    "vegetto": {
+      "name": "Vegetto / Vegito (Potara)",
+      "series": "DBZ • DBS",
+      "race": "Potara-oorbellen Fusie (Goku + Vegeta)",
+      "signatureMove": "Final Kamehameha, Spirit Sword & Banshee Blast",
+      "peakPowerLabel": "Vegetto Blue (10,8 Triljard+)",
+      "kidBio": "Ontstaan wanneer Goku en Vegeta de magische Potara-oorbellen van de Supreme Kai aan weerszijden inklikken! Vegetto draagt Goku's gevechtskleding met omgekeerde kleuren en Vegeta's witte handschoenen en laarzen!",
+      "forms": [
+        {
+          "label": "Super Vegetto (Goud)",
+          "power": "9 Biljoen"
+        },
+        {
+          "label": "Vegetto Super Saiyan Blue",
+          "power": "10,8 Triljard+"
+        }
+      ]
+    },
+    "gogeta": {
+      "name": "Gogeta (Fusiedans)",
+      "series": "DBZ • DBGT • DBS: Broly",
+      "race": "Metamoran Fusiedans (Goku + Vegeta)",
+      "signatureMove": "Stardust Breaker (Soul Punisher) & Big Bang Kamehameha",
+      "peakPowerLabel": "Gogeta SSB Evolved (1,26 Triljard)",
+      "kidBio": "'Ik ben noch Goku noch Vegeta!' Ontstaat wanneer Goku en Vegeta de volmaakt symmetrische fusiedans uitvoeren met perfect synchroon Ki! Hij versloeg Janemba, vocht tegen Omega Shenron en bedwong de ontembare Broly!",
+      "forms": [
+        {
+          "label": "Basis Gogeta",
+          "power": "100 Miljard"
+        },
+        {
+          "label": "Super Gogeta (SSJ1)",
+          "power": "6,3 Triljoen"
+        },
+        {
+          "label": "SSJ4 Gogeta (GT Karmijnrood)",
+          "power": "168 Biljoen"
+        },
+        {
+          "label": "Gogeta Blue (SSJB)",
+          "power": "12,6 Triljard"
+        },
+        {
+          "label": "Gogeta Blue Evolved",
+          "power": "1,26 Triljard"
+        }
+      ]
+    },
+    "gohan": {
+      "name": "Son Gohan (Beast)",
+      "series": "DBZ • GT • DBS: Super Hero",
+      "race": "Half-Saiyan / Half-Mens Hybride",
+      "signatureMove": "Vader-Zoon Kamehameha, Masenko & Beast Special Beam Cannon",
+      "peakPowerLabel": "Gohan Beast (25,6 Triljard)",
+      "kidBio": "Goku's slimme geleerde zoon! Hij was de allereerste Saiyan die Super Saiyan 2 bereikte tegen Cell, en liet het torenhoge, roodogige GOHAN BEAST ontwaken om Piccolo en Pan te beschermen!",
+      "forms": [
+        {
+          "label": "Basis Gohan",
+          "power": "45.000.000"
+        },
+        {
+          "label": "Super Saiyan 1",
+          "power": "4,7 Miljard"
+        },
+        {
+          "label": "Tiener Gohan SSJ2 (Cell Games)",
+          "power": "10,2 Miljard"
+        },
+        {
+          "label": "Ultimate / Mystic Gohan",
+          "power": "43 Miljard"
+        },
+        {
+          "label": "Gohan Beast (Zilveren Manen)",
+          "power": "25,6 Triljard"
+        }
+      ]
+    },
+    "piccolo": {
+      "name": "Piccolo (Oranje)",
+      "series": "DB • DBZ • GT • DBS: Super Hero",
+      "race": "Namekiaanse Krijger",
+      "signatureMove": "Special Beam Cannon (Makankosappo), Hellzone Grenade & Light Grenade",
+      "peakPowerLabel": "Orange Piccolo (41,25 Triljoen)",
+      "kidBio": "Gohan's wijze mentor en Pan's favoriete meester! Toen Piccolo Shenron vroeg zijn verborgen krachten vrij te maken, gaf de draak hem 'iets extra's': de reusachtige gespierde ORANGE PICCOLO-transformatie!",
+      "forms": [
+        {
+          "label": "Basis Piccolo (Verzwaarde Mantel)",
+          "power": "2.000.000"
+        },
+        {
+          "label": "Super Namekiaan (Gefuseerd met Kami)",
+          "power": "2,175 Miljard"
+        },
+        {
+          "label": "Gigantische Orange Piccolo",
+          "power": "41,25 Triljoen"
+        }
+      ]
+    },
+    "freezer": {
+      "name": "Keizer Freezer / Frieza",
+      "series": "DBZ • GT • DBS",
+      "race": "Vorstdemonen Keizer",
+      "signatureMove": "Death Beam, Supernova, Death Ball & Woede van de Gouden Keizer",
+      "peakPowerLabel": "Golden Freezer (100 Triljoen)",
+      "kidBio": "De gevreesde keizer van Universum 7! Freezer bedacht zijn eerste 3 gedaantes alleen om zijn gigantische kracht te beteugelen – en in Dragon Ball Super had hij na 4 maanden trainen al GOLDEN FREEZER bereikt!",
+      "forms": [
+        {
+          "label": "1e Vorm Freezer",
+          "power": "530.000"
+        },
+        {
+          "label": "2e Vorm (Grote Hoorns)",
+          "power": "1.060.000"
+        },
+        {
+          "label": "3e Vorm (Buitenaardse Vorm)",
+          "power": "2.120.000"
+        },
+        {
+          "label": "Finale / Ware Vorm",
+          "power": "120.000.000"
+        },
+        {
+          "label": "Golden Freezer (DBS)",
+          "power": "100 Triljoen"
+        }
+      ]
+    },
+    "cell": {
+      "name": "Perfect Cell",
+      "series": "DBZ • DBGT",
+      "race": "Bio-Android (Cellen van Goku, Vegeta, Piccolo & Freezer)",
+      "signatureMove": "Solar Kamehameha, Special Beam Cannon & Namekiaanse Regeneratie",
+      "peakPowerLabel": "Super Perfect Cell (10,97 Miljard)",
+      "kidBio": "Gemaakt door Dr. Gero's supercomputer met DNA van Goku, Vegeta, Piccolo en Freezer! Hij organiseerde het Cell Games-toernooi voordat hij ten onder ging in het epische Kamehameha-duel tegen SSJ2 Tiener Gohan!",
+      "forms": [
+        {
+          "label": "Imperfect Cell (1e Vorm)",
+          "power": "370.000.000"
+        },
+        {
+          "label": "Semi-Perfect Cell (2e Vorm)",
+          "power": "897.000.000"
+        },
+        {
+          "label": "Perfect Cell",
+          "power": "4.500.000.000"
+        },
+        {
+          "label": "Super Perfect Cell (SSJ2 Vonken)",
+          "power": "10.970.000.000"
+        }
+      ]
+    },
+    "buu": {
+      "name": "Majin Buu (Alle Vormen)",
+      "series": "DBZ • DBGT • DBS",
+      "race": "Oeroude Magische Majin",
+      "signatureMove": "Chocoladestraal, Planeetexplosie & Instant Regeneratie",
+      "peakPowerLabel": "Buuhan — Gohan Geabsorbeerd (14,8 Miljard+)",
+      "kidBio": "Een magische roze geest die meerekt als kauwgom en tegenstanders in chocoladerepen verandert! De lieve Dikke Buu werd Mr. Satan's beste vriend, terwijl Goku Kid Buu versloeg met de Super Spirit Bomb!",
+      "forms": [
+        {
+          "label": "Onschuldige Dikke Buu",
+          "power": "9.000.000.000"
+        },
+        {
+          "label": "Super Buu",
+          "power": "11.000.000.000"
+        },
+        {
+          "label": "Buutenks (Gotenks Geabsorbeerd)",
+          "power": "12.300.000.000"
+        },
+        {
+          "label": "Buuhan (Gohan Geabsorbeerd)",
+          "power": "14.800.000.000"
+        },
+        {
+          "label": "Kid Buu (Pure Chaos)",
+          "power": "10.500.000.000"
+        }
+      ]
+    },
+    "broly": {
+      "name": "Broly (Legendarische Saiyan)",
+      "series": "DBZ Films • DBS: Broly",
+      "race": "Gemuteerde Volbloed Saiyan",
+      "signatureMove": "Gigantic Roar, Planet Crusher & Blaster Meteor",
+      "peakPowerLabel": "Volle Kracht Legendarische SSJ (11,2 Triljard)",
+      "kidBio": "Een vriendelijke reus opgegroeid op de woeste Planeet Vampa met een zeldzame genetische mutatie! Wanneer Broly op volle toeren raakt, kleurt zijn haar felgroen en kan alleen Gogeta Blue hem temmen!",
+      "forms": [
+        {
+          "label": "Woede- / Basis Broly",
+          "power": "7 Triljard"
+        },
+        {
+          "label": "Legendarische Groene Super Saiyan",
+          "power": "11,2 Triljard"
+        }
+      ]
+    },
+    "goku-black": {
+      "name": "Goku Black (Zamasu)",
+      "series": "Dragon Ball Super",
+      "race": "Afvallige Supreme Kai in Goku's Lichaam",
+      "signatureMove": "Divine Lasso, Zwarte Kamehameha & Zeis van Verdriet",
+      "peakPowerLabel": "Super Saiyan Rosé (12 Triljoen+)",
+      "kidBio": "Een rebelse god uit Universum 10 genaamd Zamasu, die via de Super Dragon Balls van lichaam wisselde met Goku! Doordat zijn ziel goddelijk is, kleurt zijn Super Saiyan-haar stralend roos-roze!",
+      "forms": [
+        {
+          "label": "Super Saiyan Rosé (Roze)",
+          "power": "12 Triljoen+"
+        }
+      ]
+    },
+    "beerus": {
+      "name": "Lord Beerus (Bills)",
+      "series": "Battle of Gods • DBS",
+      "race": "God van Vernietiging (Universum 7)",
+      "signatureMove": "Hakai (Wissen), Sfeer van Vernietiging & Beerus' Oordeel",
+      "peakPowerLabel": "God van Vernietiging (102 Triljard)",
+      "kidBio": "De paarse katachtige God van Vernietiging van Universum 7! Beerus kan planeten met één vingertik verpulveren – maar spaart de aarde omdat Bulma hem de lekkerste pizza, ramen en pudding voorschotelt!",
+      "forms": [
+        {
+          "label": "Lord Beerus (Hakai-Kracht)",
+          "power": "102 Triljard"
+        }
+      ]
+    },
+    "whis": {
+      "name": "Whis & de Grand Priest",
+      "series": "Dragon Ball Super",
+      "race": "Hemelse Engelen",
+      "signatureMove": "Continue Autonome Ultra Instinct & 3-Minuten Tijdterugspoeling",
+      "peakPowerLabel": "Engelen- & Grand Priest-Niveau",
+      "kidBio": "Whis is Beerus' kalme engelenleraar die Goku en Vegeta trainde in God Ki en Ultra Instinct! Zijn vader, de Grand Priest, behoort tot de top 5 sterkste wezens in het hele multiversum!",
+      "forms": [
+        {
+          "label": "Engel Whis (Leraar Universum 7)",
+          "power": "Engelniveau (Overtreft Beerus!)"
+        },
+        {
+          "label": "De Grand Priest (Vader van de Engelen)",
+          "power": "Top 5 in het Multiversum!"
+        }
+      ]
+    },
+    "zeno": {
+      "name": "Grand Zeno (Omni-Koning)",
+      "series": "Dragon Ball Super",
+      "race": "Opperheerser van alle 12 Universums",
+      "signatureMove": "Omniversale Uitwissing ('Ploep!')",
+      "peakPowerLabel": "Oneindig / Boven Alles Verheven",
+      "kidBio": "Klein, kleurrijk en dikke vrienden met Goku ('Zen-chan!') heerst Grand Zeno over alle 12 Universums! Zelfs Goden van Vernietiging beven van ontzag wanneer Zeno zijn handjes opsteekt!",
+      "forms": [
+        {
+          "label": "Grand Zeno (Zen-Oh)",
+          "power": "ONEINDIG (Alheerser)"
+        }
+      ]
+    },
+    "jiren": {
+      "name": "Jiren the Grey",
+      "series": "Dragon Ball Super (Universum 11)",
+      "race": "Kopman van de Pride Troopers",
+      "signatureMove": "Power Impact, Onzichtbare Blik & Omegaheat Magnetron",
+      "peakPowerLabel": "Grenzeloze Jiren (12,1 Triljard)",
+      "kidBio": "De machtigste superheld van de Pride Troopers uit Universum 11! Jiren dwong Goku om in de slotminuten van het Toernooi der Kracht de zilverharige Ultra Instinct te ontgrendelen!",
+      "forms": [
+        {
+          "label": "Jiren (Kampioen Universum 11)",
+          "power": "12,1 Triljard"
+        }
+      ]
+    },
+    "toppo-dyspo": {
+      "name": "Toppo & Dyspo (U11)",
+      "series": "Dragon Ball Super (Universum 11)",
+      "race": "Leiders van de Pride Troopers",
+      "signatureMove": "Justice Flash, Hakai-Energie & Super Maximum Lichtsnelheidsmodus",
+      "peakPowerLabel": "Kandidaat-Vernietigingsgod Toppo",
+      "kidBio": "Jirens trouwe teamgenoten! De besnorde Toppo werd klaargestoomd als volgende God van Vernietiging, en de paarse konijnenstrijder Dyspo beweegt sneller dan het licht!",
+      "forms": [
+        {
+          "label": "Toppo (Leider van de Pride Troopers)",
+          "power": "75 Triljoen"
+        },
+        {
+          "label": "Dyspo (Sneller Dan Licht)",
+          "power": "50 Biljoen"
+        }
+      ]
+    },
+    "trunks": {
+      "name": "Future Trunks",
+      "series": "DBZ • DBS",
+      "race": "Half-Saiyan Tijdreiziger",
+      "signatureMove": "Burning Attack, Zwaardkapping & Spirit Bomb Zwaard",
+      "peakPowerLabel": "Super Saiyan Rage (17,5 Triljoen)",
+      "kidBio": "Vegeta en Bulma's beleefde, zwaardvechtende zoon uit de toekomst! Hij reisde terug in Bulma's tijdmachine om Goku te waarschuwen voor de Androids en beheerste later Super Saiyan Rage!",
+      "forms": [
+        {
+          "label": "Basis Future Trunks",
+          "power": "25.000.000"
+        },
+        {
+          "label": "Super Saiyan Trunks",
+          "power": "905.000.000"
+        },
+        {
+          "label": "Super Saiyan Rage (Goud + Blauw)",
+          "power": "17,5 Triljoen"
+        }
+      ]
+    },
+    "gotenks": {
+      "name": "Gotenks (Goten + Trunks)",
+      "series": "DBZ • DBS",
+      "race": "Fusiedans van Jonge Saiyans",
+      "signatureMove": "Super Ghost Kamikaze Attack & Galactische Donut",
+      "peakPowerLabel": "Super Saiyan 3 Gotenks (45,6 Miljard)",
+      "kidBio": "Wanneer de 7-jarige Goten en 8-jarige Trunks de fusiedans uitvoeren, worden ze de brutale superheld GOTENKS – bekend van hilarische aanvallen zoals ontploffende spoken!",
+      "forms": [
+        {
+          "label": "Basis Gotenks",
+          "power": "65.600.000"
+        },
+        {
+          "label": "Super Saiyan 1 Gotenks",
+          "power": "5,7 Miljard"
+        },
+        {
+          "label": "Super Saiyan 3 Gotenks",
+          "power": "45,6 Miljard"
+        }
+      ]
+    },
+    "androids": {
+      "name": "Androids 16, 17 & 18",
+      "series": "DBZ • DBGT • DBS",
+      "race": "Oneindige-Energie Cyborgs & Natuurbeschermers",
+      "signatureMove": "Android Schild, Accel Dans & Hell's Flash",
+      "peakPowerLabel": "Toernooi der Kracht Winnaar Android 17",
+      "kidBio": "Gebouwd met oneindige energiebronnen die nooit moe worden! De vredelievende Android 16 inspireerde Gohan, 18 trouwde met Krillin, en 17 won het Toernooi der Kracht en wenste alle gewiste universums terug!",
+      "forms": [
+        {
+          "label": "Android 16 (Houdt van Vogels & Natuur)",
+          "power": "440.000.000"
+        },
+        {
+          "label": "Android 18 (Krillins Vrouw)",
+          "power": "380.000.000+"
+        },
+        {
+          "label": "Android 17 (MVP Parkwachter!)",
+          "power": "Triljoenen-Klasse (Toernooiwinnaar)"
+        }
+      ]
+    },
+    "earth-heroes": {
+      "name": "Krillin, Roshi, Tien & Yamcha",
+      "series": "DB • DBZ • DBGT • DBS",
+      "race": "Aardse Krijgskunst-Kampioenen",
+      "signatureMove": "Destructo Disc (Kienzan), Originele Kamehameha, Tri-Beam & Wolf Fang Fist",
+      "peakPowerLabel": "Grootste Krijgskunstenaars van de Aarde",
+      "kidBio": "Goku's allereerste vrienden uit Dragon Ball! Meester Roshi vond de Kamehameha uit, en Krillin, Tien en Yamcha bewijzen dat dapperheid en slim vechten tellen, ook zonder glanzend Saiyan-haar!",
+      "forms": [
+        {
+          "label": "Meester Roshi (Kamehameha Uitvinder)",
+          "power": "Max Power Meester"
+        },
+        {
+          "label": "Yamcha (Wolf Fang Fist & Honkbalprof)",
+          "power": "500.000"
+        },
+        {
+          "label": "Tien Shinhan (Drie-Ogige Meester)",
+          "power": "2.500.000+"
+        },
+        {
+          "label": "Krillin (Sterkste Echte Mens!)",
+          "power": "5.000.000+"
+        }
+      ]
+    },
+    "bulma-satan": {
+      "name": "Bulma & Mr. Satan (Hercule)",
+      "series": "DB • DBZ • DBGT • DBS",
+      "race": "Grootste Genie van de Aarde & Wereldkampioen",
+      "signatureMove": "Dragon Radar, Tijdmachine, Capsule Tech & Dynamite Kick!",
+      "peakPowerLabel": "Redden het Multiversum met Verstand & Hart!",
+      "kidBio": "Zonder Bulma's uitvinding van de Dragon Radar en de tijdmachine was Dragon Ball nooit begonnen! En zonder Mr. Satan die vrienden werd met Buu en de aarde opriep voor de Spirit Bomb, had Kid Buu gewonnen!",
+      "forms": [
+        {
+          "label": "Bulma Briefs (Dragon Radar Uitvindster)",
+          "power": "IQ 300+ Super-Wetenschapper!"
+        },
+        {
+          "label": "Mr. Satan / Hercule (Buu's Beste Vriend)",
+          "power": "Wereldkampioen Vechtsport!"
+        }
+      ]
+    },
+    "bardock-raditz": {
+      "name": "Bardock & Raditz (Goku's Familie)",
+      "series": "DBZ • DBS: Broly",
+      "race": "Volbloed Saiyans van Planeet Vegeta",
+      "signatureMove": "Final Spirit Cannon & Double Sunday",
+      "peakPowerLabel": "Bardock (Goku's Heldhaftige Vader)",
+      "kidBio": "Goku's Saiyan-familie! Bardock stuurde baby Kakarot (Goku) in een ruimtecapsule naar de aarde om hem te redden voordat hij dapper tegenover Freezer stond. En de langharige Raditz was de allereerste schurk in Dragon Ball Z!",
+      "forms": [
+        {
+          "label": "Raditz (Goku's Oudere Broer)",
+          "power": "1.500"
+        },
+        {
+          "label": "Bardock (Goku's Vader)",
+          "power": "450.000+"
+        }
+      ]
+    },
+    "ginyu": {
+      "name": "Kapitein Ginyu",
+      "series": "DBZ (Namek) • DBS",
+      "race": "Leider van de Ginyu Force",
+      "signatureMove": "Lichaamswisseling! ('Change Now!') & Milky Cannon",
+      "peakPowerLabel": "120.000 (Elite-Bevelhebber Namek)",
+      "kidBio": "Freezer's ijdele, poseer-grage kapitein van de Ginyu Force! Als iemand sterker is dan hij, roept Ginyu 'CHANGE NOW!' om van lichaam te wisselen – totdat Goku hem te slim af was en in een kikker veranderde!",
+      "forms": [
+        {
+          "label": "Kapitein Ginyu (Speciale Gevechtshouding!)",
+          "power": "120.000"
+        }
+      ]
+    },
+    "janemba": {
+      "name": "Super Janemba",
+      "series": "DBZ: Fusion Reborn • SDBH",
+      "race": "Wereld-Vervormende Demon uit de Andere Wereld",
+      "signatureMove": "Dimensiezwaard, Bliksemregen & Portaalvuist",
+      "peakPowerLabel": "75.000.000.000 (Overtreft SSJ3 Goku)",
+      "kidBio": "Ontstaan toen de zielenreinigingsmachine ontplofte in het hiernamaals! Super Janemba teleporteert door in pixelblokjes uiteen te vallen en dwong Goku en Vegeta tot hun allereerste fusie als Super Gogeta!",
+      "forms": [
+        {
+          "label": "Super Janemba (Dimensiezwaard)",
+          "power": "75 Miljard"
+        }
+      ]
+    }
+  },
+  "fusionRecipes": {
+    "goku-vegeta-potara": {
+      "methodName": "👂 Potara Supreme Kai Oorbellen",
+      "resultName": "Vegetto Super Saiyan Blue!",
+      "power": "10,8 Triljard+",
+      "story": "POTARA-FUSIE VOLTOOID! Goku en Vegeta klikken de magische Potara-oorbellen aan weerszijden in en smelten in de lucht samen tot VEGETTO BLUE – gewapend met de Final Kamehameha en het Spirit Sword!"
+    },
+    "goku-vegeta-dance": {
+      "methodName": "👉👈 Metamoran Fusiedans ('Fuuu-sion... HA!')",
+      "resultName": "Gogeta Super Saiyan Blue Evolved!",
+      "power": "1,26 Triljard",
+      "story": "PERFECTE SYMMETRIE! Goku en Vegeta stemmen hun Ki op elkaar af en raken elkaars vingertoppen onder de exacte hoek aan – zo ontketenen ze GOGETA BLUE voor 30 onstuitbare minuten!"
+    },
+    "goku-vegeta-gt": {
+      "methodName": "🐒 Super Saiyan 4 Fusiedans (GT)",
+      "resultName": "Super Saiyan 4 Gogeta (Karmijnrood Haar)!",
+      "power": "168 Biljoen",
+      "story": "DE ULTIEME GT-FUSIE! SSJ4 Goku en SSJ4 Vegeta fuseren tot de roodharige SUPER SAIYAN 4 GOGETA – sterk genoeg om Omega Shenron's Minus Energy Ball met één trap de ruimte in te jagen!"
+    },
+    "goten-trunks-dance": {
+      "methodName": "👻 Kinder-Fusiedans (Goten + Trunks)",
+      "resultName": "Super Saiyan 3 Gotenks!",
+      "power": "45,6 Miljard",
+      "story": "TADAAA!! De jonge Goten en Trunks voeren de fusiedans feilloos uit en springen direct voorbij SSJ2 naar de langharige goudharige SUPER SAIYAN 3 GOTENKS!"
+    },
+    "piccolo-kami-namek": {
+      "methodName": "🟢 Namekiaanse Samensmelting + Shenron-Zegen",
+      "resultName": "Gigantische Orange Piccolo!",
+      "power": "41,25 Triljoen",
+      "story": "NAMEKIAANSE ONTWAKING! Na hereniging met Nail en Kami ontvangt Piccolo Shenron's speciale drakengave en groeit uit tot de reusachtige ORANGE PICCOLO!"
+    }
+  },
+  "quizQuestions": [
+    {
+      "question": "Welke kleur krijgt Goku's haar wanneer hij op Planeet Namek voor het eerst in een Super Saiyan verandert?",
+      "options": [
+        "Goudgeel (met smaragdgroen-blauwe ogen)",
+        "Elektrisch Cyaanblauw",
+        "Neon Limoengroen",
+        "Roos-Roze"
+      ],
+      "explanation": "Super Saiyan 1 laat het haar fel goudgeel oplichten en maakt de basiskracht 50 keer zo sterk!"
+    },
+    {
+      "question": "Wat is het verschil tussen VEGETTO (Vegito) en GOGETA?",
+      "options": [
+        "Vegetto ontstaat via Potara-oorbellen; Gogeta via de Fusiedans!",
+        "Het is precies dezelfde transformatie",
+        "Vegetto is Piccolo + Krillin",
+        "Gogeta is Freezer + Cell"
+      ],
+      "explanation": "Vegetto gebruikt de Potara-oorbellen van de Supreme Kai, terwijl Gogeta ontstaat door de perfect symmetrische Metamoran fusiedans!"
+    },
+    {
+      "question": "Waaraan herken je Super Saiyan 3 meteen op het allereerste gezicht?",
+      "options": [
+        "Gouden leeuwenmanen tot aan het middel en GEEN wenkbrauwen!",
+        "Een paarse cape met stippen",
+        "Zo klein als een mier",
+        "Groene huid met voelsprieten"
+      ],
+      "explanation": "Super Saiyan 3 vermenigvuldigt de kracht met 400x, laat enorme gouden manen groeien en laat de wenkbrauwen verdwijnen!"
+    },
+    {
+      "question": "In welke Dragon Ball-serie werd Super Saiyan 4 (zwart haar, rode vacht en apenstaart) geïntroduceerd?",
+      "options": [
+        "Dragon Ball GT",
+        "Dragon Ball Aflevering 1",
+        "Dr. Slump",
+        "Sand Land"
+      ],
+      "explanation": "Dragon Ball GT introduceerde de oerkrachtige Super Saiyan 4 nadat Goku zijn Gouden Reuzenaap wist te kalmeren!"
+    },
+    {
+      "question": "Wat betekent Goku's VLAMMEND RODE haar in 'Battle of Gods'?",
+      "options": [
+        "Super Saiyan God – ontgrendeld via het ritueel van 6 rechtvaardige Saiyans!",
+        "Hij at te pittige noedels",
+        "Super Saiyan 1",
+        "Reuzenaap-transformatie"
+      ],
+      "explanation": "Super Saiyan God geeft Goku magentarood haar in zijn gewone basiskapsel en ontgrendelt goddelijke God Ki!"
+    },
+    {
+      "question": "Wat betekent ZILVERWIT haar wanneer Goku tegen Jiren strijdt in Dragon Ball Super?",
+      "options": [
+        "Autonome Ultra Instinct – zijn lichaam ontwijkt en slaat vanzelf toe zonder na te denken!",
+        "Hij werd 100 jaar ouder",
+        "Kaio-ken x2",
+        "Solar Flare (Zonneflits)"
+      ],
+      "explanation": "Zilverwit haar hoort bij de voltooide Autonome Ultra Instinct, de hemelse techniek van Engelen zoals Whis!"
+    },
+    {
+      "question": "Welke Saiyan was de ALLEREERSTE in de geschiedenis die Super Saiyan 2 bereikte (tegen Perfect Cell)?",
+      "options": [
+        "De 11-jarige Tiener Gohan!",
+        "Raditz",
+        "Nappa",
+        "Kapitein Ginyu"
+      ],
+      "explanation": "Gohan ontgrendelde Super Saiyan 2 (met knetterende blauwe bliksem!) tijdens de legendarische Cell Games!"
+    },
+    {
+      "question": "Waarom is Goku Black's Super Saiyan-haar ROOS-ROZE in plaats van cyaanblauw?",
+      "options": [
+        "Omdat Zamasu al een echte God (Supreme Kai) was in Goku's Saiyan-lichaam!",
+        "Hij gebruikte roze haarverf",
+        "Hij fuseerde met Majin Buu",
+        "Hij at een magische Senzu Bean"
+      ],
+      "explanation": "Wanneer een echte god een Saiyan-lichaam in Super Saiyan laat veranderen, straalt het God Ki roos-roze (Super Saiyan Rosé)!"
+    },
+    {
+      "question": "Welke nieuwe gedaantes ontgrendelden Gohan en Piccolo in 'Dragon Ball Super: Super Hero'?",
+      "options": [
+        "Gohan Beast (Zilveren Manen) & Gigantische Orange Piccolo!",
+        "Blauwe Gohan & Paarse Piccolo",
+        "Gouden Gohan & Mini Piccolo",
+        "Robot Gohan & Cyborg Piccolo"
+      ],
+      "explanation": "Shenron gaf Piccolo zijn enorme oranje vorm cadeau, en Gohan ontketende het oppermachtige Gohan Beast!"
+    },
+    {
+      "question": "Wie heeft de Dragon Radar ÉN de tijdmachine uitgevonden?",
+      "options": [
+        "Bulma Briefs!",
+        "Meester Roshi",
+        "Keizer Freezer",
+        "Lord Beerus"
+      ],
+      "explanation": "Bulma's geniale Capsule Corp-uitvindingen vormden in aflevering 1 het startschot van het hele Dragon Ball-avontuur!"
+    },
+    {
+      "question": "Welke kleur haar heeft Vegeta's 'Ultra Ego'-transformatie?",
+      "options": [
+        "Koninklijk Dieppaars (God van Vernietiging-kracht, zonder wenkbrauwen!)",
+        "Neon Limoengroen",
+        "Fel Oranje",
+        "Sneeuwwit"
+      ],
+      "explanation": "Getraind door Lord Beerus kleurt Ultra Ego Vegeta's haar dieppaars en voedt het zijn kracht met pure vechtlust!"
+    },
+    {
+      "question": "Wie won het 80-vechters Toernooi der Kracht in Dragon Ball Super en wenste alle gewiste universums terug?",
+      "options": [
+        "Android 17!",
+        "Kapitein Ginyu",
+        "Raditz",
+        "Super Janemba"
+      ],
+      "explanation": "Android 17 was de laatste vechter die overbleef op het strijdtoneel nadat Goku en Freezer samen Jiren uitschakelden!"
+    }
+  ]
+}

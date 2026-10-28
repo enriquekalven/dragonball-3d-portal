@@ -1,0 +1,955 @@
+{
+  "arenas": {
+    "space-capsule": "🌌 Holodeck da Corporação Cápsula",
+    "planet-namek": "🟢 Planeta Namekusei",
+    "cell-games": "🏟️ Arena dos Jogos do Cell",
+    "time-chamber": "⏳ Sala do Tempo Hiperbólica",
+    "world-of-void": "🟣 O Vazio do Torneio do Poder"
+  },
+  "hairForms": {
+    "base-black": {
+      "name": "Saiyajin Base (Cabelo Preto Piche)",
+      "shortLabel": "Preto Piche (Goku Base)",
+      "characterName": "Son Goku (Forma Base)",
+      "era": "DRAGON BALL / DBZ / DBS",
+      "multiplier": "1x Poder Base",
+      "powerExample": "60,000,000",
+      "whoUsesIt": "Goku, Vegeta, Gohan, Vegetto, Gogeta, Bardock, Raditz",
+      "howUnlocked": "Biologia natural de um Saiyajin de sangue puro desde o nascimento!",
+      "meaningForKids": "Saiyajins de sangue puro como Goku e Vegeta nascem com cabelos espetados pretos como carvão que NUNCA mudam de formato nem crescem após a infância! O clássico penteado do Goku possui 4 pontas de um lado e 3 do outro.",
+      "funFact": "Quando Goku era criança e tinha sua cauda marrom de macaco, olhar para a Lua Cheia o transformava em um Oozaru (Macaco Gigante) de 15 metros com poder multiplicado por 10!"
+    },
+    "ssj1-gold": {
+      "name": "Super Saiyajin 1 (Amarelo Dourado)",
+      "shortLabel": "Amarelo Dourado (SSJ1)",
+      "characterName": "Son Goku Super Saiyajin",
+      "era": "DRAGON BALL Z (SAGA DE NAMEKUSEI)",
+      "multiplier": "50x Poder Base",
+      "powerExample": "150,000,000 → 3,000,000,000",
+      "whoUsesIt": "Goku, Vegeta, Gohan, Trunks do Futuro, Vegetto, Gogeta, Goten, Cabba",
+      "howUnlocked": "Um coração puro somado a uma explosão emocional de fúria (ou concentrando um formigamento de Ki na parte superior das costas!).",
+      "meaningForKids": "A lendária transformação! Os cabelos ficam arrepiados e brilham em um amarelo-ouro radiante, as sobrancelhas tornam-se loiras e os olhos ganham um tom verde-esmeralda. Multiplica o poder do Saiyajin por 50!",
+      "funFact": "Goku se transformou em Super Saiyajin pela primeira vez em Namekusei depois que Freeza feriu seu melhor amigo Kuririn, realizando a lenda Saiyajin de mil anos!"
+    },
+    "ssj2-sparks": {
+      "name": "Super Saiyajin 2 (Dourado Elétrico + Raios)",
+      "shortLabel": "Dourado Elétrico (SSJ2)",
+      "characterName": "Goku Super Saiyajin 2 e Gohan Jovem",
+      "era": "DRAGON BALL Z (SAGAS DE CELL E BUU)",
+      "multiplier": "100x Poder Base (2x SSJ1)",
+      "powerExample": "6,000,000,000 — 10,200,000,000",
+      "whoUsesIt": "Gohan Jovem (O primeiro!), Goku, Majin Vegeta, Trunks do Futuro, Caulifla",
+      "howUnlocked": "Romper a barreira do Super Saiyajin através de treinamento intenso e o desejo protetor de salvar inocentes.",
+      "meaningForKids": "Como diferenciar o Super Saiyajin 2 do Super Saiyajin 1? Repare nos RAIOS AZUIS crepitando intensamente ao redor da aura dourada e nas mechas de cabelo ainda mais pontiagudas e afiadas!",
+      "funFact": "Com apenas 11 anos, Gohan foi o primeiro Saiyajin em toda a história a atingir o Super Saiyajin 2 durante os Jogos do Cell!"
+    },
+    "ssj3-mane": {
+      "name": "Super Saiyajin 3 (Juba Dourada até a Cintura)",
+      "shortLabel": "Juba Longa Dourada (SSJ3)",
+      "characterName": "Son Goku Super Saiyajin 3",
+      "era": "DRAGON BALL Z (SAGA MAJIN BUU)",
+      "multiplier": "400x Poder Base (4x SSJ2)",
+      "powerExample": "24,000,000,000 — 45,600,000,000",
+      "whoUsesIt": "Goku e Gotenks (Fusão de Goten e Trunks)",
+      "howUnlocked": "Extrair cada gota oculta do potencial Saiyajin—conquistado por Goku ao treinar no Outro Mundo!",
+      "meaningForKids": "O cabelo dourado se estende até a cintura como uma imponente juba de leão, tempestades elétricas de relâmpagos azuis ribombam sem parar e as SOBRANCELHAS somem por completo sob um olhar destemido!",
+      "funFact": "Quando Goku liberou o Super Saiyajin 3 pela primeira vez contra Majin Buu, a intensidade colossal da sua energia fez o planeta Terra inteiro estremecer!"
+    },
+    "ssj4-crimson": {
+      "name": "Super Saiyajin 4 (Cabelo Preto + Pelagem Carmesim)",
+      "shortLabel": "Vermelho Primitivo e Preto (SSJ4)",
+      "characterName": "Goku Super Saiyajin 4 (Dragon Ball GT)",
+      "era": "DRAGON BALL GT (BABY E DRAGÕES MALIGNOS)",
+      "multiplier": "4,000x+ Poder Primitivo do Oozaru",
+      "powerExample": "2 Quatrilhões",
+      "whoUsesIt": "Goku, Vegeta e Gogeta (em Dragon Ball GT)",
+      "howUnlocked": "Transformar-se em Oozaru Dourado mantendo o coração humano consciente, afetuoso e sereno!",
+      "meaningForKids": "Exclusivo de Dragon Ball GT! Em vez de cabelos louros, o guerreiro ostenta longos cabelos pretos até os ombros, pelos vermelhos carmesim cobrindo o corpo e a cauda, e olhos dourados contornados em vermelho.",
+      "funFact": "Quando Goku SSJ4 e Vegeta SSJ4 realizam a fusão para formar o Gogeta Super Saiyajin 4, o cabelo dele brilha em um radiante tom vermelho escarlate!"
+    },
+    "ssg-red": {
+      "name": "Super Saiyajin Deus (Vermelho Magenta Flamejante)",
+      "shortLabel": "Super Saiyajin Deus (Vermelho)",
+      "characterName": "Son Goku Super Saiyajin Deus",
+      "era": "DRAGON BALL SUPER (A BATALHA DOS DEUSES)",
+      "multiplier": "Reino Divino (20,000x+ Base)",
+      "powerExample": "1.5 Quatrilhão+ (Ki Divino)",
+      "whoUsesIt": "Son Goku e Príncipe Vegeta",
+      "howUnlocked": "Cinco Saiyajins de coração puro dão as mãos e canalizam sua luz espiritual para um sexto Saiyajin justo (ou através de treinamento divino com Whis)!",
+      "meaningForKids": "Cabelos rubi-magenta luminosos e olhos vermelhos como fogo! Diferente do Super Saiyajin dourado, o cabelo de Goku mantém a silhueta normal, seu físico fica mais leve e veloz, e sua aura arde como chamas sagradas.",
+      "funFact": "Goku alcançou o Super Saiyajin Deus com a união de Vegeta, Gohan, Goten, Trunks e a bebê Pan ainda na barriga de Videl para enfrentar o Senhor Bills!"
+    },
+    "ssb-blue": {
+      "name": "Super Saiyajin Blue (Azul Ciano Elétrico)",
+      "shortLabel": "Super Saiyajin Blue (SSB)",
+      "characterName": "Goku Super Saiyajin Blue (SSGSS)",
+      "era": "DRAGON BALL SUPER",
+      "multiplier": "50x Super Saiyajin Deus",
+      "powerExample": "9 Quintilhões",
+      "whoUsesIt": "Goku, Vegeta, Vegetto Blue, Gogeta Blue",
+      "howUnlocked": "Transformar-se em Super Saiyajin ENQUANTO domina com serenidade a energia divina do Super Saiyajin Deus!",
+      "meaningForKids": "Nome oficial completo: \"Super Saiyajin Deus Super Saiyajin\"! Por que é azul? Porque as chamas azuis queimam com mais calor e serenidade que as vermelhas, demonstrando foco absoluto e controle do Ki Divino.",
+      "funFact": "Goku consegue inclusive sobrepor a técnica carmesim do Kaio-ken x20 DIRETAMENTE sobre o Super Saiyajin Blue, gerando uma impressionante aura dupla vermelha e azul!"
+    },
+    "ss-rose": {
+      "name": "Super Saiyajin Rosé (Rosa Divino)",
+      "shortLabel": "Super Saiyajin Rosé (Rosa)",
+      "characterName": "Goku Black (Super Saiyajin Rosé)",
+      "era": "DRAGON BALL SUPER (SAGA TRUNKS DO FUTURO)",
+      "multiplier": "Super Saiyajin Divino de um Kaioshin",
+      "powerExample": "12 Quintilhões+",
+      "whoUsesIt": "Goku Black (Zamasu no corpo de Goku)",
+      "howUnlocked": "Quando um ser que JÁ nasceu como um Deus genuíno (um Kaioshin) transforma um corpo Saiyajin em Super Saiyajin!",
+      "meaningForKids": "Quando mortais como Goku ou Vegeta aplicam Ki Divino ao Super Saiyajin, seus cabelos ficam azul-ciano. Porém, quando um verdadeiro Deus (Zamasu) habita o corpo de Goku, o cabelo resplandece em cor-de-rosa!",
+      "funFact": "Goku Black consegue concentrar sua energia Rosé para forjar uma afiada lâmina de Ki cortante em sua mão!"
+    },
+    "lssj-green": {
+      "name": "Lendário Super Saiyajin Poder Total (Verde-Limão)",
+      "shortLabel": "Verde-Limão Mutante (Broly)",
+      "characterName": "Broly (Lendário Super Saiyajin)",
+      "era": "FILMES DE DBZ / DRAGON BALL SUPER: BROLY",
+      "multiplier": "Poder Berserker Mutante em Constante Expansão",
+      "powerExample": "11.2 Septilhões",
+      "whoUsesIt": "Broly (Universo 7) e Kale / Kefla (Universo 6)",
+      "howUnlocked": "Uma raríssima mutação genética que surge uma vez a cada 1.000 anos, fundindo a ira desmedida do Oozaru (\"Ikari\") ao Super Saiyajin!",
+      "meaningForKids": "Cabelos verde-limão vibrantes e uma musculatura colossal! O cabelo verde simboliza uma energia primordial desenfreada que não para de crescer a cada instante da batalha.",
+      "funFact": "No filme Dragon Ball Super: Broly, Broly ficou tão imensamente forte em seu primeiro combate real que Goku e Vegeta precisaram se fundir em Gogeta Blue para detê-lo!"
+    },
+    "ui-silver": {
+      "name": "Instinto Superior Autônomo (Prata Celestial)",
+      "shortLabel": "Branco Prateado (Instinto Superior)",
+      "characterName": "Goku Instinto Superior Autônomo",
+      "era": "DRAGON BALL SUPER (TORNEIO DO PODER)",
+      "multiplier": "Técnica do Reino dos Anjos",
+      "powerExample": "90 Septilhões",
+      "whoUsesIt": "Son Goku (e Anjos divinos como Whis e o Sumo Sacerdote)",
+      "howUnlocked": "Esvaziar a mente de qualquer pensamento para que cada célula do corpo se esquive e ataque instintivamente de forma perfeita.",
+      "meaningForKids": "Cabelos prateados radiantes, olhos de prata e uma aura cósmica cristalina! Até os temidos Deuses da Destruição se levantaram perplexos quando Goku dominou o poder supremo dos Anjos contra Jiren.",
+      "funFact": "Antes de conquistar os cabelos prateados, Goku atinge o \"Presságio do Instinto Superior\", no qual o cabelo continua preto com reflexos de prata e pupilas brilhantes."
+    },
+    "ultra-ego-purple": {
+      "name": "Ego Superior Vegeta (Roxo da Destruição)",
+      "shortLabel": "Roxo da Destruição (Vegeta)",
+      "characterName": "Príncipe Vegeta Ego Superior",
+      "era": "DRAGON BALL SUPER (SAGA GRANOLAH)",
+      "multiplier": "Instinto dos Deuses da Destruição",
+      "powerExample": "19.84 Septilhões+",
+      "whoUsesIt": "Príncipe Vegeta (Treinado pelo Senhor Bills)",
+      "howUnlocked": "Dominar a energia do Hakai ensinada pelo Senhor Bills e deixar o puro ardor combativo impulsionar o seu poder!",
+      "meaningForKids": "Enquanto Goku escolheu a serenidade prateada dos Anjos (Instinto Superior), Vegeta optou pelo destrutivo caminho roxo dos Deuses (Ego Superior)! O cabelo fica roxo intenso, as sobrancelhas desaparecem e ele fica mais forte a cada golpe que recebe!",
+      "funFact": "O próprio Vegeta batizou esta transformação de \"Ego Superior\" para criar um contraste direto com o \"Instinto Superior\" de Goku!"
+    },
+    "beast-orange": {
+      "name": "Gohan Beast e Piccolo Laranja (Super Hero)",
+      "shortLabel": "Fera Prateada e Olhos Carmesim",
+      "characterName": "Gohan Beast (Dragon Ball Super: Super Hero)",
+      "era": "DRAGON BALL SUPER: SUPER HERO",
+      "multiplier": "Evolução Híbrida Suprema",
+      "powerExample": "25.6 Septilhões",
+      "whoUsesIt": "Son Gohan (Beast) e Piccolo (Despertar Laranja)",
+      "howUnlocked": "Gohan elevando seu potencial místico a patamares inéditos para salvar Piccolo e Pan das garras de Cell Max!",
+      "meaningForKids": "Cabelos cinza-prateados imponentes que sobem mais alto que nunca, olhos rubi incandescentes e relâmpagos avermelhados! Paralelamente, Shenlong agraciou Piccolo com a sua robusta forma \"Piccolo Laranja\".",
+      "funFact": "Gohan Beast liquidou o gigantesco Cell Max disparando o golpe assinatura do seu tutor Piccolo: o temível Makankosappo!"
+    }
+  },
+  "timelineSagas": {
+    "db-pilaf-tournament": {
+      "eraFullName": "Dragon Ball (Clássico)",
+      "years": "Ano 749 – 750",
+      "title": "Imperador Pilaf e o 21º Torneio de Artes Marciais",
+      "mainHero": "Goku Criança, Bulma, Kuririn, Yamcha e Mestre Kame",
+      "mainEnemy": "Imperador Pilaf, Shu, Mai e a Fúria do Oozaru",
+      "keyEvents": "A jovem cientista Bulma encontra Goku aos 12 anos no Monte Paozu segurando a Esfera de 4 Estrelas do seu avô Gohan! Ao lado de Kuririn e Yamcha, buscam as 7 Esferas do Dragão e treinam com o Mestre Kame entregando leite e carregando cascos pesados.",
+      "hairOrFormUnlocked": "Oozaru (Macaco Gigante) — Poder multiplicado por 10 sob a Lua Cheia",
+      "kidLesson": "Treinar com dedicação ao lado do seu melhor amigo constrói força verdadeira muito antes de transformações brilhantes!"
+    },
+    "db-red-ribbon-piccolo": {
+      "eraFullName": "Dragon Ball (Clássico)",
+      "years": "Ano 750 – 756",
+      "title": "Exército Red Ribbon e a Saga de Piccolo Daimaoh",
+      "mainHero": "Goku Criança / Jovem (Poder: 180 → 910) e Tenshinhan",
+      "mainEnemy": "Tao Pai Pai, Piccolo Daimaoh e Piccolo Jr.",
+      "keyEvents": "Goku sobe a Torre de Karin, liquida as forças da Red Ribbon e vence o terrível Piccolo Daimaoh! Anos mais tarde, Goku adolescente supera Piccolo Jr. para vencer o 23º Torneio de Artes Marciais.",
+      "hairOrFormUnlocked": "Despertar da Água Sagrada dos Deuses e o Super Kamehameha",
+      "kidLesson": "O rival de hoje pode se tornar seu maior companheiro amanhã: tanto Tenshinhan quanto Piccolo viraram nobres Guerreiros Z!"
+    },
+    "dbz-saiyan-saga": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Ano 761 – 762",
+      "title": "Saga dos Saiyajins: Raditz, Nappa e o Príncipe Vegeta",
+      "mainHero": "Goku (Kaio-ken), Piccolo, Gohan Criança e Kuririn",
+      "mainEnemy": "Raditz (1,500), Nappa (4,000), Príncipe Vegeta (18,000)",
+      "keyEvents": "Goku descobre por meio de Raditz que é um Saiyajin extraterrestre chamado Kakarotto! Após treinar com o Senhor Kaioh, retorna à Terra exibindo um poder \"MAIS DE 8.000!\" com o Kaio-ken x4 contra o Galick Ho de Vegeta.",
+      "hairOrFormUnlocked": "Kaio-ken (Aura Vermelha Carmesim) e a Genki Dama",
+      "kidLesson": "Até um guerreiro considerado de classe baixa como Goku pode superar um príncipe de elite como Vegeta com empenho incessante!"
+    },
+    "dbz-namek-frieza": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Ano 762",
+      "title": "Planeta Namekusei, Forças Especiais Ginyu e o Imperador Freeza",
+      "mainHero": "Goku Super Saiyajin (150,000,000), Vegeta, Piccolo, Gohan e Kuririn",
+      "mainEnemy": "Capitão Ginyu (120,000) e Freeza Forma Final (120,000,000)",
+      "keyEvents": "Os heróis viajam ao Planeta Namekusei para reviver seus amigos com as Esferas! Após superar a Força Ginyu, Goku enfrenta o temido tirano Freeza e desperta o SUPER SAIYAJIN DOURADO pela primeira vez em 1.000 anos!",
+      "hairOrFormUnlocked": "Super Saiyajin 1 (Cabelo Dourado — Multiplicador de 50x do Poder Base)",
+      "kidLesson": "A verdadeira força nasce para atender a uma necessidade nobre: Goku despertou o Super Saiyajin para proteger quem amava."
+    },
+    "dbz-cell-saga": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Ano 764 – 767",
+      "title": "Androides 16, 17, 18, Trunks do Futuro e a Saga do Cell Perfeito",
+      "mainHero": "Gohan Super Saiyajin 2, Trunks do Futuro, Goku, Vegeta e Piccolo",
+      "mainEnemy": "Androides 16, 17, 18, Dr. Maki Gero e Cell Super Perfeito",
+      "keyEvents": "Trunks do Futuro surge na Máquina do Tempo de Bulma! Após o treino na Sala do Tempo, o jovem Gohan atinge o Super Saiyajin 2 nos Jogos do Cell (inspirado pelo nobre Androide 16) e extermina Cell com o Kamehameha Pai e Filho!",
+      "hairOrFormUnlocked": "Super Saiyajin 2 (Dourado Elétrico + Raios Azuis — 100x)",
+      "kidLesson": "Goku depositou total confiança em Gohan porque enxergava a enorme coragem e a nobreza guardadas no coração do filho."
+    },
+    "dbz-buu-saga": {
+      "eraFullName": "Dragon Ball Z",
+      "years": "Ano 774",
+      "title": "Saga Majin Buu, Gotenks, Gohan Místico e Vegetto",
+      "mainHero": "Vegetto, Goku SSJ3, Majin Vegeta, Gohan Místico, Gotenks e Mr. Satan",
+      "mainEnemy": "Babidi, Majin Buu Gordo, Super Buu (Buuhan) e Kid Buu",
+      "keyEvents": "O feiticeiro Babidi liberta o demônio Majin Buu! Goten e Trunks se fundem em Gotenks SSJ3, Goku apresenta o Super Saiyajin 3, Goku e Vegeta usam os Brincos Potara para criar VEGETTO, e Mr. Satan convence a Terra a doar energia para a Super Genki Dama!",
+      "hairOrFormUnlocked": "Super Saiyajin 3 (400x), Gohan Místico e a Fusão Potara: Vegetto!",
+      "kidLesson": "Até mesmo Mr. Satan salvou o universo ao persuadir a humanidade a unir forças para derrotar o terrível Kid Buu!"
+    },
+    "dbgt-baby-ssj4": {
+      "eraFullName": "Dragon Ball GT",
+      "years": "Ano 789",
+      "title": "Esferas do Dragão Negras e a Saga de Baby Vegeta",
+      "mainHero": "Goku Super Saiyajin 4, Pan e Trunks",
+      "mainEnemy": "General Rilldo e Baby Vegeta Oozaru Dourado",
+      "keyEvents": "Transformado novamente em criança, Goku viaja pelas galáxias com sua neta Pan e Trunks! Ao fitar a Terra a partir do Planeta Plant, Goku domina a fúria do Oozaru Dourado e alcança o imbatível SUPER SAIYAJIN 4!",
+      "hairOrFormUnlocked": "Oozaru Dourado e Super Saiyajin 4 (Cabelo Preto + Pelagem Carmesim)",
+      "kidLesson": "O amor e as lágrimas de Pan pelo avô transformaram o descontrole violento do Macaco Gigante no domínio heroico do SSJ4!"
+    },
+    "dbgt-shadow-dragons": {
+      "eraFullName": "Dragon Ball GT",
+      "years": "Ano 790",
+      "title": "Super 17, Vegeta SSJ4 e SSJ4 Gogeta contra os Dragões Malignos",
+      "mainHero": "Gogeta Super Saiyajin 4, Goku SSJ4 e Vegeta SSJ4",
+      "mainEnemy": "Super 17, Dragões Malignos e Li Shenlong (Omega Shenron)",
+      "keyEvents": "O uso excessivo das Esferas do Dragão gera 7 Dragões Malignos chefiados por Omega Shenron! Goku e Vegeta atingem o SSJ4, unem-se no ruivo GOGETA SSJ4 e salvam o cosmos com a Genki Dama Universal!",
+      "hairOrFormUnlocked": "Super Saiyajin 4 Gogeta (Cabelos Vermelhos e Aura Dourada)",
+      "kidLesson": "As Esferas do Dragão ensinaram os guerreiros a confiar na sua própria determinação em vez de resolver tudo com desejos fáceis."
+    },
+    "dbs-gods-frieza": {
+      "eraFullName": "Dragon Ball Super",
+      "years": "Ano 778 – 779",
+      "title": "A Batalha dos Deuses (Super Saiyajin Deus vs. Bills) e Freeza Dourado",
+      "mainHero": "Goku e Vegeta Super Saiyajin Deus (Vermelho) e Super Saiyajin Blue",
+      "mainEnemy": "Senhor Bills (Deus da Destruição), Whis e Freeza Dourado",
+      "keyEvents": "O Senhor Bills desperta em busca do \"Super Saiyajin Deus\"! Goku realiza o ritual dos 6 Saiyajins para atingir os cabelos escarlates divinos e treina com Whis ao lado de Vegeta para dominar o \"Super Saiyajin Blue\" contra Freeza Dourado!",
+      "hairOrFormUnlocked": "Super Saiyajin Deus (Vermelho), Super Saiyajin Blue (Azul Ciano) e Freeza Dourado",
+      "kidLesson": "Mesmo após vencer Buu, existem 12 universos, Deuses da Destruição e nobres Anjos repletos de sabedoria para aprender!"
+    },
+    "dbs-goku-black": {
+      "eraFullName": "Dragon Ball Super",
+      "years": "Ano 779",
+      "title": "Trunks do Futuro, Goku Black (SSJ Rosé) e a Saga de Vegetto Blue",
+      "mainHero": "Vegetto Blue, Trunks Super Saiyajin Fúria, Goku e Vegeta",
+      "mainEnemy": "Goku Black (Super Saiyajin Rosé) e Zamasu Fundido",
+      "keyEvents": "Trunks do Futuro retorna clamando por ajuda contra \"Goku Black\" (Zamasu no corpo de Goku com cabelos cor-de-rosa)! Goku e Vegeta colocam os Brincos Potara para invocar VEGETTO SUPER SAIYAJIN BLUE!",
+      "hairOrFormUnlocked": "Vegetto Blue, Super Saiyajin Rosé (Rosa) e Trunks Super Saiyajin Fúria",
+      "kidLesson": "Poder roubado jamais será capaz de superar guerreiros que forjaram sua força através de anos de treino e dedicação honesta."
+    },
+    "dbs-top-broly-superhero": {
+      "eraFullName": "Dragon Ball Super",
+      "years": "Ano 780 – 783",
+      "title": "Torneio do Poder (Jiren), Broly, Ego Superior e Super Hero",
+      "mainHero": "Goku Instinto Superior, Vegeta Ego Superior, Gogeta Blue, Gohan Beast e Piccolo Laranja",
+      "mainEnemy": "Jiren, Toppo, Dyspo, Broly Lendário e Cell Max",
+      "keyEvents": "Zeno organiza um torneio épico de 80 lutadores onde Goku desperta o Instinto Superior de cabelos prateados contra Jiren e o Androide 17 se consagra vencedor! Mais tarde, Gogeta Blue enfrenta Broly, Vegeta alcança o Ego Superior e Gohan e Piccolo despertam Gohan Beast e Piccolo Laranja!",
+      "hairOrFormUnlocked": "Instinto Superior Prata, Ego Superior Roxo, Gohan Beast e Piccolo Laranja",
+      "kidLesson": "Cada grande guerreiro agora reluz com sua própria cor única: Goku (Prateado), Vegeta (Roxo), Gohan (Cinza Fera) e Piccolo (Laranja)!"
+    }
+  },
+  "fighters": {
+    "goku": {
+      "name": "Son Goku (Kakarotto)",
+      "series": "DB • DBZ • GT • DBS",
+      "race": "Saiyajin criado na Terra",
+      "signatureMove": "Kamehameha, Teletransporte, Kaio-ken e Genki Dama",
+      "peakPowerLabel": "Instinto Superior Autônomo (90 Septilhões)",
+      "kidBio": "Alegre, de coração puro e sempre com fome! Enviado à Terra como bebê, foi criado pelo Vovô Gohan e treinado por Mestre Kame, Senhor Kaioh e Whis. Clique nas 8 formas de Goku para vê-lo elevar seu poder da Base até o Instinto Superior Prateado!",
+      "forms": [
+        {
+          "label": "Goku Base",
+          "power": "60,000,000"
+        },
+        {
+          "label": "Super Saiyajin 1 (Dourado)",
+          "power": "3,000,000,000"
+        },
+        {
+          "label": "Super Saiyajin 2 (Raios)",
+          "power": "6,000,000,000"
+        },
+        {
+          "label": "Super Saiyajin 3 (Juba Longa)",
+          "power": "24,000,000,000"
+        },
+        {
+          "label": "Super Saiyajin 4 (GT)",
+          "power": "2 Quatrilhões"
+        },
+        {
+          "label": "Super Saiyajin Deus (Vermelho)",
+          "power": "1.5 Quatrilhão (Ki Divino)"
+        },
+        {
+          "label": "Super Saiyajin Blue (SSB)",
+          "power": "9 Quintilhões"
+        },
+        {
+          "label": "Instinto Superior Autônomo (Prata)",
+          "power": "90 Septilhões"
+        }
+      ]
+    },
+    "vegeta": {
+      "name": "Príncipe Vegeta IV",
+      "series": "DBZ • GT • DBS",
+      "race": "Príncipe Real dos Saiyajins",
+      "signatureMove": "Galick Ho, Resplendor Final (Final Flash), Ataque Big Bang e Hakai",
+      "peakPowerLabel": "Ego Superior (19.84 Septilhões+)",
+      "kidBio": "O orgulhoso Príncipe de todos os Saiyajins! De invasor cruel e grande rival de Goku, Vegeta transformou-se no marido de Bulma, pai de Trunks e protetor incansável da Terra, conquistando o Super Saiyajin Deus, Blue e o temível Ego Superior Roxo.",
+      "forms": [
+        {
+          "label": "Vegeta Base",
+          "power": "54,000,000"
+        },
+        {
+          "label": "Super Saiyajin 1",
+          "power": "330,000,000"
+        },
+        {
+          "label": "Super Saiyajin 2",
+          "power": "24,000,000,000"
+        },
+        {
+          "label": "Super Saiyajin 4 (GT)",
+          "power": "1.8 Trilhão"
+        },
+        {
+          "label": "Super Saiyajin Deus (Vermelho)",
+          "power": "1.6 Quatrilhão (Ki Divino)"
+        },
+        {
+          "label": "Super Saiyajin Blue",
+          "power": "100 Quintilhões"
+        },
+        {
+          "label": "Ego Superior (Roxo da Destruição)",
+          "power": "19.84 Septilhões+"
+        }
+      ]
+    },
+    "vegetto": {
+      "name": "Vegetto / Vegito (Potara)",
+      "series": "DBZ • DBS",
+      "race": "Fusão por Brincos Potara (Goku + Vegeta)",
+      "signatureMove": "Final Kamehameha, Espada Espiritual e Banshee Blast",
+      "peakPowerLabel": "Vegetto Blue (10.8 Septilhões+)",
+      "kidBio": "Nascido quando Goku e Vegeta colocam os Brincos Potara dos Kaioshins em orelhas opostas! Vegetto veste o clássico uniforme de Goku com as cores invertidas e as luvas e botas brancas de Vegeta.",
+      "forms": [
+        {
+          "label": "Super Vegetto (Dourado)",
+          "power": "9 Trilhões"
+        },
+        {
+          "label": "Vegetto Super Saiyajin Blue",
+          "power": "10.8 Septilhões+"
+        }
+      ]
+    },
+    "gogeta": {
+      "name": "Gogeta (Dança da Fusão)",
+      "series": "DBZ • DBGT • DBS: Broly",
+      "race": "Fusão Metamoru pela Dança (Goku + Vegeta)",
+      "signatureMove": "Castigador de Almas (Stardust Breaker) e Big Bang Kamehameha",
+      "peakPowerLabel": "Gogeta Blue Evoluído (1.26 Octilhão)",
+      "kidBio": "\"Não sou Goku nem Vegeta! Sou aquele que vai derrotar você!\" Criado quando Goku e Vegeta realizam com perfeita sincronia a Dança da Fusão. Derrotou Janemba, encarou Omega Shenron e conteve Broly em poder máximo!",
+      "forms": [
+        {
+          "label": "Gogeta Base",
+          "power": "100 Bilhões"
+        },
+        {
+          "label": "Super Gogeta (SSJ1)",
+          "power": "6.3 Sextilhões"
+        },
+        {
+          "label": "Gogeta SSJ4 (GT Carmesim)",
+          "power": "168 Quatrilhões"
+        },
+        {
+          "label": "Gogeta Blue (SSJB)",
+          "power": "12.6 Septilhões"
+        },
+        {
+          "label": "Gogeta Blue Evoluído",
+          "power": "1.26 Octilhão"
+        }
+      ]
+    },
+    "gohan": {
+      "name": "Son Gohan (Beast)",
+      "series": "DBZ • GT • DBS: Super Hero",
+      "race": "Híbrido Humano-Saiyajin",
+      "signatureMove": "Kamehameha Pai e Filho, Masenko e Makankosappo Beast",
+      "peakPowerLabel": "Gohan Beast (25.6 Septilhões)",
+      "kidBio": "O dedicado filho estudioso de Goku! Primeiro Saiyajin da história a alcançar o Super Saiyajin 2 contra Cell, despertou a transformação descomunal de GOHAN BEAST com cabelos prateados e olhos vermelhos para salvar Piccolo e Pan!",
+      "forms": [
+        {
+          "label": "Gohan Base",
+          "power": "45,000,000"
+        },
+        {
+          "label": "Super Saiyajin 1",
+          "power": "4.7 Bilhões"
+        },
+        {
+          "label": "Gohan Jovem SSJ2 (Jogos do Cell)",
+          "power": "10.2 Bilhões"
+        },
+        {
+          "label": "Gohan Místico / Definitivo",
+          "power": "43 Bilhões"
+        },
+        {
+          "label": "Gohan Beast (Juba Prateada)",
+          "power": "25.6 Septilhões"
+        }
+      ]
+    },
+    "piccolo": {
+      "name": "Piccolo (Laranja)",
+      "series": "DB • DBZ • GT • DBS: Super Hero",
+      "race": "Guerreiro Namekuseijin",
+      "signatureMove": "Makankosappo (Canhão de Feixe Especial), Granada Infernal e Granada de Luz",
+      "peakPowerLabel": "Piccolo Laranja (41.25 Quintilhões)",
+      "kidBio": "O mestre de Gohan e protetor favorito de Pan! Quando Piccolo pediu a Shenlong para liberar seu potencial latente, o dragão concedeu um presente a mais: a gigante e musculosa forma de PICCOLO LARANJA!",
+      "forms": [
+        {
+          "label": "Piccolo Base (Capa Pesada)",
+          "power": "2,000,000"
+        },
+        {
+          "label": "Super Namekuseijin (Fundido com Kami)",
+          "power": "2.175 Bilhões"
+        },
+        {
+          "label": "Piccolo Laranja Gigante",
+          "power": "41.25 Quintilhões"
+        }
+      ]
+    },
+    "freezer": {
+      "name": "Imperador Freeza",
+      "series": "DBZ • GT • DBS",
+      "race": "Imperador Demônio do Frio",
+      "signatureMove": "Raio da Morte (Death Beam), Supernova, Bola da Morte e Fúria Dourada",
+      "peakPowerLabel": "Freeza Dourado (100 Quintilhões)",
+      "kidBio": "O imperador tirânico do Universo 7! Freeza criou suas três primeiras formas apenas para suprimir seu poder descomunal, e em Dragon Ball Super, apenas 4 meses de treino intenso liberaram FREEZA DOURADO!",
+      "forms": [
+        {
+          "label": "Freeza 1ª Forma",
+          "power": "530,000"
+        },
+        {
+          "label": "2ª Forma (Grandes Chifres)",
+          "power": "1,060,000"
+        },
+        {
+          "label": "3ª Forma (Alien)",
+          "power": "2,120,000"
+        },
+        {
+          "label": "Forma Final / Perfeita",
+          "power": "120,000,000"
+        },
+        {
+          "label": "Freeza Dourado (DBS)",
+          "power": "100 Quintilhões"
+        }
+      ]
+    },
+    "cell": {
+      "name": "Cell Perfeito",
+      "series": "DBZ • DBGT",
+      "race": "Bio-Androide (Células de Goku, Vegeta, Piccolo e Freeza)",
+      "signatureMove": "Kamehameha Solar, Makankosappo e Regeneração Namekuseijin",
+      "peakPowerLabel": "Cell Super Perfeito (10.97 Bilhões)",
+      "kidBio": "Construído pelo supercomputador do Dr. Gero com o DNA dos mais formidáveis combatentes do espaço! Organizou os Jogos do Cell antes de ser derrotado no colossal embate de Kamehameha contra Gohan SSJ2!",
+      "forms": [
+        {
+          "label": "Cell Imperfeito (1ª Forma)",
+          "power": "370,000,000"
+        },
+        {
+          "label": "Cell Semiperfeito (2ª Forma)",
+          "power": "897,000,000"
+        },
+        {
+          "label": "Cell Perfeito",
+          "power": "4,500,000,000"
+        },
+        {
+          "label": "Cell Super Perfeito (Raios SSJ2)",
+          "power": "10,970,000,000"
+        }
+      ]
+    },
+    "buu": {
+      "name": "Majin Buu (Todas as Formas)",
+      "series": "DBZ • DBGT • DBS",
+      "race": "Demônio Mágico Ancestral",
+      "signatureMove": "Raio Transmutador em Chocolate, Explosão Planetária e Regeneração Instantânea",
+      "peakPowerLabel": "Buuhan — Gohan Absorvido (14.8 Bilhões+)",
+      "kidBio": "Um ser mágico cor-de-rosa que estica feito chiclete e transforma oponentes em doces e guloseimas! O Majin Buu Gordo tornou-se o grande amigo de Mr. Satan, enquanto Goku erradicou Kid Buu com a Super Genki Dama!",
+      "forms": [
+        {
+          "label": "Majin Buu Gordo Inocente",
+          "power": "9,000,000,000"
+        },
+        {
+          "label": "Super Buu",
+          "power": "11,000,000,000"
+        },
+        {
+          "label": "Buutenks (Gotenks Absorvido)",
+          "power": "12,300,000,000"
+        },
+        {
+          "label": "Buuhan (Gohan Absorvido)",
+          "power": "14,800,000,000"
+        },
+        {
+          "label": "Kid Buu (Puro Caos)",
+          "power": "10,500,000,000"
+        }
+      ]
+    },
+    "broly": {
+      "name": "Broly (Lendário Saiyajin)",
+      "series": "Filmes DBZ • DBS: Broly",
+      "race": "Saiyajin Puro Mutante",
+      "signatureMove": "Rugido Gigantesco, Esmagador Planetário e Meteoro Blaster",
+      "peakPowerLabel": "Lendário SSJ Poder Total (11.2 Septilhões)",
+      "kidBio": "Um guerreiro de coração bondoso criado no inóspito Planeta Vampa com uma mutação genética que surge a cada mil anos! Em Poder Total, seus cabelos brilham em verde-limão e apenas a fusão Gogeta Blue conseguiu contê-lo!",
+      "forms": [
+        {
+          "label": "Broly Furioso / Base",
+          "power": "7 Septilhões"
+        },
+        {
+          "label": "Super Saiyajin Verde Lendário",
+          "power": "11.2 Septilhões"
+        }
+      ]
+    },
+    "goku-black": {
+      "name": "Goku Black (Zamasu)",
+      "series": "Dragon Ball Super",
+      "race": "Kaioshin Renegado no Corpo de Goku",
+      "signatureMove": "Laço Divino, Black Kamehameha e Foice da Tristeza",
+      "peakPowerLabel": "Super Saiyajin Rosé (12 Quintilhões+)",
+      "kidBio": "Um deus renegado do Universo 10 chamado Zamasu que usou as Super Esferas do Dragão para roubar o corpo de Goku! Por ter uma alma divina, seu cabelo Super Saiyajin resplandece em cor-de-rosa!",
+      "forms": [
+        {
+          "label": "Super Saiyajin Rosé (Rosa)",
+          "power": "12 Quintilhões+"
+        }
+      ]
+    },
+    "beerus": {
+      "name": "Senhor Bills / Beerus",
+      "series": "A Batalha dos Deuses • DBS",
+      "race": "Deus da Destruição do Universo 7",
+      "signatureMove": "Hakai (Destruição), Esfera da Destruição e Julgamento de Bills",
+      "peakPowerLabel": "Deus da Destruição (102 Septilhões)",
+      "kidBio": "O felino Deus da Destruição do Universo 7! Bills é capaz de pulverizar planetas inteiros apenas tocando com a ponta da unha, mas poupa a Terra porque Bulma sempre lhe serve deliciosos banquetes com ramen, pizza e sobremesas!",
+      "forms": [
+        {
+          "label": "Senhor Bills (Poder do Hakai)",
+          "power": "102 Septilhões"
+        }
+      ]
+    },
+    "whis": {
+      "name": "Whis e o Sumo Sacerdote",
+      "series": "Dragon Ball Super",
+      "race": "Anjos Celestiais",
+      "signatureMove": "Instinto Superior Contínuo 24/7 e Retrocesso Temporal de 3 Minutos",
+      "peakPowerLabel": "Nível Angelical e Sumo Sacerdote",
+      "kidBio": "Whis é o sábio e tranquilo mestre anjo de Bills que instruiu Goku e Vegeta no Ki Divino e no Instinto Superior! Seu pai, o Sumo Sacerdote Daishinkan, figura entre os 5 seres mais poderosos de todo o multiverso!",
+      "forms": [
+        {
+          "label": "Anjo Whis (Mestre do U7)",
+          "power": "Nível Anjo (Supera o Bills!)"
+        },
+        {
+          "label": "O Sumo Sacerdote (Pai dos Anjos)",
+          "power": "Top 5 de Todo o Multiverso!"
+        }
+      ]
+    },
+    "zeno": {
+      "name": "Grande Zeno (Rei de Tudo)",
+      "series": "Dragon Ball Super",
+      "race": "Soberano Supremo dos 12 Universos",
+      "signatureMove": "Apagamento Omniversal (\"Puf!\")",
+      "peakPowerLabel": "Infinito / Acima de Tudo",
+      "kidBio": "Pequeno, colorido e amigo íntimo de Goku (\"Zen-chan!\"), o Grande Zeno governa todos os 12 Universos! Até mesmo os mais temíveis Deuses da Destruição congelam de pavor quando Zeno levanta suas mãozinhas luminosas!",
+      "forms": [
+        {
+          "label": "Grande Zeno (Zen-Oh)",
+          "power": "INFINITO (Rei de Tudo)"
+        }
+      ]
+    },
+    "jiren": {
+      "name": "Jiren o Cinzento",
+      "series": "Dragon Ball Super (Universo 11)",
+      "race": "Líder Guerreiro da Tropa do Orgulho",
+      "signatureMove": "Impacto de Poder, Olhar Invisível e Magnetron Omegaheat",
+      "peakPowerLabel": "Jiren Quebrador de Limites (12.1 Septilhões)",
+      "kidBio": "O mais formidável campeão da Tropa do Orgulho do Universo 11! A força inacreditável de Jiren forçou Goku a despertar o Instinto Superior Autônomo de cabelos prateados nos momentos finais do Torneio do Poder!",
+      "forms": [
+        {
+          "label": "Jiren (Campeão do Universo 11)",
+          "power": "12.1 Septilhões"
+        }
+      ]
+    },
+    "toppo-dyspo": {
+      "name": "Toppo e Dyspo (U11)",
+      "series": "Dragon Ball Super (Universo 11)",
+      "race": "Comandantes da Tropa do Orgulho",
+      "signatureMove": "Clarão da Justiça, Energia do Hakai e Modo Velocidade da Luz Super Máxima",
+      "peakPowerLabel": "Toppo Candidato a Deus da Destruição",
+      "kidBio": "Os bravos colegas de equipe de Jiren na Tropa do Orgulho! O bigodudo Toppo foi treinado para assumir como o próximo Deus da Destruição do Universo 11, e o veloz Dyspo consegue ultrapassar a própria velocidade da luz!",
+      "forms": [
+        {
+          "label": "Toppo (Líder da Tropa do Orgulho)",
+          "power": "75 Sextilhões"
+        },
+        {
+          "label": "Dyspo (Mais Rápido que a Luz)",
+          "power": "50 Trilhões"
+        }
+      ]
+    },
+    "trunks": {
+      "name": "Trunks do Futuro",
+      "series": "DBZ • DBS",
+      "race": "Híbrido Saiyajin e Viajante do Tempo",
+      "signatureMove": "Ataque Ardente, Golpe de Espada Reluzente e Espada Genki Dama",
+      "peakPowerLabel": "Super Saiyajin Fúria (17.5 Quintilhões)",
+      "kidBio": "O educado e destemido espadachim filho de Vegeta e Bulma vindo de uma linha do tempo desolada! Viajou na Máquina do Tempo para alertar sobre os Androides e mais tarde conquistou o Super Saiyajin Fúria!",
+      "forms": [
+        {
+          "label": "Trunks do Futuro Base",
+          "power": "25,000,000"
+        },
+        {
+          "label": "Super Saiyajin Trunks",
+          "power": "905,000,000"
+        },
+        {
+          "label": "Super Saiyajin Fúria (Dourado + Azul)",
+          "power": "17.5 Quintilhões"
+        }
+      ]
+    },
+    "gotenks": {
+      "name": "Gotenks (Goten + Trunks)",
+      "series": "DBZ • DBS",
+      "race": "Fusão Metamoru Infantil",
+      "signatureMove": "Ataque dos Super Fantasmas Kamikaze e Rosquinha Galáctica",
+      "peakPowerLabel": "Super Saiyajin 3 Gotenks (45.6 Bilhões)",
+      "kidBio": "Quando Goten de 7 anos e Trunks de 8 anos executam a Dança da Fusão, formam o confiante herói GOTENKS—criando golpes divertidíssimos como cuspir fantasmas explosivos falantes!",
+      "forms": [
+        {
+          "label": "Gotenks Base",
+          "power": "65,600,000"
+        },
+        {
+          "label": "Super Saiyajin 1 Gotenks",
+          "power": "5.7 Bilhões"
+        },
+        {
+          "label": "Super Saiyajin 3 Gotenks",
+          "power": "45.6 Bilhões"
+        }
+      ]
+    },
+    "androids": {
+      "name": "Androides 16, 17 e 18",
+      "series": "DBZ • DBGT • DBS",
+      "race": "Cyborgs de Energia Ilimitada e Guardião da Natureza",
+      "signatureMove": "Barreira Androide, Dança Acelerada e Luz do Inferno",
+      "peakPowerLabel": "Androide 17 Vencedor do Torneio do Poder",
+      "kidBio": "Criados com reatores de energia infinita que nunca se cansam! O doce Androide 16 inspirou Gohan, a 18 casou-se com Kuririn, e o 17 consagrou-se como o grande MVP do Torneio do Poder ao desejar reviver todos os universos apagados!",
+      "forms": [
+        {
+          "label": "Androide 16 (Ama Pássaros e a Natureza)",
+          "power": "440,000,000"
+        },
+        {
+          "label": "Androide 18 (Esposa de Kuririn)",
+          "power": "380,000,000+"
+        },
+        {
+          "label": "Androide 17 (Guardião Florestal MVP)",
+          "power": "Nível Quintilhão (Vencedor do Torneio)"
+        }
+      ]
+    },
+    "earth-heroes": {
+      "name": "Kuririn, Mestre Kame, Tenshinhan e Yamcha",
+      "series": "DB • DBZ • DBGT • DBS",
+      "race": "Campeões das Artes Marciais Terrestres",
+      "signatureMove": "Kienzan (Disco Destruidor), Kamehameha Clássico, Kikoho e Punho do Lobo",
+      "peakPowerLabel": "Os Maiores Mestres Marciais da Terra",
+      "kidBio": "Os primeiros e mais leais companheiros de Goku! O Mestre Kame criou o Kamehameha, enquanto Kuririn, Tenshinhan e Yamcha provam que inteligência e bravura marcial têm imenso valor mesmo sem cabelos Saiyajin!",
+      "forms": [
+        {
+          "label": "Mestre Kame (Criador do Kamehameha)",
+          "power": "Mestre em Poder Máximo"
+        },
+        {
+          "label": "Yamcha (Punho do Lobo e Atleta de Beisebol)",
+          "power": "500,000"
+        },
+        {
+          "label": "Tenshinhan (Mestre dos Três Olhos)",
+          "power": "2,500,000+"
+        },
+        {
+          "label": "Kuririn (O Humano Mais Poderoso!)",
+          "power": "5,000,000+"
+        }
+      ]
+    },
+    "bulma-satan": {
+      "name": "Bulma e Mr. Satan (Hercule)",
+      "series": "DB • DBZ • DBGT • DBS",
+      "race": "A Maior Gênia da Terra e o Campeão Mundial",
+      "signatureMove": "Radar do Dragão, Máquina do Tempo, Cápsulas Hoi-Poi e Chute Dinamite",
+      "peakPowerLabel": "Salvaram o Multiverso com Inteligência e Coração!",
+      "kidBio": "Sem a invenção genial do Radar do Dragão e da Máquina do Tempo por Bulma no primeiro episódio, Dragon Ball nunca teria acontecido! E sem a amizade de Mr. Satan com Buu e seu apelo para a Genki Dama, Kid Buu teria vencido!",
+      "forms": [
+        {
+          "label": "Bulma Briefs (Criadora do Radar do Dragão)",
+          "power": "Super Cientista com QI 300+!"
+        },
+        {
+          "label": "Mr. Satan / Hercule (Melhor Amigo de Buu)",
+          "power": "Campeão Mundial de Artes Marciais!"
+        }
+      ]
+    },
+    "bardock-raditz": {
+      "name": "Bardock e Raditz (A Família de Goku)",
+      "series": "DBZ • DBS: Broly",
+      "race": "Saiyajins de Sangue Puro do Planeta Vegeta",
+      "signatureMove": "Canhão Espiritual Final e Double Sunday",
+      "peakPowerLabel": "Bardock (O Heroico Pai de Goku)",
+      "kidBio": "A linhagem Saiyajin de Goku! Bardock enviou o bebê Kakarotto à Terra em uma cápsula espacial esférica para salvá-lo antes de lutar bravamente contra Freeza, enquanto Raditz foi o primeiro antagonista de Dragon Ball Z!",
+      "forms": [
+        {
+          "label": "Raditz (Irmão Mais Velho de Goku)",
+          "power": "1,500"
+        },
+        {
+          "label": "Bardock (Pai de Goku)",
+          "power": "450,000+"
+        }
+      ]
+    },
+    "ginyu": {
+      "name": "Capitão Ginyu",
+      "series": "DBZ (Namekusei) • DBS",
+      "race": "Líder das Forças Especiais Ginyu",
+      "signatureMove": "Troca de Corpo! (\"Troca Agora!\") e Canhão Lácteo",
+      "peakPowerLabel": "120,000 (Comandante de Elite em Namekusei)",
+      "kidBio": "O divertido capitão das Forças Ginyu apaixonado por poses especiais extravagantes! Se alguém se mostra mais poderoso que ele, Ginyu grita \"TROCA AGORA!\" para se apossar do corpo do adversário—até que Goku o enganou para trocar com um sapo de Namekusei!",
+      "forms": [
+        {
+          "label": "Capitão Ginyu (Pose Especial de Batalha!)",
+          "power": "120,000"
+        }
+      ]
+    },
+    "janemba": {
+      "name": "Super Janemba",
+      "series": "DBZ: O Renascimento da Fusão • SDBH",
+      "race": "Demônio Distorcedor da Realidade do Outro Mundo",
+      "signatureMove": "Espada Dimensional, Chuva de Raios e Soco Dimensional",
+      "peakPowerLabel": "75,000,000,000 (Supera Goku SSJ3)",
+      "kidBio": "Originado quando a máquina purificadora de almas explodiu no Outro Mundo! Super Janemba se teletransporta dissolvendo-se em cubos pixelados e obrigou Goku e Vegeta a se fundirem no Super Gogeta pela primeiríssima vez!",
+      "forms": [
+        {
+          "label": "Super Janemba (Espada Dimensional)",
+          "power": "75 Bilhões"
+        }
+      ]
+    }
+  },
+  "fusionRecipes": {
+    "goku-vegeta-potara": {
+      "methodName": "👂 Brincos Potara dos Kaioshins",
+      "resultName": "Vegetto Super Saiyajin Blue!",
+      "power": "10.8 Septilhões+",
+      "story": "FUSÃO POTARA CONCLUÍDA! Goku e Vegeta prendem os brincos sagrados em orelhas opostas e são atraídos a velocidade impressionante—dando origem a VEGETTO BLUE com seu Final Kamehameha e Espada Espiritual!"
+    },
+    "goku-vegeta-dance": {
+      "methodName": "👉👈 Dança da Fusão Metamoru (\"Fuuu-são... HÁ!\")",
+      "resultName": "Gogeta Super Saiyajin Blue Evoluído!",
+      "power": "1.26 Octilhão",
+      "story": "SIMETRIA IMPECÁVEL! Goku e Vegeta equilibram perfeitamente o seu Ki e tocam a ponta dos dedos indicadores no ângulo exato—despertando GOGETA BLUE por 30 minutos de poder irresistível!"
+    },
+    "goku-vegeta-gt": {
+      "methodName": "🐒 Dança da Fusão Super Saiyajin 4 (GT)",
+      "resultName": "Super Saiyajin 4 Gogeta (Cabelo Carmesim)!",
+      "power": "168 Quatrilhões",
+      "story": "FUSÃO SUPREMA DE DRAGON BALL GT! Goku SSJ4 e Vegeta SSJ4 unem forças para criar o ruivo SUPER SAIYAJIN 4 GOGETA—forte o suficiente para rebater com um chute a Esfera de Energia Negativa de Omega Shenron!"
+    },
+    "goten-trunks-dance": {
+      "methodName": "👻 Dança da Fusão das Crianças (Goten + Trunks)",
+      "resultName": "Super Saiyajin 3 Gotenks!",
+      "power": "45.6 Bilhões",
+      "story": "TCHARAM!! Os pequenos Goten e Trunks acertam a dança e saltam direto para o SUPER SAIYAJIN 3 GOTENKS com sua vasta cabeleira dourada até a cintura!"
+    },
+    "piccolo-kami-namek": {
+      "methodName": "🟢 Assimilação Namekuseijin + Bênção de Shenlong",
+      "resultName": "Piccolo Laranja Gigante!",
+      "power": "41.25 Quintilhões",
+      "story": "DESPERTAR NAMEKUSEIJIN! Já reunificado com Nail e Kami-Sama, Piccolo ganha uma generosa bênção extra de Shenlong para erguer-se como o colossal PICCOLO LARANJA!"
+    }
+  },
+  "quizQuestions": [
+    {
+      "question": "De que cor fica o cabelo de Goku quando ele se transforma pela primeira vez em Super Saiyajin no Planeta Namekusei?",
+      "options": [
+        "Amarelo Dourado (com olhos verde-esmeralda)",
+        "Azul Ciano Elétrico",
+        "Verde-Limão Fluorescente",
+        "Rosa Pastel"
+      ],
+      "explanation": "O Super Saiyajin 1 transforma o cabelo em um amarelo-ouro reluzente e multiplica o poder base por 50!"
+    },
+    {
+      "question": "Qual é a diferença fundamental entre VEGETTO e GOGETA?",
+      "options": [
+        "Vegetto nasce dos Brincos Potara; Gogeta é gerado pela Dança da Fusão!",
+        "Eles são exatamente a mesma transformação com nomes diferentes",
+        "Vegetto é a fusão de Piccolo e Kuririn",
+        "Gogeta é a união de Freeza e Cell"
+      ],
+      "explanation": "Vegetto requer os sagrados Brincos Potara dos Kaioshins, enquanto Gogeta surge da coreografia simétrica da Dança da Fusão Metamoru!"
+    },
+    {
+      "question": "Como identificar o Super Saiyajin 3 imediatamente?",
+      "options": [
+        "Juba dourada de leão até a cintura e SEM sobrancelhas!",
+        "Capa roxa com bolinhas coloridas",
+        "Tamanho minúsculo como uma formiga",
+        "Pele verde com antenas na testa"
+      ],
+      "explanation": "O Super Saiyajin 3 multiplica o poder por 400, faz o cabelo crescer até a cintura e faz as sobrancelhas desaparecerem!"
+    },
+    {
+      "question": "Qual série de Dragon Ball introduziu o Super Saiyajin 4 (cabelo preto, pelos vermelhos e cauda)?",
+      "options": [
+        "Dragon Ball GT",
+        "Dragon Ball Episódio 1",
+        "Dr. Slump",
+        "Sand Land"
+      ],
+      "explanation": "Dragon Ball GT apresentou o imponente Super Saiyajin 4 depois que Goku controlou a fúria do Oozaru Dourado!"
+    },
+    {
+      "question": "O que significa o cabelo VERMELHO FLAMEJANTE de Goku em \"A Batalha dos Deuses\"?",
+      "options": [
+        "Super Saiyajin Deus — alcançado pelo ritual de 6 Saiyajins de coração puro!",
+        "Ele comeu uma tigela de lámen extremamente apimentada",
+        "O Super Saiyajin 1 tradicional",
+        "A transformação do Macaco Gigante"
+      ],
+      "explanation": "O Super Saiyajin Deus presenteia Goku com cabelos magenta flamejantes mantendo o formato base e desbloqueando o Ki Divino!"
+    },
+    {
+      "question": "O que significa o cabelo BRANCO PRATEADO quando Goku enfrenta Jiren em Dragon Ball Super?",
+      "options": [
+        "Instinto Superior Autônomo — o corpo desvia e ataca automaticamente sem pensar!",
+        "Ele envelheceu 100 anos de repente",
+        "É o Kaio-ken x2",
+        "É o Taiyoken (Clarão Solar)"
+      ],
+      "explanation": "Os cabelos prateados indicam o Instinto Superior Completo, a técnica celeste praticada por Anjos como Whis!"
+    },
+    {
+      "question": "Qual Saiyajin foi o PRIMEIRO em toda a história a atingir o Super Saiyajin 2 (contra Cell)?",
+      "options": [
+        "Gohan Jovem aos 11 anos!",
+        "Raditz",
+        "Nappa",
+        "Capitão Ginyu"
+      ],
+      "explanation": "Gohan despertou o Super Saiyajin 2 (com eletrizantes relâmpagos azuis) nos Jogos do Cell!"
+    },
+    {
+      "question": "Por que o cabelo Super Saiyajin de Goku Black é ROSA em vez de Azul Ciano?",
+      "options": [
+        "Porque Zamasu já nasceu como um Deus verdadeiro (Kaioshin) dentro do corpo Saiyajin de Goku!",
+        "Ele utilizou tinta de cabelo cor-de-rosa",
+        "Ele se fundiu com Majin Buu",
+        "Ele comeu uma Semente dos Deuses mágica"
+      ],
+      "explanation": "Quando uma verdadeira divindade transforma um corpo Saiyajin em Super Saiyajin, o Ki Divino resplandece em cor-de-rosa (Super Saiyajin Rosé)!"
+    },
+    {
+      "question": "Quais novas transformações Gohan e Piccolo despertaram em \"Dragon Ball Super: Super Hero\"?",
+      "options": [
+        "Gohan Beast (Juba Prateada) e Piccolo Laranja Gigante!",
+        "Gohan Azul e Piccolo Roxo",
+        "Gohan Dourado e Piccolo Minúsculo",
+        "Gohan Robô e Piccolo Cibernético"
+      ],
+      "explanation": "Shenlong concedeu a Piccolo sua robusta forma Laranja e Gohan libertou a força aterradora de Gohan Beast!"
+    },
+    {
+      "question": "Quem inventou tanto o Radar do Dragão QUANTO a famosa Máquina do Tempo?",
+      "options": [
+        "Bulma Briefs!",
+        "Mestre Kame",
+        "Imperador Freeza",
+        "Senhor Bills"
+      ],
+      "explanation": "As geniais criações de Bulma na Corporação Cápsula deram início a toda a jornada de Dragon Ball logo no episódio 1!"
+    },
+    {
+      "question": "De que cor é o cabelo da transformação \"Ego Superior\" de Vegeta?",
+      "options": [
+        "Roxo Real Intenso (energia do Deus da Destruição e sem sobrancelhas!)",
+        "Verde-Limão Fluorescente",
+        "Laranja Vibrante",
+        "Branco Neve"
+      ],
+      "explanation": "Treinado pelo Senhor Bills, o Ego Superior tinge os cabelos de Vegeta de roxo e fortalece seu poder com o ardor do combate!"
+    },
+    {
+      "question": "Quem foi o vencedor do Torneio do Poder de 80 guerreiros que desejou reviver todos os universos apagados?",
+      "options": [
+        "Androide 17!",
+        "Capitão Ginyu",
+        "Raditz",
+        "Super Janemba"
+      ],
+      "explanation": "O Androide 17 foi o último sobrevivente na arena após o ataque conjunto inesquecível de Goku e Freeza contra Jiren!"
+    }
+  ]
+}
