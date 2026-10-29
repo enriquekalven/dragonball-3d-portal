@@ -68,7 +68,7 @@
     return currentPersona;
   }
 
-  function playSound(type) {
+  function playSound(type, extraVal) {
     const ctx = ensureAudio();
     if (!ctx) return;
     const now = ctx.currentTime;
@@ -85,6 +85,92 @@
         gain.connect(ctx.destination);
         osc.start(now + offset);
         osc.stop(now + offset + 0.055);
+      });
+    } else if (type === 'ki_tick') {
+      const pct = Math.max(0, Math.min(100, Number(extraVal) || 0));
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(150 + pct * 5.2, now);
+      osc.frequency.exponentialRampToValueAtTime(210 + pct * 6.4, now + 0.09);
+      gain.gain.setValueAtTime(0.055, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.095);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    } else if (type === 'teleport') {
+      // Iconic DBZ Instant Transmission "bwoop-zing!" phase chirp
+      const osc = ctx.createOscillator();
+      const ping = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1850, now);
+      osc.frequency.exponentialRampToValueAtTime(240, now + 0.075);
+      osc.frequency.exponentialRampToValueAtTime(2400, now + 0.16);
+      ping.type = 'triangle';
+      ping.frequency.setValueAtTime(920, now + 0.04);
+      ping.frequency.exponentialRampToValueAtTime(3100, now + 0.17);
+      gain.gain.setValueAtTime(0.11, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.19);
+      osc.connect(gain);
+      ping.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      ping.start(now + 0.04);
+      osc.stop(now + 0.2);
+      ping.stop(now + 0.2);
+    } else if (type === 'beam_charge') {
+      const osc = ctx.createOscillator();
+      const shimmer = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(210, now);
+      osc.frequency.exponentialRampToValueAtTime(940, now + 0.34);
+      shimmer.type = 'triangle';
+      shimmer.frequency.setValueAtTime(420, now);
+      shimmer.frequency.exponentialRampToValueAtTime(1480, now + 0.34);
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.36);
+      osc.connect(gain);
+      shimmer.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      shimmer.start(now);
+      osc.stop(now + 0.37);
+      shimmer.stop(now + 0.37);
+    } else if (type === 'beam_fire') {
+      // Punchy anime energy cannon boom + plasma roar
+      const sub = ctx.createOscillator();
+      const roar = ctx.createOscillator();
+      const gain = ctx.createGain();
+      sub.type = 'sawtooth';
+      sub.frequency.setValueAtTime(190, now);
+      sub.frequency.exponentialRampToValueAtTime(44, now + 0.62);
+      roar.type = 'square';
+      roar.frequency.setValueAtTime(520, now);
+      roar.frequency.exponentialRampToValueAtTime(115, now + 0.58);
+      gain.gain.setValueAtTime(0.13, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+      sub.connect(gain);
+      roar.connect(gain);
+      gain.connect(ctx.destination);
+      sub.start(now);
+      roar.start(now);
+      sub.stop(now + 0.66);
+      roar.stop(now + 0.66);
+    } else if (type === 'dragon_ball') {
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.065);
+        gain.gain.setValueAtTime(0.095, now + idx * 0.065);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.065 + 0.28);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + idx * 0.065);
+        osc.stop(now + idx * 0.065 + 0.3);
       });
     } else if (type === 'transform' || type === 'burst') {
       const osc = ctx.createOscillator();

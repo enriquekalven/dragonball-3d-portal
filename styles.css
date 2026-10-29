@@ -175,20 +175,23 @@ input:focus-visible {
   letter-spacing: 0.08em;
 }
 
-/* 5 Clear Mode Pills */
+/* 6 Clear Action-First Mode Pills */
 .main-tabs {
   display: flex;
-  gap: 0.45rem;
+  gap: 0.42rem;
   flex-wrap: wrap;
 }
 
 .nav-pill {
-  padding: 0.55rem 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.5rem 0.88rem;
   border-radius: 999px;
   border: 1px solid var(--border-card);
   background: var(--bg-card);
   color: var(--text-light);
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.16s ease;
@@ -204,6 +207,25 @@ input:focus-visible {
   color: #070b14;
   border-color: #d97706;
   box-shadow: 0 2px 14px rgba(255, 136, 0, 0.42);
+}
+
+.nav-balls-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.08rem 0.42rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  background: rgba(250, 204, 21, 0.18);
+  color: var(--text-gold);
+  border: 1px solid rgba(250, 204, 21, 0.42);
+  line-height: 1.2;
+}
+
+.nav-pill.active .nav-balls-badge {
+  background: rgba(7, 11, 20, 0.86);
+  color: #ffd000;
+  border-color: rgba(7, 11, 20, 0.6);
 }
 
 .top-actions {
@@ -288,7 +310,7 @@ body.scouter-on #toggle-scouter-btn {
   cursor: grabbing;
 }
 
-/* Non-Overlapping Top Stage Bar: Left Character Readout + Right Arena & Power-Up */
+/* Non-Overlapping Top Stage Bar: Left Character Readout + Right Arena & Radar */
 .stage-top-bar {
   position: relative;
   z-index: 2;
@@ -300,64 +322,103 @@ body.scouter-on #toggle-scouter-btn {
   pointer-events: none;
 }
 
-/* Top-Left Character Name & Power Card */
+/* Top-Left Character Name, Quick Stepper & Power Card */
 .stage-header-card {
   position: relative;
   z-index: 2;
   background: var(--bg-stage-glass);
   border: 1px solid var(--border-gold-soft);
   border-radius: var(--radius-md);
-  padding: 0.7rem 0.95rem;
-  max-width: 335px;
+  padding: 0.65rem 0.9rem;
+  max-width: 375px;
   min-width: 0;
   backdrop-filter: blur(10px);
   box-shadow: var(--card-shadow);
   pointer-events: none;
 }
 
+.stage-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.22rem;
+}
+
 .stage-era-pill {
   display: inline-block;
-  font-size: 0.68rem;
+  font-size: 0.67rem;
   font-weight: 800;
-  padding: 0.14rem 0.5rem;
+  padding: 0.14rem 0.48rem;
   border-radius: 4px;
   background: var(--db-orange);
   color: #ffffff;
-  margin-bottom: 0.2rem;
+}
+
+.stage-quick-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.24rem;
+  pointer-events: auto;
+}
+
+.stage-step-btn {
+  padding: 0.18rem 0.48rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-gold-soft);
+  background: var(--bg-card);
+  color: var(--text-white);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.stage-step-btn:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+}
+
+.stage-dice-btn {
+  background: var(--badge-gold-bg);
+  color: var(--text-gold);
+  border-color: var(--badge-gold-border);
 }
 
 #stage-char-name {
-  font-size: 1.22rem;
+  font-size: 1.2rem;
   font-weight: 900;
   line-height: 1.2;
   color: var(--text-white);
 }
 
 .stage-power-readout {
-  margin-top: 0.25rem;
+  margin-top: 0.22rem;
   font-size: 0.84rem;
   color: var(--text-light);
 }
 
 .stage-power-readout strong {
   color: var(--text-gold);
-  font-size: 0.96rem;
+  font-size: 0.95rem;
 }
 
-/* Top-Right 3D Arena Selector + Power Up Button */
+/* Top-Right 3D Arena Selector + Capsule Corp Dragon Radar Chip */
 .stage-top-right {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 0.45rem;
+  gap: 0.42rem;
   flex-shrink: 0;
   pointer-events: auto;
 }
 
 .arena-select {
-  padding: 0.45rem 0.7rem;
+  padding: 0.44rem 0.68rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-gold-soft);
   background: var(--bg-stage-glass);
@@ -366,6 +427,52 @@ body.scouter-on #toggle-scouter-btn {
   font-weight: 800;
   box-shadow: var(--card-shadow);
   cursor: pointer;
+}
+
+.radar-hunt-chip {
+  padding: 0.44rem 0.82rem;
+  border-radius: 999px;
+  border: 1.5px solid #22c55e;
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.94), rgba(21, 128, 61, 0.9));
+  color: #dcfce7;
+  font-size: 0.78rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 3px 14px rgba(34, 197, 94, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.radar-hunt-chip:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 18px rgba(34, 197, 94, 0.52);
+}
+
+.radar-hunt-chip.radar-complete {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #ff6b00 0%, #ffd000 100%);
+  color: #070b14;
+  box-shadow: 0 3px 18px rgba(255, 166, 0, 0.58);
+}
+
+.stage-toast {
+  position: absolute;
+  top: 7.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  pointer-events: none;
+  background: rgba(7, 11, 20, 0.93);
+  color: #ffd000;
+  border: 2px solid #f59e0b;
+  border-radius: 999px;
+  padding: 0.42rem 0.95rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+  white-space: nowrap;
+  max-width: calc(100% - 1.5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.48);
 }
 
 .btn-power-up {
@@ -385,6 +492,90 @@ body.scouter-on #toggle-scouter-btn {
   transform: scale(1.03);
 }
 
+/* Bottom Stage Stack: 3-Button Interactive Kid Toybox + Transformation Dock */
+.stage-bottom-stack {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.stage-toybox {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.toy-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 41px;
+  padding: 0.45rem 0.55rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-gold-soft);
+  background: var(--bg-stage-glass);
+  backdrop-filter: blur(10px);
+  color: var(--text-white);
+  font-size: 0.8rem;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.toy-btn:hover {
+  border-color: var(--border-gold);
+  transform: translateY(-1px);
+}
+
+.toy-btn:active {
+  transform: scale(0.97);
+}
+
+.toy-btn-ki {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.24), rgba(234, 88, 12, 0.28));
+}
+
+.toy-ki-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: linear-gradient(90deg, #ff6b00 0%, #ffd000 100%);
+  opacity: 0.55;
+  transition: width 0.06s linear;
+  pointer-events: none;
+}
+
+.toy-btn-beam {
+  border-color: #38bdf8;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(37, 99, 235, 0.3));
+}
+
+.toy-btn-teleport {
+  border-color: #a855f7;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.24), rgba(99, 102, 241, 0.28));
+}
+
+.toy-btn-content {
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
 /* Bottom Transformation Dock right inside the 3D Stage! */
 .stage-transform-dock {
   position: relative;
@@ -392,9 +583,18 @@ body.scouter-on #toggle-scouter-btn {
   background: var(--bg-stage-glass);
   border: 1px solid var(--border-gold-soft);
   border-radius: var(--radius-lg);
-  padding: 0.75rem 0.95rem;
+  padding: 0.7rem 0.9rem;
   backdrop-filter: blur(10px);
   box-shadow: var(--card-shadow);
+}
+
+.dock-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.42rem;
 }
 
 .dock-label {
@@ -402,7 +602,13 @@ body.scouter-on #toggle-scouter-btn {
   font-weight: 900;
   color: var(--text-gold);
   letter-spacing: 0.05em;
-  margin-bottom: 0.45rem;
+}
+
+.dock-hint {
+  font-size: 0.71rem;
+  font-weight: 700;
+  color: var(--text-light);
+  opacity: 0.92;
 }
 
 .stage-form-buttons {
@@ -1162,6 +1368,92 @@ body.scouter-on .scouter-hud {
   box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
 }
 
+/* Contextual One-Tap Quick-Play Chips & Lore Sub-Tabs */
+.quick-play-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+  padding-top: 0.12rem;
+}
+
+.quick-play-chip {
+  padding: 0.45rem 0.84rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-gold-soft);
+  background: var(--bg-inset);
+  color: var(--text-white);
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quick-play-chip:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+  transform: translateY(-1px);
+}
+
+.quick-play-chip.quick-play-primary {
+  background: linear-gradient(135deg, #ff6b00 0%, #ffa600 100%);
+  color: #070b14;
+  border-color: #d97706;
+  box-shadow: 0 2px 10px rgba(255, 136, 0, 0.3);
+}
+
+.quick-play-chip.quick-play-primary:hover {
+  background: linear-gradient(135deg, #ff7b1a 0%, #ffb700 100%);
+  color: #070b14;
+}
+
+.lore-sub-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+/* Mobile Bottom Bar (hidden on Desktop/Tablet > 768px) */
+.mobile-bottom-nav {
+  display: none;
+}
+
+/* Light-Theme Contrast Polish for New Stage Controls */
+[data-theme="light"] .nav-balls-badge {
+  background: rgba(217, 119, 6, 0.14);
+  border-color: rgba(180, 83, 9, 0.4);
+}
+
+[data-theme="light"] .radar-hunt-chip {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #14532d;
+  border-color: #16a34a;
+  box-shadow: 0 2px 10px rgba(22, 163, 74, 0.2);
+}
+
+[data-theme="light"] .radar-hunt-chip.radar-complete {
+  background: linear-gradient(135deg, #ff6b00 0%, #ffd000 100%);
+  color: #070b14;
+  border-color: #d97706;
+}
+
+[data-theme="light"] .toy-btn-ki {
+  background: linear-gradient(135deg, rgba(254, 243, 199, 0.92), rgba(254, 215, 170, 0.92));
+  color: #7c2d12;
+  border-color: #d97706;
+}
+
+[data-theme="light"] .toy-btn-beam {
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.94), rgba(186, 230, 253, 0.94));
+  color: #0c4a6e;
+  border-color: #0284c7;
+}
+
+[data-theme="light"] .toy-btn-teleport {
+  background: linear-gradient(135deg, rgba(243, 232, 255, 0.94), rgba(224, 231, 255, 0.94));
+  color: #4c1d95;
+  border-color: #7c3aed;
+}
+
 /* ==========================================================================
    FULL RTL LAYOUT SUPPORT FOR ARABIC (dir="rtl")
    ========================================================================== */
@@ -1173,6 +1465,10 @@ body.scouter-on .scouter-hud {
 
 [dir="rtl"] .stage-top-right {
   align-items: flex-start;
+}
+
+[dir="rtl"] .toy-ki-fill {
+  inset: 0 0 0 auto;
 }
 
 [dir="rtl"] .scouter-box {
@@ -1225,14 +1521,15 @@ body.scouter-on .scouter-hud {
   [dir="rtl"] .character-stage {
     min-width: 0;
     max-width: 100%;
-    height: clamp(370px, 54vh, 470px);
-    min-height: 365px;
+    height: clamp(390px, 56vh, 490px);
+    min-height: 385px;
     border-right: none;
     border-left: none;
     border-bottom: 1px solid var(--border-card);
     padding: 0.75rem;
   }
 
+  .stage-bottom-stack,
   .stage-transform-dock,
   .content-panel,
   .view-section,
@@ -1249,30 +1546,34 @@ body.scouter-on .scouter-hud {
 }
 
 @media (max-width: 768px) {
-  /* 1. Compact Header + Horizontal Swipeable Action & Mode Rails */
+  /* 1. Ultra-Clean Mobile Header (Mode Tabs Move to Thumb-Friendly Sticky Bottom Bar!) */
   .top-bar {
-    padding: calc(0.5rem + env(safe-area-inset-top, 0px)) 0.75rem 0.55rem;
-    gap: 0.45rem;
+    padding: calc(0.45rem + env(safe-area-inset-top, 0px)) 0.72rem 0.48rem;
+    gap: 0.38rem;
     overflow-x: hidden;
   }
 
   .brand {
-    gap: 0.48rem;
+    gap: 0.45rem;
     min-width: 0;
   }
 
   .db-ball-icon {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     font-size: 0.58rem;
   }
 
   .brand-title {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     line-height: 1.15;
   }
 
   .brand-sub {
+    display: none;
+  }
+
+  .main-tabs {
     display: none;
   }
 
@@ -1296,68 +1597,59 @@ body.scouter-on .scouter-hud {
     flex: 0 0 auto;
     max-width: 158px;
     font-size: 16px;
-    padding: 0.34rem 0.55rem;
+    padding: 0.32rem 0.52rem;
     text-overflow: ellipsis;
   }
 
   .action-chip {
     flex: 0 0 auto;
     white-space: nowrap;
-    min-height: 36px;
-    padding: 0.38rem 0.64rem;
-    font-size: 0.77rem;
+    min-height: 35px;
+    padding: 0.35rem 0.62rem;
+    font-size: 0.76rem;
   }
 
-  .main-tabs {
-    order: 3;
-    width: 100%;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 0.4rem;
-    padding-bottom: 2px;
-  }
-
-  .main-tabs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .nav-pill {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    min-height: 40px;
-    padding: 0.46rem 0.85rem;
-    font-size: 0.84rem;
-  }
-
-  /* 2. Unobstructed 3D Stage + Non-Overlapping Top Bar + Single-Row Form Dock */
+  /* 2. Unobstructed 3D Stage + Quick Stepper + 3-Button Kid Toybox + Form Dock */
   .character-stage,
   [dir="rtl"] .character-stage {
-    height: clamp(355px, 52vh, 445px);
-    min-height: 350px;
-    padding: 0.6rem;
+    height: clamp(398px, 57vh, 485px);
+    min-height: 392px;
+    padding: 0.56rem;
   }
 
   .stage-top-bar {
-    gap: 0.45rem;
+    gap: 0.4rem;
   }
 
   .stage-header-card {
     flex: 1 1 0;
     max-width: none;
-    padding: 0.46rem 0.65rem;
+    padding: 0.42rem 0.58rem;
+  }
+
+  .stage-card-top-row {
+    gap: 0.28rem;
+    margin-bottom: 0.16rem;
   }
 
   .stage-era-pill {
-    font-size: 0.6rem;
-    padding: 0.1rem 0.4rem;
-    margin-bottom: 0.14rem;
+    font-size: 0.58rem;
+    padding: 0.09rem 0.36rem;
+  }
+
+  .stage-quick-stepper {
+    gap: 0.18rem;
+  }
+
+  .stage-step-btn {
+    padding: 0.15rem 0.38rem;
+    font-size: 0.67rem;
+    min-height: 25px;
   }
 
   #stage-char-name {
-    font-size: 0.96rem;
-    line-height: 1.2;
+    font-size: 0.94rem;
+    line-height: 1.18;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -1365,43 +1657,70 @@ body.scouter-on .scouter-hud {
   }
 
   .stage-power-readout {
-    font-size: 0.73rem;
-    margin-top: 0.12rem;
+    font-size: 0.71rem;
+    margin-top: 0.1rem;
   }
 
   .stage-power-readout strong {
-    font-size: 0.81rem;
+    font-size: 0.79rem;
   }
 
   .stage-top-right {
-    gap: 0.35rem;
+    gap: 0.32rem;
   }
 
   .arena-select {
-    max-width: 150px;
+    max-width: 142px;
     font-size: 16px;
-    padding: 0.32rem 0.5rem;
+    padding: 0.3rem 0.46rem;
     text-overflow: ellipsis;
   }
 
-  .stage-top-right .btn-power-up {
-    padding: 0.42rem 0.66rem;
-    font-size: 0.75rem;
+  .radar-hunt-chip {
+    padding: 0.34rem 0.62rem;
+    font-size: 0.72rem;
     white-space: nowrap;
-    border-width: 1.5px;
+  }
+
+  .stage-toast {
+    top: 6.9rem;
+    font-size: 0.74rem;
+    padding: 0.34rem 0.75rem;
+  }
+
+  .stage-bottom-stack {
+    gap: 0.35rem;
+  }
+
+  .stage-toybox {
+    gap: 0.32rem;
+  }
+
+  .toy-btn {
+    min-height: 36px;
+    padding: 0.32rem 0.34rem;
+    font-size: 0.71rem;
+    border-radius: var(--radius-sm);
   }
 
   .stage-transform-dock {
-    padding: 0.48rem 0.65rem;
+    padding: 0.42rem 0.58rem;
     border-radius: var(--radius-md);
   }
 
+  .dock-header-row {
+    margin-bottom: 0.26rem;
+  }
+
   .dock-label {
-    font-size: 0.66rem;
-    margin-bottom: 0.3rem;
+    font-size: 0.65rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .dock-hint {
+    display: none;
   }
 
   .stage-form-buttons {
@@ -1409,7 +1728,7 @@ body.scouter-on .scouter-hud {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: 0.38rem;
+    gap: 0.36rem;
     padding-bottom: 2px;
   }
 
@@ -1420,31 +1739,119 @@ body.scouter-on .scouter-hud {
   .stage-form-btn {
     flex: 0 0 auto;
     white-space: nowrap;
-    min-height: 38px;
-    padding: 0.4rem 0.72rem;
-    font-size: 0.8rem;
+    min-height: 36px;
+    padding: 0.36rem 0.68rem;
+    font-size: 0.78rem;
   }
 
   .scouter-reticle {
-    width: 165px;
-    height: 165px;
+    width: 160px;
+    height: 160px;
   }
 
   .scouter-box {
-    top: 5.5rem;
-    left: 0.6rem;
-    font-size: 0.7rem;
-    padding: 0.38rem 0.58rem;
+    top: 5.2rem;
+    left: 0.55rem;
+    font-size: 0.68rem;
+    padding: 0.34rem 0.54rem;
   }
 
   [dir="rtl"] .scouter-box {
     left: auto;
-    right: 0.6rem;
+    right: 0.55rem;
   }
 
-  /* 3. High-Readability Story Cards, Left/Start-Aligned Body Copy & Touch Controls */
+  /* 3. High-Readability Story Cards + Safe Clearance Above Sticky Bottom Nav */
   .content-panel {
-    padding: 0.85rem 0.8rem calc(1.75rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.85rem 0.8rem calc(5.3rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .quick-play-chip {
+    min-height: 38px;
+    font-size: 0.79rem;
+    padding: 0.44rem 0.78rem;
+  }
+
+  /* 4. Thumb-Friendly Sticky 5-Tab Bottom App Bar */
+  .mobile-bottom-nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 42;
+    background: var(--bg-header);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border-gold-soft);
+    padding: 0.28rem 0.32rem calc(0.32rem + env(safe-area-inset-bottom, 0px));
+    gap: 0.18rem;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.34);
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.12rem;
+    min-height: 48px;
+    padding: 0.2rem 0.12rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-weight: 800;
+    transition: all 0.15s ease;
+  }
+
+  .mobile-nav-btn.active {
+    color: var(--text-gold);
+    background: rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.35);
+  }
+
+  [data-theme="light"] .mobile-nav-btn.active {
+    color: #b45309;
+    background: rgba(245, 158, 11, 0.16);
+    border-color: rgba(217, 119, 6, 0.38);
+  }
+
+  .mobile-nav-icon-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav-icon {
+    font-size: 1.12rem;
+    line-height: 1.08;
+  }
+
+  .mobile-nav-label {
+    font-size: 0.67rem;
+    line-height: 1.12;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .mobile-balls-badge {
+    position: absolute;
+    top: -4px;
+    right: -19px;
+    padding: 0.04rem 0.26rem;
+    border-radius: 999px;
+    background: #ff6b00;
+    color: #ffffff;
+    font-size: 0.55rem;
+    font-weight: 900;
+    line-height: 1.2;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.42);
   }
 
   .view-section {

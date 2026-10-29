@@ -20,22 +20,26 @@
       </div>
     </div>
 
-    <!-- 5 Clear, Kid-Friendly Sections -->
+    <!-- 6 Clear, Action-First Desktop Mode Pills (Separated Battle & Shenron Quiz!) -->
     <nav class="main-tabs" aria-label="Main Sections">
       <button id="tab-btn-fighters" class="nav-pill active" data-mode="fighters" type="button" aria-selected="true">
-        🥋 1. Characters &amp; Forms
-      </button>
-      <button id="tab-btn-hair" class="nav-pill" data-mode="hair-guide" type="button" aria-selected="false">
-        🎨 2. Hair Color Guide
+        🥋 Heroes
       </button>
       <button id="tab-btn-fusion" class="nav-pill" data-mode="fusion-lab" type="button" aria-selected="false">
-        ✨ 3. Fusion Lab
+        ✨ Fusion
+      </button>
+      <button id="tab-btn-battle" class="nav-pill" data-mode="battle" type="button" aria-selected="false">
+        ⚔️ VS Battle
+      </button>
+      <button id="tab-btn-quiz" class="nav-pill" data-mode="quiz" type="button" aria-selected="false">
+        <span id="ui-tab-quiz-text">🐉 Shenron Quiz</span>
+        <span id="nav-balls-badge" class="nav-balls-badge">0/7 ★</span>
+      </button>
+      <button id="tab-btn-hair" class="nav-pill" data-mode="hair-guide" type="button" aria-selected="false">
+        🎨 Hair Colors
       </button>
       <button id="tab-btn-timeline" class="nav-pill" data-mode="timeline" type="button" aria-selected="false">
-        🌌 4. Story Timeline
-      </button>
-      <button id="tab-btn-battle" class="nav-pill" data-mode="battle-quiz" type="button" aria-selected="false">
-        ⚔️ 5. VS Beam Game &amp; Quiz
+        🌌 5-Series Story
       </button>
     </nav>
 
@@ -66,7 +70,7 @@
 
   <!-- Main Workspace -->
   <main class="app-layout">
-    <!-- LEFT: Giant Unobstructed 3D Character Stage + Arena Picker + Instant Form Switcher -->
+    <!-- LEFT: Giant Unobstructed 3D Character Stage + Quick Switcher + Interactive Toybox -->
     <section class="character-stage" aria-label="3D Character Stage">
       <canvas id="db-3d-canvas" aria-label="3D Dragon Ball Character and Battle Arena Stage"></canvas>
 
@@ -80,29 +84,59 @@
         </div>
       </div>
 
-      <!-- Non-Overlapping Top Stage Bar: Left Character Readout + Right Arena & Power-Up -->
+      <!-- Non-Overlapping Top Stage Bar: Left Character Readout & Quick Nav + Right Arena & Dragon Radar -->
       <div class="stage-top-bar">
         <div class="stage-header-card">
-          <span id="stage-era-badge" class="stage-era-pill">DB • DBZ • GT • DBS</span>
+          <div class="stage-card-top-row">
+            <span id="stage-era-badge" class="stage-era-pill">DB • DBZ • DAIMA • GT • DBS</span>
+            <div id="stage-quick-stepper" class="stage-quick-stepper" role="group" aria-label="Quick Character Switcher">
+              <button id="prev-fighter-btn" class="stage-step-btn" type="button" title="Previous Character" aria-label="Previous Character">◀</button>
+              <button id="random-fighter-btn" class="stage-step-btn stage-dice-btn" type="button" title="Surprise Random Fighter">🎲 Surprise!</button>
+              <button id="next-fighter-btn" class="stage-step-btn" type="button" title="Next Character" aria-label="Next Character">▶</button>
+            </div>
+          </div>
           <h2 id="stage-char-name">Son Goku (Kakarot)</h2>
           <div class="stage-power-readout">
             <span id="ui-power-level-label">⚡ POWER LEVEL:</span>
-            <strong id="stage-power-number">60,000,000</strong>
+            <strong id="stage-power-number">3,000,000 (Official)</strong>
           </div>
         </div>
 
         <div class="stage-top-right">
           <select id="arena-select" class="arena-select" aria-label="Select 3D Battle Arena"></select>
-          <button id="power-up-burst-btn" class="btn-power-up" type="button">
-            ⚡ POWER UP AURA!
+          <button id="radar-hunt-btn" class="radar-hunt-chip" type="button" title="Spin 3D stage to spot hidden Dragon Balls!">
+            <span id="radar-btn-text">🔮 Radar: 0/7 ★</span>
           </button>
         </div>
       </div>
 
-      <!-- Bottom Dock: Instant Transformation Buttons Right Below the Character! -->
-      <div id="stage-transform-dock" class="stage-transform-dock">
-        <div class="dock-label" id="dock-label-text">CLICK TO TRANSFORM SON GOKU:</div>
-        <div id="stage-form-buttons" class="stage-form-buttons" role="group" aria-label="Character Transformations"></div>
+      <!-- Floating Toast for Dragon Ball Radar Finds / Limit-Break Evolutions -->
+      <div id="stage-toast" class="stage-toast hidden" role="status" aria-live="polite"></div>
+
+      <!-- Bottom Controls: 3-Button Kid Toybox + Instant Transformation Dock -->
+      <div class="stage-bottom-stack">
+        <!-- Interactive Kid Toybox: Hold-to-Transform Ki + Signature Beam Blast + Instant Transmission -->
+        <div id="stage-toybox" class="stage-toybox" role="group" aria-label="Interactive Fighter Powers">
+          <button id="power-up-burst-btn" class="toy-btn toy-btn-ki" type="button">
+            <span id="ki-charge-fill" class="toy-ki-fill" aria-hidden="true"></span>
+            <span id="ki-btn-label" class="toy-btn-content">⚡ Hold Ki (0%)</span>
+          </button>
+          <button id="fire-signature-btn" class="toy-btn toy-btn-beam" type="button">
+            <span id="signature-btn-label" class="toy-btn-content">☄️ Kamehameha!</span>
+          </button>
+          <button id="teleport-btn" class="toy-btn toy-btn-teleport" type="button">
+            <span id="teleport-btn-label" class="toy-btn-content">💨 Teleport!</span>
+          </button>
+        </div>
+
+        <!-- Instant Transformation / Hair / Fusion Dock -->
+        <div id="stage-transform-dock" class="stage-transform-dock">
+          <div class="dock-header-row">
+            <div class="dock-label" id="dock-label-text">CLICK TO TRANSFORM SON GOKU:</div>
+            <div class="dock-hint" id="ui-stage-hint">💡 Spin 3D • Tap arena to Teleport • Tap ★ Dragon Balls!</div>
+          </div>
+          <div id="stage-form-buttons" class="stage-form-buttons" role="group" aria-label="Character Transformations"></div>
+        </div>
       </div>
     </section>
 
@@ -128,8 +162,13 @@
         <div id="fighter-roster-grid" class="visual-character-grid"></div>
       </section>
 
-      <!-- VIEW 2: WHAT EVERY HAIR COLOR MEANS -->
+      <!-- VIEW 2: WHAT EVERY HAIR COLOR MEANS (Part of Lore on Mobile) -->
       <section id="view-hair-guide" class="view-section hidden">
+        <div class="lore-sub-tabs" role="tablist" aria-label="Lore Subsections">
+          <button class="filter-btn active lore-switch-btn" data-lore-target="hair-guide" type="button">🎨 Hair Colors</button>
+          <button class="filter-btn lore-switch-btn" data-lore-target="timeline" type="button">🌌 5-Series Story</button>
+        </div>
+
         <div class="section-intro">
           <h2 id="ui-hair-intro-title">🎨 What Every Saiyan Hair Color Means!</h2>
           <p id="ui-hair-intro-sub">Tap any of the 13 hair &amp; transformation colors below (including Flame-Red Super Saiyan God, Rose-Pink, Silver Ultra Instinct, Purple Ultra Ego &amp; Black Freezer) to transform in 3D!</p>
@@ -155,6 +194,11 @@
 
       <!-- VIEW 4: STORY TIMELINE (DB -> DBZ -> DAIMA -> DBGT -> DBS) -->
       <section id="view-timeline" class="view-section hidden">
+        <div class="lore-sub-tabs" role="tablist" aria-label="Lore Subsections">
+          <button class="filter-btn lore-switch-btn" data-lore-target="hair-guide" type="button">🎨 Hair Colors</button>
+          <button class="filter-btn active lore-switch-btn" data-lore-target="timeline" type="button">🌌 5-Series Story</button>
+        </div>
+
         <div class="section-intro">
           <h2 id="ui-timeline-intro-title">🌌 The 5 Dragon Ball Series Timeline</h2>
           <p id="ui-timeline-intro-sub">Follow Goku's journey from a 12-year-old boy with a monkey tail through Dragon Ball Z, Demon Realm Daima, GT, and the Gods of Dragon Ball Super!</p>
@@ -167,8 +211,8 @@
         <div id="saga-timeline-list" class="saga-cards-stack"></div>
       </section>
 
-      <!-- VIEW 5: PLAYABLE FORM-VS-FORM BEAM STRUGGLE & 7-STAR SHENRON QUIZ -->
-      <section id="view-battle-quiz" class="view-section hidden">
+      <!-- VIEW 5: PLAYABLE FORM-VS-FORM 1V1 BEAM STRUGGLE -->
+      <section id="view-battle" class="view-section hidden">
         <div class="character-story-card">
           <h3 id="ui-battle-title">⚔️ Playable 1v1 Form-vs-Form Beam Struggle!</h3>
           <p id="ui-battle-sub" class="muted-sub">Pick ANY two characters AND their exact transformations—then mash SPACEBAR or tap PUSH to win the 3D Kamehameha clash!</p>
@@ -192,20 +236,51 @@
           </button>
           <div id="battle-sim-output" class="battle-result-box" aria-live="polite"></div>
         </div>
+      </section>
 
+      <!-- VIEW 6: 7-STAR SHENRON ACADEMY QUIZ & DRAGON BALL RADAR PROGRESS -->
+      <section id="view-quiz" class="view-section hidden">
         <div class="character-story-card">
           <div class="quiz-top-row">
             <h3 id="ui-quiz-title">🎓 Kids' Saiyan Academy Quiz</h3>
             <span id="quiz-score-badge" class="score-badge">SCORE: 0 / 13</span>
           </div>
-          <p id="ui-quiz-sub" class="muted-sub">Answer 7 questions right to collect all 7 Dragon Balls and summon Eternal Shenron!</p>
+          <p id="ui-quiz-sub" class="muted-sub">Answer 7 questions right (or spot hidden Dragon Balls on the 3D stage!) to collect all 7 Dragon Balls and summon Eternal Shenron!</p>
           <div id="dragon-balls-progress" class="dragon-balls-progress" aria-label="Collected Dragon Balls"></div>
+          <div id="ui-quiz-radar-tip" class="moves-callout">🔮 Secret Tip: Spin the 3D Arena Stage to spot &amp; tap hidden glowing Dragon Balls too!</div>
           <div id="quiz-question-container" class="quiz-box" aria-live="polite"></div>
         </div>
       </section>
 
     </aside>
   </main>
+
+  <!-- Thumb-Friendly Mobile Bottom Navigation Bar (<= 768px) -->
+  <nav id="mobile-bottom-nav" class="mobile-bottom-nav" aria-label="Mobile Navigation">
+    <button class="mobile-nav-btn active" data-mobile-mode="fighters" type="button" aria-selected="true">
+      <span class="mobile-nav-icon" aria-hidden="true">🥋</span>
+      <span id="mnav-heroes" class="mobile-nav-label">Heroes</span>
+    </button>
+    <button class="mobile-nav-btn" data-mobile-mode="fusion-lab" type="button" aria-selected="false">
+      <span class="mobile-nav-icon" aria-hidden="true">✨</span>
+      <span id="mnav-fuse" class="mobile-nav-label">Fuse</span>
+    </button>
+    <button class="mobile-nav-btn" data-mobile-mode="battle" type="button" aria-selected="false">
+      <span class="mobile-nav-icon" aria-hidden="true">⚔️</span>
+      <span id="mnav-battle" class="mobile-nav-label">Battle</span>
+    </button>
+    <button class="mobile-nav-btn" data-mobile-mode="quiz" type="button" aria-selected="false">
+      <span class="mobile-nav-icon-wrap" aria-hidden="true">
+        <span class="mobile-nav-icon">🐉</span>
+        <span id="mobile-balls-badge" class="mobile-balls-badge">0/7</span>
+      </span>
+      <span id="mnav-quiz" class="mobile-nav-label">Quiz</span>
+    </button>
+    <button class="mobile-nav-btn" data-mobile-mode="lore" type="button" aria-selected="false">
+      <span class="mobile-nav-icon" aria-hidden="true">📚</span>
+      <span id="mnav-lore" class="mobile-nav-label">Lore</span>
+    </button>
+  </nav>
 
   <!-- Celebratory Eternal Shenron 7-Star Master Modal -->
   <div id="shenron-modal" class="shenron-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="shenron-title">

@@ -86,6 +86,7 @@
     lang: initialLang,
     theme: initialTheme,
     activeMode: 'fighters',
+    lastLoreMode: 'hair-guide',
     selectedArenaId: BASE_DATA.arenas[0].id,
     selectedArena: BASE_DATA.arenas[0],
     selectedRoleFilter: 'all',
@@ -123,6 +124,27 @@
     scouterActive: false,
     powerBurstTimer: 45,
     hasLightningActive: false,
+    kiCharge: 0,
+    kiChargingHold: false,
+    fighterPos3D: {
+      x: 0,
+      y: 0,
+      z: 0,
+      arrivalTimer: 0,
+      returnTimer: 0
+    },
+    teleportSpotIdx: 0,
+    teleportGhost: null,
+    signatureAttack: null,
+    arenaCrater: null,
+    hiddenBall: {
+      angle: 2.25,
+      radius: 192,
+      cooldown: 0,
+      lastScreenPos: null
+    },
+    currentStageSpriteUrl: BASE_DATA.fighters[0].spriteUrl,
+    currentStageAuraHex: '#ffd000',
     quizOrder: [], // shuffled indices into activeData.quizQuestions
     quizOptionPermutations: [], // per-question shuffled indices [0..3]
     quizIndex: 0,
@@ -135,11 +157,77 @@
       rotY: 0.16,
       rotX: 0.08,
       zoom: 1.0,
+      targetRotY: null,
       isDragging: false,
       lastX: 0,
       lastY: 0
     }
   };
+
+  let toastTimeoutId = null;
+  function showStageToast(message) {
+    const el = document.getElementById('stage-toast');
+    if (!el) return;
+    el.textContent = message;
+    el.classList.remove('hidden');
+    if (toastTimeoutId) window.clearTimeout(toastTimeoutId);
+    toastTimeoutId = window.setTimeout(() => {
+      el.classList.add('hidden');
+    }, 2600);
+  }
+
+  function extractShortName(fullName) {
+    return String(fullName || '')
+      .split('(')[0]
+      .split('（')[0]
+      .trim();
+  }
+
+  function getActivePrimarySignatureMove() {
+    let rawMove = '';
+    if (state.activeMode === 'fighters' || state.activeMode === 'quiz') {
+      rawMove = state.selectedFighter ? state.selectedFighter.signatureMove : '';
+    } else if (state.activeMode === 'fusion-lab') {
+      const fid = state.selectedFusionRecipe ? state.selectedFusionRecipe.id : '';
+      if (fid.indexOf('potara') !== -1) rawMove = 'Final Kamehameha';
+      else if (fid.indexOf('goten') !== -1) rawMove = 'Super Ghost Kamikaze';
+      else if (fid.indexOf('piccolo') !== -1) rawMove = 'Special Beam Cannon';
+      else rawMove = 'Stardust Breaker';
+    } else if (state.activeMode === 'hair-guide') {
+      const charLow = (state.selectedHairForm.characterName || '').toLowerCase();
+      if (charLow.indexOf('vegeta') !== -1) rawMove = 'Final Flash';
+      else if (charLow.indexOf('gohan') !== -1) rawMove = 'Special Beam Cannon';
+      else if (charLow.indexOf('freezer') !== -1 || charLow.indexOf('frieza') !== -1) rawMove = 'Death Ball';
+      else if (charLow.indexOf('broly') !== -1) rawMove = 'Gigantic Roar';
+      else if (charLow.indexOf('black') !== -1) rawMove = 'Divine Lasso';
+      else rawMove = 'Kamehameha';
+    } else if (state.activeMode === 'timeline') {
+      rawMove = 'Kamehameha';
+    }
+    const primary = String(rawMove || 'Kamehameha')
+      .split(/[,،•·、，/]/)[0]
+      .replace(/\([^)]*\)/g, '')
+      .replace(/（[^）]*）/g, '')
+      .trim();
+    return primary.length > 24 ? primary.slice(0, 22).trim() : (primary || 'Kamehameha');
+  }
+
+  function findFusionRecipeForFighter(fighterId) {
+    if (!fighterId) return null;
+    if (fighterId === 'vegetto') {
+      return activeData.fusionRecipes.find((r) => r.id === 'goku-vegeta-potara') || activeData.fusionRecipes[0];
+    }
+    if (fighterId === 'gogeta') {
+      return activeData.fusionRecipes.find((r) => r.id === 'goku-vegeta-dance') || activeData.fusionRecipes[0];
+    }
+    if (fighterId === 'gotenks' || fighterId === 'goten' || fighterId === 'trunks') {
+      return activeData.fusionRecipes.find((r) => r.id === 'goten-trunks-dance') || null;
+    }
+    return (
+      activeData.fusionRecipes.find((r) => r.warriorA === fighterId || r.warriorB === fighterId) ||
+      null
+    );
+  }
 
   function tr(key, vars) {
     return I18N.t(state.lang, key, vars);
@@ -389,6 +477,55 @@
     state.battleFormB = getActiveFighterForm(state.battleFighterB, state.battleFormIndexB);
   }
 
+  function syncToyboxUI() {
+    const toybox = document.getElementById('stage-toybox');
+    const kiFill = document.getElementById('ki-charge-fill');
+    const kiLabel = document.getElementById('ki-btn-label');
+    const sigLabel = document.getElementById('signature-btn-label');
+    const teleLabel = document.getElementById('teleport-btn-label');
+    const stepper = document.getElementById('stage-quick-stepper');
+
+    if (toybox) {
+      toybox.classList.toggle('hidden', state.activeMode === 'battle');
+    }
+    if (stepper) {
+      stepper.classList.toggle('hidden', state.activeMode === 'battle' || state.activeMode === 'quiz');
+    }
+
+    const pct = Math.round(state.kiCharge || 0);
+    if (kiFill) {
+      kiFill.style.width = pct + '%';
+    }
+    if (kiLabel) {
+      kiLabel.textContent = pct >= 99 ? tr('toyKiMaxed') : tr('toyChargeKi', { pct: pct });
+    }
+    if (sigLabel) {
+      sigLabel.textContent = tr('toyFireMove', { move: getActivePrimarySignatureMove() });
+    }
+    if (teleLabel) {
+      teleLabel.textContent = tr('toyTeleport');
+    }
+  }
+
+  function syncDragonBallCounters() {
+    const balls = state.dragonBallsCollected || 0;
+    const navBadge = document.getElementById('nav-balls-badge');
+    if (navBadge) navBadge.textContent = balls + '/7 ★';
+
+    const mobBadge = document.getElementById('mobile-balls-badge');
+    if (mobBadge) mobBadge.textContent = balls + '/7';
+
+    const radarBtn = document.getElementById('radar-hunt-btn');
+    const radarTxt = document.getElementById('radar-btn-text');
+    if (radarTxt) {
+      radarTxt.textContent =
+        balls >= 7 ? tr('radarSummonBtn') : tr('radarBtnLabel', { balls: balls });
+    }
+    if (radarBtn) {
+      radarBtn.classList.toggle('radar-complete', balls >= 7);
+    }
+  }
+
   function renderStaticShellStrings() {
     document.documentElement.lang = state.lang === 'yue' ? 'yue-Hant-HK' : state.lang;
     document.documentElement.dir = I18N.getLanguageDir(state.lang);
@@ -397,11 +534,36 @@
     document.getElementById('ui-brand-title').textContent = tr('brandTitle');
     document.getElementById('ui-brand-sub').textContent = tr('brandSub');
 
-    document.getElementById('tab-btn-fighters').textContent = tr('tabFighters');
-    document.getElementById('tab-btn-hair').textContent = tr('tabHair');
-    document.getElementById('tab-btn-fusion').textContent = tr('tabFusion');
-    document.getElementById('tab-btn-timeline').textContent = tr('tabTimeline');
-    document.getElementById('tab-btn-battle').textContent = tr('tabBattleQuiz');
+    document.getElementById('tab-btn-fighters').textContent = tr('tabFightersShort');
+    document.getElementById('tab-btn-fusion').textContent = tr('tabFusionShort');
+    document.getElementById('tab-btn-battle').textContent = tr('tabBattleShort');
+    const quizTabTxt = document.getElementById('ui-tab-quiz-text');
+    if (quizTabTxt) quizTabTxt.textContent = tr('tabQuizShort');
+    document.getElementById('tab-btn-hair').textContent = tr('tabHairShort');
+    document.getElementById('tab-btn-timeline').textContent = tr('tabTimelineShort');
+
+    // Sync Lore sub-switcher buttons inside View 2 and View 4
+    document.querySelectorAll('.lore-switch-btn').forEach((btn) => {
+      const target = btn.getAttribute('data-lore-target');
+      btn.textContent = target === 'hair-guide' ? tr('tabHairShort') : tr('tabTimelineShort');
+    });
+
+    // Sync Mobile Bottom Bar labels
+    const mHeroes = document.getElementById('mnav-heroes');
+    const mFuse = document.getElementById('mnav-fuse');
+    const mBattle = document.getElementById('mnav-battle');
+    const mQuiz = document.getElementById('mnav-quiz');
+    const mLore = document.getElementById('mnav-lore');
+    if (mHeroes) mHeroes.textContent = tr('mobileNavHeroes');
+    if (mFuse) mFuse.textContent = tr('mobileNavFuse');
+    if (mBattle) mBattle.textContent = tr('mobileNavBattle');
+    if (mQuiz) mQuiz.textContent = tr('mobileNavQuiz');
+    if (mLore) mLore.textContent = tr('mobileNavLore');
+
+    const randBtn = document.getElementById('random-fighter-btn');
+    if (randBtn) randBtn.textContent = tr('randomFighterBtn');
+    const stageHint = document.getElementById('ui-stage-hint');
+    if (stageHint) stageHint.textContent = tr('stageInteractiveHint');
 
     document.getElementById('ui-scouter-prefix').textContent = tr('scouterLabel');
     document.getElementById('scouter-state-label').textContent = state.scouterActive ? tr('on') : tr('off');
@@ -410,7 +572,6 @@
     document.getElementById('sound-state-label').textContent = AUDIO.isSoundEnabled() ? tr('on') : tr('off');
 
     document.getElementById('ui-power-level-label').textContent = tr('powerLevelLabel');
-    document.getElementById('power-up-burst-btn').textContent = tr('powerUpBtn');
 
     document.getElementById('roster-search-input').placeholder = tr('searchPlaceholder');
 
@@ -434,12 +595,17 @@
 
     document.getElementById('ui-quiz-title').textContent = tr('quizTitle');
     document.getElementById('ui-quiz-sub').textContent = tr('quizSub');
+    const radarTip = document.getElementById('ui-quiz-radar-tip');
+    if (radarTip) radarTip.textContent = tr('quizRadarTip');
 
     document.getElementById('shenron-title').textContent = tr('shenronTitle');
     document.getElementById('shenron-speech').textContent = tr('shenronSpeech');
     document.getElementById('wish-ui-goku-btn').textContent = tr('wish1Btn');
     document.getElementById('wish-gogeta-btn').textContent = tr('wish2Btn');
     document.getElementById('close-shenron-btn').textContent = tr('wishCloseBtn');
+
+    syncDragonBallCounters();
+    syncToyboxUI();
 
     // Arena dropdown options
     const arenaSelect = document.getElementById('arena-select');
@@ -473,7 +639,7 @@
     dockBtns.replaceChildren();
     let targetPowerStr = '';
 
-    if (state.activeMode === 'fighters') {
+    if (state.activeMode === 'fighters' || state.activeMode === 'quiz') {
       const fighter = state.selectedFighter;
       const activeForm = state.activeFighterForm;
 
@@ -584,7 +750,7 @@
       hudName.textContent = saga.mainHero.toUpperCase();
       hudForm.textContent = saga.era;
       dockContainer.classList.add('hidden');
-    } else if (state.activeMode === 'battle-quiz') {
+    } else if (state.activeMode === 'battle') {
       eraBadge.textContent = tr('liveBeamStage');
       charName.textContent = state.battleFormA.label + ' VS ' + state.battleFormB.label;
       targetPowerStr = state.beamGame.active
@@ -596,6 +762,7 @@
       dockContainer.classList.add('hidden');
     }
 
+    syncToyboxUI();
     centerActiveRailItem(dockBtns);
 
     if (animatePower) {
@@ -607,7 +774,7 @@
   }
 
   // ==========================================================================
-  // VIEW 1: CHARACTERS & TRANSFORMATIONS
+  // VIEW 1: CHARACTERS & TRANSFORMATIONS (+ ONE-TAP PLAY SHORTCUTS!)
   // ==========================================================================
   function renderActiveFighterStory() {
     const card = document.getElementById('active-fighter-story');
@@ -615,6 +782,7 @@
 
     const fighter = state.selectedFighter;
     const activeForm = getActiveFighterForm(fighter, state.selectedFighterFormIndex);
+    const shortName = extractShortName(fighter.name);
 
     const banner = createEl('div', 'story-banner');
     const portraitBox = createEl('div', 'story-portrait');
@@ -652,8 +820,64 @@
 
     const movesBox = createEl('div', 'moves-callout', tr('signatureMoves') + fighter.signatureMove);
 
+    // Kid-Friendly Contextual One-Tap Shortcuts (Jump straight to Battle, Fusion, or Shenron Quiz!)
+    const quickRow = createEl('div', 'quick-play-row');
+
+    const battleJumpBtn = createEl(
+      'button',
+      'quick-play-chip quick-play-primary',
+      tr('quickBattleBtn', { name: shortName })
+    );
+    battleJumpBtn.type = 'button';
+    battleJumpBtn.addEventListener('click', () => {
+      state.battleFighterIdA = fighter.id;
+      state.battleFighterA = fighter;
+      state.battleFormIndexA = state.selectedFighterFormIndex;
+      if (state.battleFighterIdB === fighter.id) {
+        const altId = fighter.id === 'goku' ? 'freezer' : 'goku';
+        state.battleFighterIdB = altId;
+        state.battleFighterB = findFighterById(activeData, altId);
+        state.battleFormIndexB = Math.max(0, (state.battleFighterB.forms || []).length - 1);
+      }
+      refreshBattleSelectOptions();
+      syncBattleFormsFromState();
+      state.beamGame.position = 0.5;
+      state.beamGame.winnerSide = null;
+      renderBattleOutcomeBox();
+      switchMode('battle');
+    });
+    quickRow.appendChild(battleJumpBtn);
+
+    const matchedFusion = findFusionRecipeForFighter(fighter.id);
+    if (matchedFusion) {
+      const fuseJumpBtn = createEl(
+        'button',
+        'quick-play-chip',
+        tr('quickFuseBtn', { name: shortName })
+      );
+      fuseJumpBtn.type = 'button';
+      fuseJumpBtn.addEventListener('click', () => {
+        state.selectedFusionRecipeId = matchedFusion.id;
+        state.selectedFusionRecipe = matchedFusion;
+        switchMode('fusion-lab');
+      });
+      quickRow.appendChild(fuseJumpBtn);
+    }
+
+    const quizJumpBtn = createEl(
+      'button',
+      'quick-play-chip',
+      tr('quickQuizBtn', { balls: state.dragonBallsCollected })
+    );
+    quizJumpBtn.type = 'button';
+    quizJumpBtn.addEventListener('click', () => {
+      switchMode('quiz');
+    });
+    quickRow.appendChild(quizJumpBtn);
+
     card.appendChild(banner);
     card.appendChild(movesBox);
+    card.appendChild(quickRow);
   }
 
   function renderFighterGridOnly() {
@@ -1327,6 +1551,7 @@
   }
 
   function renderDragonBallStarsBar() {
+    syncDragonBallCounters();
     const bar = document.getElementById('dragon-balls-progress');
     if (!bar) return;
     bar.replaceChildren();
@@ -1346,6 +1571,258 @@
     AUDIO.playSound('shenron');
     track('summon_shenron', { language: state.lang });
     document.getElementById('shenron-modal').classList.remove('hidden');
+  }
+
+  function awardDragonBall(source) {
+    if (state.dragonBallsCollected < 7) {
+      state.dragonBallsCollected += 1;
+    }
+    AUDIO.playSound(source === 'radar' ? 'dragon_ball' : 'transform');
+    renderDragonBallStarsBar();
+
+    const scoreBadge = document.getElementById('quiz-score-badge');
+    if (scoreBadge && state.quizOrder.length > 0) {
+      scoreBadge.textContent = tr('scoreBallsBadge', {
+        score: state.quizScore,
+        total: state.quizOrder.length,
+        balls: state.dragonBallsCollected
+      });
+    }
+    if (state.activeMode === 'fighters') {
+      renderActiveFighterStory();
+    }
+
+    if (state.dragonBallsCollected === 7 && !state.shenronSummonedOnce) {
+      state.shenronSummonedOnce = true;
+      window.setTimeout(openShenronModal, 480);
+    }
+  }
+
+  function collectHiddenBall() {
+    if (state.dragonBallsCollected >= 7) {
+      openShenronModal();
+      return;
+    }
+    awardDragonBall('radar');
+    const starFound = state.dragonBallsCollected;
+    state.powerBurstTimer = 55;
+    state.hiddenBall.angle = (state.hiddenBall.angle + 2.35 + Math.random() * 1.4) % (Math.PI * 2);
+    state.hiddenBall.cooldown = 36;
+    state.hiddenBall.lastScreenPos = null;
+    showStageToast(tr('radarFoundToast', { star: starFound, balls: state.dragonBallsCollected }));
+    track('collect_hidden_dragon_ball', {
+      star: starFound,
+      dragon_balls: state.dragonBallsCollected,
+      language: state.lang
+    });
+  }
+
+  function focusRadarOnHiddenBall() {
+    if (state.dragonBallsCollected >= 7) {
+      openShenronModal();
+      return;
+    }
+    if (state.activeMode === 'battle') {
+      switchMode('fighters');
+    }
+    state.hiddenBall.cooldown = 0;
+    AUDIO.playSound('scouter');
+    // Aim camera so angle + rotY === -0.82 rad (unobstructed front-right foreground)
+    const desired = -0.82 - state.hiddenBall.angle;
+    const twoPi = Math.PI * 2;
+    let delta = (desired - state.camera.rotY) % twoPi;
+    if (delta > Math.PI) delta -= twoPi;
+    if (delta < -Math.PI) delta += twoPi;
+    state.camera.targetRotY = state.camera.rotY + delta;
+    track('radar_focus_ball', {
+      dragon_balls: state.dragonBallsCollected,
+      language: state.lang
+    });
+  }
+
+  const TELEPORT_PRESETS = [
+    { x: -118, y: -28, z: -55 },
+    { x: 122, y: -34, z: -48 },
+    { x: -92, y: -52, z: 62 },
+    { x: 98, y: -20, z: 68 },
+    { x: 0, y: -56, z: -78 }
+  ];
+
+  function triggerTeleport(normX, normY) {
+    if (state.activeMode === 'battle') return;
+    const fp = state.fighterPos3D;
+    const isCompact = (document.getElementById('db-3d-canvas') || {}).clientWidth < 520;
+    const baseY = (isCompact ? 8 : -16) + fp.y;
+
+    state.teleportGhost = {
+      x: fp.x,
+      y: baseY,
+      z: fp.z,
+      spriteUrl: state.currentStageSpriteUrl,
+      timer: 22
+    };
+
+    let nextX = 0;
+    let nextY = 0;
+    let nextZ = 0;
+    if (typeof normX === 'number' && typeof normY === 'number') {
+      const clampedX = Math.max(-0.78, Math.min(0.78, normX));
+      const clampedY = Math.max(-0.55, Math.min(0.32, normY));
+      const screenWorldX = clampedX * 155;
+      const screenWorldZ = -35;
+      const cosY = Math.cos(-state.camera.rotY);
+      const sinY = Math.sin(-state.camera.rotY);
+      nextX = screenWorldX * cosY - screenWorldZ * sinY;
+      nextZ = screenWorldZ * cosY + screenWorldX * sinY;
+      nextY = clampedY * 62;
+    } else {
+      const spot = TELEPORT_PRESETS[state.teleportSpotIdx % TELEPORT_PRESETS.length];
+      state.teleportSpotIdx += 1;
+      nextX = spot.x;
+      nextY = spot.y;
+      nextZ = spot.z;
+    }
+
+    state.fighterPos3D = {
+      x: nextX,
+      y: nextY,
+      z: nextZ,
+      arrivalTimer: 22,
+      returnTimer: 82
+    };
+    state.powerBurstTimer = Math.max(state.powerBurstTimer, 28);
+    AUDIO.playSound('teleport');
+    track('stage_teleport', {
+      mode: state.activeMode,
+      via_canvas: typeof normX === 'number',
+      language: state.lang
+    });
+  }
+
+  function triggerSignatureAttack() {
+    if (state.activeMode === 'battle') return;
+    const moveName = getActivePrimarySignatureMove();
+    state.signatureAttack = {
+      moveName: moveName,
+      timer: 72,
+      color: state.currentStageAuraHex || '#ffd000'
+    };
+    state.powerBurstTimer = 75;
+    AUDIO.playSound('beam_charge');
+    track('fire_signature_move', {
+      move_name: moveName,
+      mode: state.activeMode,
+      language: state.lang
+    });
+  }
+
+  function triggerLimitBreakEvolution() {
+    state.kiCharge = 0;
+    state.kiChargingHold = false;
+    state.powerBurstTimer = 95;
+
+    if (state.activeMode === 'fighters' || state.activeMode === 'quiz') {
+      const fighter = state.selectedFighter;
+      const forms = fighter.forms || [];
+      if (forms.length > 1) {
+        state.selectedFighterFormIndex = (state.selectedFighterFormIndex + 1) % forms.length;
+        const unlocked = forms[state.selectedFighterFormIndex];
+        AUDIO.playSound('transform');
+        showStageToast(tr('limitBreakToast', { form: unlocked.label }));
+        renderActiveFighterStory();
+        syncStageUI(true);
+        track('ki_limit_break', {
+          fighter_id: fighter.id,
+          form_label: unlocked.label,
+          language: state.lang
+        });
+        return;
+      }
+    } else if (state.activeMode === 'hair-guide') {
+      const curIdx = activeData.hairForms.findIndex((h) => h.id === state.selectedHairFormId);
+      const nextIdx = (curIdx + 1) % activeData.hairForms.length;
+      const nextHair = activeData.hairForms[nextIdx];
+      state.selectedHairFormId = nextHair.id;
+      state.selectedHairForm = nextHair;
+      AUDIO.playSound('transform');
+      showStageToast(tr('limitBreakToast', { form: nextHair.shortLabel }));
+      renderHairGuideView();
+      syncStageUI(true);
+      return;
+    } else if (state.activeMode === 'fusion-lab') {
+      triggerFusionSequence(state.selectedFusionRecipe);
+      showStageToast(tr('limitBreakToast', { form: state.selectedFusionRecipe.resultName }));
+      return;
+    }
+
+    AUDIO.playSound('burst');
+    syncToyboxUI();
+  }
+
+  function stepStageEntity(stepDir) {
+    AUDIO.stopSpeaking();
+    state.powerBurstTimer = 52;
+    AUDIO.playSound('scouter');
+
+    function pickIndex(len, curIdx) {
+      if (len <= 1) return 0;
+      if (stepDir === 'random') {
+        let r = Math.floor(Math.random() * len);
+        if (r === curIdx) r = (r + 1) % len;
+        return r;
+      }
+      return (curIdx + stepDir + len) % len;
+    }
+
+    if (state.activeMode === 'hair-guide') {
+      const cur = Math.max(0, activeData.hairForms.findIndex((h) => h.id === state.selectedHairFormId));
+      const next = activeData.hairForms[pickIndex(activeData.hairForms.length, cur)];
+      state.selectedHairFormId = next.id;
+      state.selectedHairForm = next;
+      renderHairGuideView();
+      syncStageUI(true);
+    } else if (state.activeMode === 'fusion-lab') {
+      const cur = Math.max(
+        0,
+        activeData.fusionRecipes.findIndex((r) => r.id === state.selectedFusionRecipeId)
+      );
+      const next = activeData.fusionRecipes[pickIndex(activeData.fusionRecipes.length, cur)];
+      triggerFusionSequence(next);
+    } else if (state.activeMode === 'timeline') {
+      const cur = Math.max(
+        0,
+        activeData.timelineSagas.findIndex((s) => s.id === state.selectedSagaId)
+      );
+      const next = activeData.timelineSagas[pickIndex(activeData.timelineSagas.length, cur)];
+      state.selectedSagaId = next.id;
+      state.selectedSaga = next;
+      state.selectedEraFilter = 'ALL';
+      renderTimelineView();
+      syncStageUI(false);
+    } else {
+      const cur = Math.max(
+        0,
+        activeData.fighters.findIndex((f) => f.id === state.selectedFighterId)
+      );
+      const next = activeData.fighters[pickIndex(activeData.fighters.length, cur)];
+      state.selectedFighterId = next.id;
+      state.selectedFighter = next;
+      state.selectedFighterFormIndex =
+        stepDir === 'random' && next.forms && next.forms.length > 1
+          ? Math.floor(Math.random() * next.forms.length)
+          : next.id === 'goku'
+            ? 1
+            : 0;
+      renderActiveFighterStory();
+      renderFighterGridOnly();
+      syncStageUI(true);
+    }
+
+    track('stage_quick_step', {
+      direction: String(stepDir),
+      mode: state.activeMode,
+      language: state.lang
+    });
   }
 
   function renderQuizCard() {
@@ -1433,21 +1910,7 @@
 
         if (isCorrectOpt) {
           state.quizScore += 1;
-          if (state.dragonBallsCollected < 7) {
-            state.dragonBallsCollected += 1;
-          }
-          AUDIO.playSound('transform');
-          renderDragonBallStarsBar();
-          scoreBadge.textContent = tr('scoreBallsBadge', {
-            score: state.quizScore,
-            total: totalQ,
-            balls: state.dragonBallsCollected
-          });
-
-          if (state.dragonBallsCollected === 7 && !state.shenronSummonedOnce) {
-            state.shenronSummonedOnce = true;
-            window.setTimeout(openShenronModal, 450);
-          }
+          awardDragonBall('quiz');
         } else {
           btn.classList.add('wrong');
           AUDIO.playSound('scouter');
@@ -1498,8 +1961,19 @@
     syncStageUI(false);
   }
 
-  function switchMode(newMode) {
-    if (newMode !== 'battle-quiz') {
+  function switchMode(rawMode) {
+    let newMode = rawMode;
+    if (newMode === 'lore') {
+      newMode = state.lastLoreMode || 'hair-guide';
+    } else if (newMode === 'battle-quiz') {
+      newMode = 'battle';
+    }
+
+    if (newMode === 'hair-guide' || newMode === 'timeline') {
+      state.lastLoreMode = newMode;
+    }
+
+    if (newMode !== 'battle') {
       stopBeamGameLoop();
     }
     AUDIO.stopSpeaking();
@@ -1514,12 +1988,27 @@
     });
     centerActiveRailItem(document.querySelector('.main-tabs'));
 
+    // Sync Mobile Bottom App Bar active button
+    document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
+      const mMode = btn.getAttribute('data-mobile-mode');
+      const isLoreMatch = mMode === 'lore' && (newMode === 'hair-guide' || newMode === 'timeline');
+      const isMatch = mMode === newMode || isLoreMatch;
+      btn.classList.toggle('active', isMatch);
+    });
+
+    // Sync Lore Sub-Switcher pills inside Hair Guide & Timeline views
+    document.querySelectorAll('.lore-switch-btn').forEach((btn) => {
+      const isMatch = btn.getAttribute('data-lore-target') === newMode;
+      btn.classList.toggle('active', isMatch);
+    });
+
     const views = {
       'fighters': 'view-fighters',
-      'hair-guide': 'view-hair-guide',
       'fusion-lab': 'view-fusion-lab',
-      'timeline': 'view-timeline',
-      'battle-quiz': 'view-battle-quiz'
+      'battle': 'view-battle',
+      'quiz': 'view-quiz',
+      'hair-guide': 'view-hair-guide',
+      'timeline': 'view-timeline'
     };
 
     Object.entries(views).forEach(([key, id]) => {
@@ -1564,12 +2053,36 @@
       AUDIO.playSound('scouter');
     });
 
-    // 5 Main Mode Tabs
+    // 6 Desktop Mode Tabs
     document.querySelectorAll('.nav-pill').forEach((btn) => {
       btn.addEventListener('click', () => {
         switchMode(btn.getAttribute('data-mode'));
       });
     });
+
+    // Sticky Mobile 5-Tab Bottom App Bar
+    document.querySelectorAll('.mobile-nav-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        switchMode(btn.getAttribute('data-mobile-mode'));
+      });
+    });
+
+    // Lore Sub-Switcher Buttons (Hair Guide <-> 5-Series Story)
+    document.querySelectorAll('.lore-switch-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        switchMode(btn.getAttribute('data-lore-target'));
+      });
+    });
+
+    // Stage Quick Stepper (Prev / Surprise Random / Next) & Dragon Radar Hunt Button
+    const prevBtn = document.getElementById('prev-fighter-btn');
+    const nextBtn = document.getElementById('next-fighter-btn');
+    const randBtn = document.getElementById('random-fighter-btn');
+    const radarBtn = document.getElementById('radar-hunt-btn');
+    if (prevBtn) prevBtn.addEventListener('click', () => stepStageEntity(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => stepStageEntity(1));
+    if (randBtn) randBtn.addEventListener('click', () => stepStageEntity('random'));
+    if (radarBtn) radarBtn.addEventListener('click', focusRadarOnHiddenBall);
 
     // 3D Battle Arena Selector
     const arenaSelect = document.getElementById('arena-select');
@@ -1578,6 +2091,7 @@
       const found = activeData.arenas.find((a) => a.id === state.selectedArenaId);
       if (found) {
         state.selectedArena = found;
+        state.arenaCrater = null;
         state.powerBurstTimer = 40;
         AUDIO.playSound('scouter');
         track('select_arena', { arena_id: state.selectedArenaId, language: state.lang });
@@ -1678,18 +2192,53 @@
       if (next) AUDIO.playSound('scouter');
     });
 
-    // Stage Power-Up Burst Button
-    document.getElementById('power-up-burst-btn').addEventListener('click', () => {
-      state.powerBurstTimer = 85;
-      AUDIO.playSound('burst');
-    });
+    // Interactive Stage Toybox #1: Hold-or-Tap Ki Charge + 100% Limit-Break Auto-Evolution!
+    const kiBtn = document.getElementById('power-up-burst-btn');
+    let holdTickCounter = 0;
+    if (kiBtn) {
+      kiBtn.addEventListener('pointerdown', () => {
+        state.kiChargingHold = true;
+        holdTickCounter = 0;
+        state.powerBurstTimer = Math.max(state.powerBurstTimer, 45);
+        AUDIO.playSound('ki_tick', state.kiCharge || 15);
+      });
+      const stopHold = () => {
+        state.kiChargingHold = false;
+      };
+      kiBtn.addEventListener('pointerup', stopHold);
+      kiBtn.addEventListener('pointerleave', stopHold);
+      kiBtn.addEventListener('pointercancel', stopHold);
+
+      kiBtn.addEventListener('click', () => {
+        state.kiCharge = Math.min(100, (state.kiCharge || 0) + 35);
+        state.powerBurstTimer = 75;
+        AUDIO.playSound('burst');
+        if (state.kiCharge >= 100) {
+          triggerLimitBreakEvolution();
+        } else {
+          syncToyboxUI();
+        }
+      });
+    }
+
+    // Interactive Stage Toybox #2: Signature Ultimate Beam Cannon!
+    const sigBtn = document.getElementById('fire-signature-btn');
+    if (sigBtn) {
+      sigBtn.addEventListener('click', triggerSignatureAttack);
+    }
+
+    // Interactive Stage Toybox #3: Zanzoken / Instant Transmission Teleport!
+    const teleBtn = document.getElementById('teleport-btn');
+    if (teleBtn) {
+      teleBtn.addEventListener('click', () => triggerTeleport());
+    }
 
     // Start Live Beam Struggle Button
     document.getElementById('run-battle-btn').addEventListener('click', startInteractiveBeamStruggle);
 
     // Spacebar Mash Support for Live Beam Struggle
     window.addEventListener('keydown', (e) => {
-      if (e.code === 'Space' && state.activeMode === 'battle-quiz' && state.beamGame.active) {
+      if (e.code === 'Space' && state.activeMode === 'battle' && state.beamGame.active) {
         if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
         e.preventDefault();
         pushBeamForPlayer();
@@ -1715,6 +2264,21 @@
       renderFightersView();
       switchMode('fighters');
     });
+
+    // Expose frame-level Ki hold sound tick helper on window scope closure
+    state._onKiFrameTick = function (kiVal) {
+      if (state.kiChargingHold) {
+        holdTickCounter += 1;
+        if (holdTickCounter % 8 === 0) {
+          AUDIO.playSound('ki_tick', kiVal);
+        }
+      }
+      if (kiVal >= 100) {
+        triggerLimitBreakEvolution();
+      } else {
+        syncToyboxUI();
+      }
+    };
   }
 
   function collectAllRenderUrls() {
@@ -1743,7 +2307,17 @@
     await applyLanguage(state.lang);
 
     const canvasEl = document.getElementById('db-3d-canvas');
-    RENDERER.init(canvasEl, () => state);
+    RENDERER.init(canvasEl, () => state, {
+      onCollectHiddenBall: collectHiddenBall,
+      onStageBeamTap: pushBeamForPlayer,
+      onCanvasTeleportTap: triggerTeleport,
+      onBeamFireSound: () => AUDIO.playSound('beam_fire'),
+      onKiFrameUpdate: (kiVal) => {
+        if (typeof state._onKiFrameTick === 'function') {
+          state._onKiFrameTick(kiVal);
+        }
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
