@@ -617,7 +617,7 @@
       ctx.font = '900 ' + (width < 520 ? '15px' : '19px') + ' system-ui, sans-serif';
       const tw = ctx.measureText(label).width;
       const bx = width * 0.5 - tw * 0.5 - 14;
-      const by = width < 520 ? 116 : 128;
+      const by = width < 520 ? 174 : 194;
       ctx.fillStyle = 'rgba(7, 11, 20, 0.88)';
       ctx.strokeStyle = '#ffd000';
       ctx.lineWidth = 2;

@@ -1,7 +1,7 @@
 /* ==========================================================================
-   DRAGON BALL 3D PORTAL — 12-LANGUAGE LOCALIZATION & RTL ENGINE
-   Matches all 11 Atlas of Wonder languages + Dutch (nl):
-   en, es, zh, yue, ja, ko, pt, fr, it, de, nl, ar (with full RTL layout)
+   DRAGON BALL 3D PORTAL — 13-LANGUAGE LOCALIZATION & RTL ENGINE
+   Supports 13 languages including Spain & Latin American Spanish + Arabic RTL:
+   en, es (España), es-419 (Latinoamérica), zh, yue, ja, ko, pt, fr, it, de, nl, ar
    ========================================================================== */
 
 (function () {
@@ -11,7 +11,8 @@
 
   const LANGUAGES = [
     { code: 'en', label: 'EN', nativeName: 'English', fullLabel: 'EN · English', bcp47: 'en-US' },
-    { code: 'es', label: 'ES', nativeName: 'Español', fullLabel: 'ES · Español', bcp47: 'es-ES' },
+    { code: 'es', label: 'ES', nativeName: 'Español (España)', fullLabel: 'ES · Español (España)', bcp47: 'es-ES' },
+    { code: 'es-419', label: 'ES-LA', nativeName: 'Español (Latinoamérica)', fullLabel: 'ES-LA · Español (Latinoamérica)', bcp47: 'es-419' },
     { code: 'zh', label: '中文', nativeName: '中文 (普通话)', fullLabel: '中文 · 普通话', bcp47: 'zh-CN' },
     { code: 'yue', label: '粵語', nativeName: '粵語 (廣東話)', fullLabel: '粵語 · 廣東話', bcp47: 'zh-HK' },
     { code: 'ja', label: '日本語', nativeName: '日本語', fullLabel: 'JA · 日本語', bcp47: 'ja-JP' },
@@ -25,16 +26,27 @@
   ];
 
   const SUPPORTED_SET = new Set(LANGUAGES.map((l) => l.code));
+  const LATAM_ES_REGIONS = new Set([
+    '419', 'la', 'latam', 'mx', 'us', 'ar', 'co', 'cl', 'pe', 've',
+    'ec', 'gt', 'cu', 'bo', 'do', 'hn', 'py', 'sv', 'ni', 'cr', 'pa', 'uy', 'pr'
+  ]);
   const localeCache = new Map();
 
   function resolveRawLocale(raw) {
     if (!raw || typeof raw !== 'string') return null;
-    const norm = raw.trim().toLowerCase().replace('_', '-');
+    const norm = raw.trim().toLowerCase().replace(/_/g, '-');
     if (SUPPORTED_SET.has(norm)) return norm;
     if (norm === 'yue' || norm.startsWith('yue-') || norm === 'zh-hk' || norm === 'zh-mo' || norm.startsWith('zh-hant-hk')) {
       return 'yue';
     }
     if (norm.startsWith('zh')) return 'zh';
+    if (norm.startsWith('es-')) {
+      const subtags = norm.split('-').slice(1);
+      if (subtags.some((t) => LATAM_ES_REGIONS.has(t))) {
+        return 'es-419';
+      }
+      return 'es';
+    }
     const prefix = norm.split('-')[0];
     return SUPPORTED_SET.has(prefix) ? prefix : null;
   }
@@ -291,6 +303,113 @@
       playNewRound: '🔄 ¡Jugar Nueva Ronda Mezclada!',
       shenronTitle: '🐉 ¡SHENLONG ETERNO HA APARECIDO!',
       shenronSpeech: '"¡HAS REUNIDO LAS 7 ESFERAS DEL DRAGÓN! ¡PIDE TU DESEO, JOVEN MAESTRO GUERRERO Z!"',
+      wish1Btn: '⚡ Deseo 1: ¡Despertar a Goku Ultra Instinto Plateado!',
+      wish2Btn: '✨ Deseo 2: ¡Lanzar la Fusión de Gogeta Blue Máximo Poder!',
+      wishCloseBtn: '🎓 ¡Seguir Explorando como Maestro Guerrero Z!'
+    },
+    'es-419': {
+      tabFightersShort: "🥋 Héroes",
+      tabFusionShort: "✨ Fusión",
+      tabBattleShort: "⚔️ Batalla VS",
+      tabQuizShort: "🐉 Quiz Shenlong",
+      tabHairShort: "🎨 Cabello Saiyajin",
+      tabTimelineShort: "🌌 5 Series",
+      mobileNavHeroes: "Héroes",
+      mobileNavFuse: "Fusión",
+      mobileNavBattle: "Batalla",
+      mobileNavQuiz: "Quiz",
+      mobileNavLore: "Historia",
+      randomFighterBtn: "🎲 ¡Sorpresa!",
+      radarBtnLabel: "🔮 Radar: {balls}/7 ★",
+      radarSummonBtn: "🐉 ¡Invocar a Shenlong! (7/7 ★)",
+      toyChargeKi: "⚡ Cargar Ki ({pct}%)",
+      toyKiMaxed: "🔥 ¡ROMPE LÍMITES!",
+      toyFireMove: "☄️ ¡{move}!",
+      toyTeleport: "💨 ¡Teletransportación!",
+      stageInteractiveHint: "💡 Gira en 3D • Toca la arena para Teletransportarte • ¡Busca y toca las ★ Esferas!",
+      quickBattleBtn: "⚔️ ¡Pelear con {name}!",
+      quickFuseBtn: "✨ ¡Fusionar a {name}!",
+      quickQuizBtn: "🐉 Ganar Esferas ({balls}/7)",
+      radarFoundToast: "★ ¡Encontraste la Esfera de {star} Estrellas! ({balls}/7)",
+      limitBreakToast: "🔥 ¡KI AL MÁXIMO! ¡{form}!",
+      quizRadarTip: "🔮 Secreto: ¡Gira la arena 3D para encontrar y tocar Esferas del Dragón escondidas!",
+      themeLight: '☀️ Claro',
+      themeDark: '🌙 Oscuro',
+      brandTitle: 'PORTAL 3D DE DRAGON BALL',
+      brandSub: 'DB • DBZ • DAIMA • GT • SUPER',
+      tabFighters: '🥋 1. Personajes y Transformaciones',
+      tabHair: '🎨 2. Guía de Colores de Cabello',
+      tabFusion: '✨ 3. Cámara de Fusión',
+      tabTimeline: '🌌 4. Historia de las 5 Series',
+      tabBattleQuiz: '⚔️ 5. Batalla de Poderes y Quiz',
+      scouterLabel: '📟 Rastreador',
+      soundLabel: '🔊 Sonido',
+      chirpVoiceLabel: '🎙️ Voz Chirp',
+      on: 'SÍ',
+      off: 'NO',
+      powerLevelLabel: '⚡ NIVEL DE PELEA:',
+      powerUpBtn: '⚡ ¡ELEVAR EL KI!',
+      readAloud: '🔊 Escuchar (Chirp)',
+      stopReading: '⏹ Detener Voz',
+      clickToTransform: 'TOCA PARA TRANSFORMAR A {name} ({count} FORMAS):',
+      characterForm: 'TRANSFORMACIÓN:',
+      quickSwitchHair: 'CAMBIO RÁPIDO DE CABELLO SAIYAJIN (13 FORMAS):',
+      chooseFusionRecipe: 'ELIGE UNA FUSIÓN PARA VERLA EN 3D:',
+      liveBeamStage: 'CHOQUE DE PODERES 1V1 EN 3D',
+      mashOrClickStage: '¡PRESIONA ESPACIO O TOCA EMPUJAR!',
+      chooseCharacterHeading: 'Elige Cualquier Personaje ({count} Guerreros)',
+      searchPlaceholder: '🔍 Buscar Goku, Vegito, Freezer, Bills...',
+      noSearchMatch: 'Ningún guerrero coincide con "{query}". ¡Prueba Goku, Vegito, Freezer o Bills!',
+      roleAll: 'Todos ({count})',
+      roleHero: '🦸 Guerreros Z y Fusiones',
+      roleVillain: '😈 Villanos y Rivales',
+      roleDeity: '👑 Dioses y Ángeles',
+      transformationsCount: '{count} Transformaciones',
+      signatureMoves: '🔥 Técnicas Especiales: ',
+      hairIntroTitle: '🎨 ¡Qué Significa Cada Color de Cabello Saiyajin!',
+      hairIntroSub: '¡Toca cualquiera de los 13 colores de cabello (incluyendo Super Saiyajin Dios Rojo, Rosé, Doctrina Egoísta / Ultra Instinto Plateado y Mega Instinto / Ultra Ego Morado) para transformarte en 3D!',
+      howUnlockedLabel: '💡 Cómo se Desbloquea: ',
+      funFactLabel: '🌟 Dato Curioso: ',
+      fusionIntroTitle: '✨ ¡Cámara de Fusión 3D de la Corporación Cápsula!',
+      fusionIntroSub: '¡Descubre la diferencia entre los Aretes Pothala de los Supremos Kaiosama (Vegito) y la Danza de la Fusión Metamorana (Gogeta y Gotenks) en vivo en 3D!',
+      fusionSelectHeading: 'Elige una Fórmula de Fusión:',
+      replayFusionBtn: '✨ ¡REPETIR FUSIÓN EN 3D! ("¡FUUU-SIÓN... JA!")',
+      kamiShenron: 'Kamisama + Shenlong',
+      timelineIntroTitle: '🌌 Línea del Tiempo de las 5 Series de Dragon Ball',
+      timelineIntroSub: '¡Sigue la aventura de Goku desde un niño en la Montaña Paoz con su Báculo Sagrado y Nube Voladora hasta los Dioses de la Destrucción y Zeno-sama!',
+      eraAll: 'Las 5 Series',
+      eraDB: '🟠 Dragon Ball (Goku Niño)',
+      eraDBZ: '⚡ Dragon Ball Z',
+      eraDaima: '🔮 Dragon Ball Daima',
+      eraDBGT: '🐉 Dragon Ball GT',
+      eraDBS: '💠 Dragon Ball Super',
+      mainVillainsLabel: '😈 Villanos Principales: ',
+      unlockedLabel: '⚡ Transformaciones: ',
+      lessonLabel: '💡 Enseñanza: ',
+      villainShort: 'Villano: ',
+      battleTitle: '⚔️ ¡Choque de Kamehameha 1v1 Jugable!',
+      battleSub: '¡Elige DOS guerreros y sus transformaciones exactas, y presiona ESPACIO o toca EMPUJAR para ganar el choque de poderes en 3D!',
+      player1Label: 'JUGADOR (GUERRERO 1)',
+      form1Label: 'FORMA DEL GUERRERO 1',
+      rival2Label: 'RIVAL (GUERRERO 2)',
+      form2Label: 'FORMA DEL GUERRERO 2',
+      startBeamBtn: '🔥 ¡INICIAR CHOQUE DE PODERES EN 3D!',
+      liveTugBadge: '⚡ ¡CHOQUE EN VIVO!',
+      powerReadoutBadge: '⚡ LECTURA DEL RASTREADOR',
+      mashBeamBtn: '⚡ ¡TOCA RÁPIDO O PRESIONA ESPACIO PARA EMPUJAR EL KAMEHAMEHA! ⚡',
+      playerVictory: '🏆 ¡GANASTE! ¡{a} ({formA}) superó a {b} ({formB}) en el choque de poderes 3D!',
+      rivalVictory: '💥 ¡GANÓ EL RIVAL! ¡{b} ({formB}) regresó el ataque! ¡Toca INICIAR para la revancha o transforma a tu guerrero!',
+      scouterCompare: '📊 Rastreador: {formA} [{powerA}] vs. {formB} [{powerB}]. Ventaja Canon: ¡{winner}!',
+      quizTitle: '🎓 Quiz de la Academia Saiyajin',
+      quizSub: '¡Contesta 7 preguntas bien para reunir las 7 Esferas del Dragón e invocar al gran Shenlong!',
+      scoreBallsBadge: 'PUNTAJE: {score} / {total} • 🟠 {balls}/7 ESFERAS',
+      questionCounter: 'Pregunta {num} de {total}: ',
+      awesomeJob: '✅ ¡Excelente! ',
+      goodTry: '💡 ¡Buen intento! ',
+      nextQuestion: '➡️ Siguiente Pregunta',
+      playNewRound: '🔄 ¡Jugar Nueva Ronda Mezclada!',
+      shenronTitle: '🐉 ¡EL GRAN SHENLONG HA APARECIDO!',
+      shenronSpeech: '"¡HAS REUNIDO LAS 7 ESFERAS DEL DRAGÓN EN LA ACADEMIA SAIYAJIN! ¡DIME CUÁL ES TU DESEO, JOVEN MAESTRO GUERRERO Z!"',
       wish1Btn: '⚡ Deseo 1: ¡Despertar a Goku Ultra Instinto Plateado!',
       wish2Btn: '✨ Deseo 2: ¡Lanzar la Fusión de Gogeta Blue Máximo Poder!',
       wishCloseBtn: '🎓 ¡Seguir Explorando como Maestro Guerrero Z!'

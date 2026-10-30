@@ -42,16 +42,25 @@ CSP_POLICY = (
     "form-action 'self';"
 )
 
-# Chirp 3 HD voice map across all 12 supported languages
+# Chirp 3 HD voice map across all 13 supported languages
+# Note: es -> es-ES (España), es-419 -> es-US (Latinoamérica / US Spanish Chirp 3 HD)
 LANG_VOICE_MAP = {
     "en": ("en-US", "en-US-Chirp3-HD-{persona}"),
     "en-US": ("en-US", "en-US-Chirp3-HD-{persona}"),
     "es": ("es-ES", "es-ES-Chirp3-HD-{persona}"),
     "es-ES": ("es-ES", "es-ES-Chirp3-HD-{persona}"),
+    "es-419": ("es-US", "es-US-Chirp3-HD-{persona}"),
+    "es-LA": ("es-US", "es-US-Chirp3-HD-{persona}"),
+    "es-la": ("es-US", "es-US-Chirp3-HD-{persona}"),
+    "es-MX": ("es-US", "es-US-Chirp3-HD-{persona}"),
+    "es-mx": ("es-US", "es-US-Chirp3-HD-{persona}"),
+    "es-US": ("es-US", "es-US-Chirp3-HD-{persona}"),
+    "es-us": ("es-US", "es-US-Chirp3-HD-{persona}"),
     "zh": ("cmn-CN", "cmn-CN-Chirp3-HD-{persona}"),
     "zh-CN": ("cmn-CN", "cmn-CN-Chirp3-HD-{persona}"),
     "yue": ("yue-HK", "yue-HK-Chirp3-HD-{persona}"),
     "zh-HK": ("yue-HK", "yue-HK-Chirp3-HD-{persona}"),
+    "yue-HK": ("yue-HK", "yue-HK-Chirp3-HD-{persona}"),
     "ja": ("ja-JP", "ja-JP-Chirp3-HD-{persona}"),
     "ja-JP": ("ja-JP", "ja-JP-Chirp3-HD-{persona}"),
     "ko": ("ko-KR", "ko-KR-Chirp3-HD-{persona}"),
@@ -108,10 +117,18 @@ class ChirpCredentialProvider:
                 or os.environ.get("GCLOUD_PROJECT", "").strip()
             )
 
+            gcloud_env = os.environ.copy()
+            existing_attr = gcloud_env.get("CLOUDSDK_METRICS_ENVIRONMENT", "")
+            if "datacloud." not in existing_attr:
+                gcloud_env["CLOUDSDK_METRICS_ENVIRONMENT"] = (
+                    f"{existing_attr} datacloud.antigravity".strip()
+                )
+
             try:
                 if not token:
                     token = subprocess.check_output(
                         ["gcloud", "auth", "print-access-token"],
+                        env=gcloud_env,
                         stderr=subprocess.DEVNULL,
                         timeout=6,
                         text=True,
@@ -119,6 +136,7 @@ class ChirpCredentialProvider:
                 if not project:
                     project = subprocess.check_output(
                         ["gcloud", "config", "get-value", "project"],
+                        env=gcloud_env,
                         stderr=subprocess.DEVNULL,
                         timeout=6,
                         text=True,
@@ -350,7 +368,7 @@ class SecurePortalHandler(http.server.SimpleHTTPRequestHandler):
                     "engine": "Google Cloud TTS Chirp 3 HD",
                     "personas": sorted(VALID_PERSONAS),
                     "languages": sorted(
-                        ["en", "es", "zh", "yue", "ja", "ko", "pt", "fr", "it", "de", "nl", "ar"]
+                        ["en", "es", "es-419", "zh", "yue", "ja", "ko", "pt", "fr", "it", "de", "nl", "ar"]
                     ),
                 },
             )

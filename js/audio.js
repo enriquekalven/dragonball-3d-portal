@@ -1,9 +1,9 @@
 /* ==========================================================================
    DRAGON BALL 3D PORTAL — WEB AUDIO SYNTH & GOOGLE CLOUD CHIRP 3 HD ENGINE
-   Multi-Tier Narration across all 12 Languages (en, es, zh, yue, ja, ko, pt,
-   fr, it, de, nl, ar):
+   Multi-Tier Narration across all 13 Languages (en, es, es-419, zh, yue, ja,
+   ko, pt, fr, it, de, nl, ar):
      1. Live /api/tts Google Cloud Chirp 3 HD MP3 Synthesis (with disk cache)
-     2. Neural Browser speechSynthesis Fallback (with Eloquence filter)
+     2. Pre-rendered Studio Chirp 3 HD CDN MP3s + Neural Browser Fallback
    ========================================================================== */
 
 (function () {
@@ -21,6 +21,7 @@
   const BCP47_MAP = {
     en: 'en-US',
     es: 'es-ES',
+    'es-419': 'es-MX',
     zh: 'zh-CN',
     yue: 'zh-HK',
     ja: 'ja-JP',
@@ -252,6 +253,7 @@
     const regexMap = {
       en: /^en(-|_|$)/i,
       es: /^es(-|_|$)/i,
+      'es-419': /^es(-|_|$)/i,
       zh: /^(zh|cmn)(-|_|$)/i,
       yue: /^(yue|zh-HK|zh_HK|zh-MO|zh_MO|zh|cmn)(-|_|$)/i,
       ja: /^ja(-|_|$)/i,
@@ -274,6 +276,14 @@
       }
       let s = 0;
       if (/Chirp|Natural|Online|Neural|Studio|Premium|Enhanced|Siri/i.test(name)) s += 55;
+      if (lang === 'es-419') {
+        if (/^es(-|_)(419|MX|US|AR|CO|CL|PE|VE|EC|UY|PY|BO|CR|PA|DO|GT|HN|SV|NI|PR)/i.test(v.lang)) s += 50;
+        if (/Paulina|Sabina|Dalia|Mia|Raul|Latinoam|Estados Unidos|México|Mexico/i.test(name)) s += 35;
+        if (/^es(-|_)ES/i.test(v.lang)) s -= 25;
+      } else if (lang === 'es') {
+        if (/^es(-|_)ES/i.test(v.lang)) s += 45;
+        if (/Mónica|Monica|Alvaro|Álvaro|Elvira|Jorge|España/i.test(name)) s += 30;
+      }
       if (lang === 'yue' && /^(yue|zh-HK|zh_HK)/i.test(v.lang)) s += 50;
       if (lang === 'nl' && /Google Nederlands|Xander|Claire|Colette|Fenna|Maarten/i.test(name)) s += 35;
       if (lang === 'de' && /Google Deutsch|Anna|Petra|Katja|Conrad|Martin/i.test(name)) s += 35;
@@ -342,7 +352,7 @@
       speakBrowserFallback(cleaned, targetLang, token, finishClean);
       return;
     }
-    const safeLang = /^[a-z]{2,3}$/.test(targetLang) ? targetLang : 'en';
+    const safeLang = /^(?:[a-z]{2,3}|es-419)$/.test(targetLang) ? targetLang : 'en';
     const safeKey = String(audioKey).replace(/[^a-zA-Z0-9_-]/g, '');
     const staticUrl = 'assets/audio/' + safeLang + '/' + safeKey + '.mp3';
 

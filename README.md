@@ -1,6 +1,6 @@
 # Dragon Ball 3D Multiverse Portal 🐉⚡
 
-An interactive, kid-friendly **3D Dragon Ball, Dragon Ball Z, Dragon Ball Daima, Dragon Ball GT & Dragon Ball Super** learning and exploration portal featuring **12 languages** (including full Arabic RTL) and **Google Cloud Chirp 3 HD** Read Aloud narration.
+An interactive, kid-friendly **3D Dragon Ball, Dragon Ball Z, Dragon Ball Daima, Dragon Ball GT & Dragon Ball Super** learning and exploration portal featuring **13 languages** (including Español España, Español Latinoamérica, and full Arabic RTL) and **Google Cloud Chirp 3 HD** Read Aloud narration.
 
 🌐 **Live App**: [https://dragonball-3d-portal.web.app](https://dragonball-3d-portal.web.app)
 
@@ -21,9 +21,9 @@ An interactive, kid-friendly **3D Dragon Ball, Dragon Ball Z, Dragon Ball Daima,
 - **🧭 Kid-First 6-Mode Navigation & Sticky Mobile Bottom Bar**: Dedicated top-level **⚔️ VS Battle** and **🐉 Shenron Quiz (`0/7 ★`)** modes, thumb-friendly 5-tab mobile bottom app bar (`🥋 Heroes`, `✨ Fuse`, `⚔️ Battle`, `🐉 Quiz`, `📚 Lore`), stage `◀ / 🎲 / ▶` quick-stepper, and one-tap Character Card action chips.
 - **⚔️ Playable 1v1 Beam Struggle & 7-Star Shenron Quiz**: Pit any two characters and transformations against each other in an interactive Kamehameha tug-of-war, and collect all 7 Dragon Balls across trivia challenges & 3D Radar Hunts to summon Eternal Shenron.
 - **☀️ Light & 🌙 Dark Themes**: Switch instantly between **Cosmic Night** (Dark Mode) and **Capsule Corp Daylight** (Light Mode), including matching 3D arena skies and WCAG AA high-contrast cards.
-- **🌐 12 Languages + Google Cloud Chirp 3 HD Read Aloud**:
-  - English (`en`), Español (`es`), 中文 普通话 (`zh`), 粵語 廣東話 (`yue`), 日本語 (`ja`), 한국어 (`ko`), Português (`pt`), Français (`fr`), Italiano (`it`), Deutsch (`de`), Nederlands (`nl`), and العربية (`ar` with full RTL layout).
-  - Pre-rendered Studio **Google Cloud Chirp 3 HD** MP3 narration across all 12 languages on CDN, plus live multi-persona (`Aoede`, `Puck`, `Fenrir`, `Kore`, `Zephyr`, `Charon`, `Leda`, `Orus`) `/api/tts` synthesis when running locally.
+- **🌐 13 Languages + Google Cloud Chirp 3 HD Read Aloud**:
+  - English (`en`), Español España (`es`), **Español Latinoamérica (`es-419`)**, 中文 普通话 (`zh`), 粵語 廣東話 (`yue`), 日本語 (`ja`), 한국어 (`ko`), Português (`pt`), Français (`fr`), Italiano (`it`), Deutsch (`de`), Nederlands (`nl`), and العربية (`ar` with full RTL layout).
+  - Pre-rendered Studio **Google Cloud Chirp 3 HD** MP3 narration across all 13 languages on CDN (including dedicated `es-US-Chirp3-HD` Latin American Spanish narration), plus live multi-persona (`Aoede`, `Puck`, `Fenrir`, `Kore`, `Zephyr`, `Charon`, `Leda`, `Orus`) `/api/tts` synthesis when running locally.
 
 ---
 

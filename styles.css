@@ -1698,8 +1698,9 @@ body.scouter-on .scouter-hud {
 
   .toy-btn {
     min-height: 36px;
-    padding: 0.32rem 0.34rem;
-    font-size: 0.71rem;
+    padding: 0.3rem 0.22rem;
+    font-size: 0.64rem;
+    letter-spacing: -0.01em;
     border-radius: var(--radius-sm);
   }
 
