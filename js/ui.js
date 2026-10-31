@@ -1,6 +1,6 @@
 /* ==========================================================================
    DRAGON BALL 3D PORTAL — MULTILINGUAL + CHIRP 3 HD UI CONTROLLER
-   Supports all 12 Languages (en, es, zh, yue, ja, ko, pt, fr, it, de, nl, ar)
+   Supports all 13 Languages (en, es, es-419, zh, yue, ja, ko, pt, fr, it, de, nl, ar)
    Security Note: Strictly uses document.createElement() and textContent for
    all DOM rendering (zero innerHTML / outerHTML / insertAdjacentHTML).
    ========================================================================== */
@@ -183,33 +183,105 @@
       .trim();
   }
 
-  function getActivePrimarySignatureMove() {
+  function getActiveSignatureAttackSpec() {
     let rawMove = '';
+    let atkKey = 'atk_goku';
+    let entityId = 'goku';
+
     if (state.activeMode === 'fighters' || state.activeMode === 'quiz') {
-      rawMove = state.selectedFighter ? state.selectedFighter.signatureMove : '';
+      const f = state.selectedFighter || BASE_DATA.fighters[0];
+      rawMove = f ? f.signatureMove : 'Kamehameha';
+      const isKidGoku = f && f.id === 'goku' && state.selectedFighterFormIndex === 0;
+      entityId = isKidGoku ? 'kid_goku' : (f ? f.id : 'goku');
+      atkKey = isKidGoku ? 'atk_kid_goku' : 'atk_' + (f ? f.id : 'goku');
     } else if (state.activeMode === 'fusion-lab') {
       const fid = state.selectedFusionRecipe ? state.selectedFusionRecipe.id : '';
-      if (fid.indexOf('potara') !== -1) rawMove = 'Final Kamehameha';
-      else if (fid.indexOf('goten') !== -1) rawMove = 'Super Ghost Kamikaze';
-      else if (fid.indexOf('piccolo') !== -1) rawMove = 'Special Beam Cannon';
-      else rawMove = 'Stardust Breaker';
+      if (fid.indexOf('potara') !== -1) {
+        rawMove = 'Final Kamehameha';
+        entityId = 'vegetto';
+        atkKey = 'atk_vegetto';
+      } else if (fid.indexOf('goten') !== -1) {
+        rawMove = 'Super Ghost Kamikaze';
+        entityId = 'gotenks';
+        atkKey = 'atk_gotenks';
+      } else if (fid.indexOf('piccolo') !== -1) {
+        rawMove = 'Special Beam Cannon';
+        entityId = 'piccolo';
+        atkKey = 'atk_piccolo';
+      } else {
+        rawMove = 'Stardust Breaker';
+        entityId = 'gogeta';
+        atkKey = 'atk_gogeta';
+      }
     } else if (state.activeMode === 'hair-guide') {
-      const charLow = (state.selectedHairForm.characterName || '').toLowerCase();
-      if (charLow.indexOf('vegeta') !== -1) rawMove = 'Final Flash';
-      else if (charLow.indexOf('gohan') !== -1) rawMove = 'Special Beam Cannon';
-      else if (charLow.indexOf('freezer') !== -1 || charLow.indexOf('frieza') !== -1) rawMove = 'Death Ball';
-      else if (charLow.indexOf('broly') !== -1) rawMove = 'Gigantic Roar';
-      else if (charLow.indexOf('black') !== -1) rawMove = 'Divine Lasso';
-      else rawMove = 'Kamehameha';
+      const hfId = (state.selectedHairForm && state.selectedHairForm.id) || '';
+      const charLow = ((state.selectedHairForm && state.selectedHairForm.characterName) || '').toLowerCase();
+      if (charLow.indexOf('vegeta') !== -1 || hfId.indexOf('ego') !== -1) {
+        rawMove = 'Final Flash';
+        entityId = 'vegeta';
+        atkKey = 'atk_vegeta';
+      } else if (charLow.indexOf('gohan') !== -1 || hfId.indexOf('beast') !== -1) {
+        rawMove = 'Special Beam Cannon';
+        entityId = 'gohan';
+        atkKey = 'atk_gohan';
+      } else if (charLow.indexOf('freezer') !== -1 || charLow.indexOf('frieza') !== -1) {
+        rawMove = 'Death Ball';
+        entityId = 'freezer';
+        atkKey = 'atk_freezer';
+      } else if (charLow.indexOf('broly') !== -1 || hfId.indexOf('legendary') !== -1) {
+        rawMove = 'Gigantic Roar';
+        entityId = 'broly';
+        atkKey = 'atk_broly';
+      } else if (charLow.indexOf('black') !== -1 || hfId.indexOf('rose') !== -1) {
+        rawMove = 'Divine Lasso';
+        entityId = 'goku-black';
+        atkKey = 'atk_goku-black';
+      } else {
+        rawMove = 'Kamehameha';
+        entityId = 'goku';
+        atkKey = 'atk_goku';
+      }
     } else if (state.activeMode === 'timeline') {
+      const sagaId = (state.selectedSaga && state.selectedSaga.id) || '';
       rawMove = 'Kamehameha';
+      if (
+        sagaId.indexOf('pilaf') !== -1 ||
+        sagaId.indexOf('red-ribbon') !== -1 ||
+        sagaId.indexOf('daima') !== -1
+      ) {
+        entityId = 'kid_goku';
+        atkKey = 'atk_kid_goku';
+      } else if (sagaId.indexOf('cell') !== -1) {
+        entityId = 'gohan';
+        atkKey = 'atk_gohan';
+      } else {
+        entityId = 'goku';
+        atkKey = 'atk_goku';
+      }
     }
+
     const primary = String(rawMove || 'Kamehameha')
       .split(/[,،•·、，/]/)[0]
       .replace(/\([^)]*\)/g, '')
       .replace(/（[^）]*）/g, '')
       .trim();
-    return primary.length > 24 ? primary.slice(0, 22).trim() : (primary || 'Kamehameha');
+    const moveName = primary.length > 24 ? primary.slice(0, 22).trim() : (primary || 'Kamehameha');
+    const isKamehameha =
+      atkKey === 'atk_goku' ||
+      atkKey === 'atk_kid_goku' ||
+      atkKey === 'atk_goten' ||
+      /kamehameha|かめはめ波|龟派气功|龜波氣功|에네르기파|كاميهاميها/i.test(moveName);
+
+    return {
+      moveName: moveName,
+      atkKey: atkKey,
+      entityId: entityId,
+      isKamehameha: isKamehameha
+    };
+  }
+
+  function getActivePrimarySignatureMove() {
+    return getActiveSignatureAttackSpec().moveName;
   }
 
   function findFusionRecipeForFighter(fighterId) {
@@ -762,6 +834,9 @@
       dockContainer.classList.add('hidden');
     }
 
+    if (AUDIO && typeof AUDIO.setActiveCharacter === 'function') {
+      AUDIO.setActiveCharacter(getActiveSignatureAttackSpec().entityId);
+    }
     syncToyboxUI();
     centerActiveRailItem(dockBtns);
 
@@ -938,6 +1013,8 @@
 
       tile.addEventListener('click', () => {
         AUDIO.stopSpeaking();
+        if (AUDIO.stopAttackShout) AUDIO.stopAttackShout();
+        state.signatureAttack = null;
         state.selectedFighterId = fighter.id;
         state.selectedFighter = fighter;
         state.selectedFighterFormIndex = fighter.id === 'goku' ? 1 : 0;
@@ -1421,6 +1498,15 @@
     state.beamGame.winnerSide = null;
     state.powerBurstTimer = 60;
     AUDIO.playSound('burst');
+    if (AUDIO && typeof AUDIO.playAttackShout === 'function') {
+      const p1IsKid = state.battleFighterIdA === 'goku' && state.battleFormIndexA === 0;
+      const p1AtkKey = p1IsKid ? 'atk_kid_goku' : 'atk_' + state.battleFighterIdA;
+      AUDIO.playAttackShout(
+        p1AtkKey,
+        state.battleFighterA ? state.battleFighterA.signatureMove : 'Kamehameha',
+        state.lang
+      );
+    }
     track('start_beam_struggle', {
       fighter_a: state.battleFighterIdA,
       form_a: state.battleFormA.label,
@@ -1701,16 +1787,30 @@
 
   function triggerSignatureAttack() {
     if (state.activeMode === 'battle') return;
-    const moveName = getActivePrimarySignatureMove();
+    const spec = getActiveSignatureAttackSpec();
+    const timing =
+      AUDIO && typeof AUDIO.playAttackShout === 'function'
+        ? AUDIO.playAttackShout(spec.atkKey, spec.moveName, state.lang)
+        : { blastAtMs: 2400, durationMs: 4400, getLiveElapsedMs: null };
+
     state.signatureAttack = {
-      moveName: moveName,
-      timer: 72,
-      color: state.currentStageAuraHex || '#ffd000'
+      active: true,
+      moveName: spec.moveName,
+      atkKey: spec.atkKey,
+      isKamehameha: spec.isKamehameha,
+      startedAtMs: performance.now(),
+      elapsedMs: 0,
+      blastAtMs: timing.blastAtMs,
+      durationMs: timing.durationMs,
+      getLiveElapsedMs: timing.getLiveElapsedMs,
+      craterSpawned: false,
+      beamSoundPlayed: false,
+      color: state.currentStageAuraHex || '#00e5ff'
     };
-    state.powerBurstTimer = 75;
-    AUDIO.playSound('beam_charge');
+    state.powerBurstTimer = 95;
     track('fire_signature_move', {
-      move_name: moveName,
+      move_name: spec.moveName,
+      atk_key: spec.atkKey,
       mode: state.activeMode,
       language: state.lang
     });
@@ -1761,6 +1861,8 @@
 
   function stepStageEntity(stepDir) {
     AUDIO.stopSpeaking();
+    if (AUDIO.stopAttackShout) AUDIO.stopAttackShout();
+    state.signatureAttack = null;
     state.powerBurstTimer = 52;
     AUDIO.playSound('scouter');
 
@@ -1943,6 +2045,8 @@
   // ==========================================================================
   async function applyLanguage(newLang) {
     AUDIO.stopSpeaking();
+    if (AUDIO.stopAttackShout) AUDIO.stopAttackShout();
+    state.signatureAttack = null;
     state.lang = newLang;
     I18N.saveLanguagePreference(newLang);
 
@@ -1977,6 +2081,8 @@
       stopBeamGameLoop();
     }
     AUDIO.stopSpeaking();
+    if (AUDIO.stopAttackShout) AUDIO.stopAttackShout();
+    state.signatureAttack = null;
     state.activeMode = newMode;
     AUDIO.playSound('scouter');
     track('switch_mode', { mode: newMode, language: state.lang });
@@ -2311,7 +2417,7 @@
       onCollectHiddenBall: collectHiddenBall,
       onStageBeamTap: pushBeamForPlayer,
       onCanvasTeleportTap: triggerTeleport,
-      onBeamFireSound: () => AUDIO.playSound('beam_fire'),
+      onBeamFireSound: (holdSec) => AUDIO.playSound('beam_fire', holdSec),
       onKiFrameUpdate: (kiVal) => {
         if (typeof state._onKiFrameTick === 'function') {
           state._onKiFrameTick(kiVal);

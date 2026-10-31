@@ -519,46 +519,82 @@
     ctx.restore();
   }
 
-  // Signature Ultimate Beam Blast (Kamehameha / Galick Gun / Special Beam Cannon / Hakai!)
+  // Signature Ultimate Beam Blast (Voice-Synced Kamehameha / Galick Gun / Makankosappo / Hakai!)
   function drawSignatureAttackEffect(t, width, height, state, center, auraHex) {
     const atk = state.signatureAttack;
-    if (!atk || atk.timer <= 0) return;
+    if (!atk || !atk.active) return;
 
     const cam = state.camera;
-    const isCharging = atk.timer > 50;
-    const handX = center.x + 22 * center.scale;
-    const handY = center.y - 6 * center.scale;
-    const beamColor = auraHex === '#e2e8f0' ? '#38bdf8' : auraHex;
+    const elapsedMs = atk.elapsedMs || 0;
+    const blastAtMs = Math.max(220, atk.blastAtMs || 600);
+    const durationMs = Math.max(blastAtMs + 450, atk.durationMs || 1800);
+    const isCharging = elapsedMs < blastAtMs;
+
+    const handX = center.x + (isCharging ? -10 : 22) * center.scale;
+    const handY = center.y + (isCharging ? 4 : -6) * center.scale;
+    const beamColor =
+      atk.beamColor ||
+      (atk.isKamehameha && atk.atkKey !== 'atk_goku-black'
+        ? '#00e5ff'
+        : auraHex === '#e2e8f0'
+          ? '#38bdf8'
+          : auraHex);
 
     ctx.save();
+    let bannerLabel = '';
+    let bannerBorder = '#ffd000';
+    let bannerAlpha = 1;
+
     if (isCharging) {
-      // Phase 1: Condensing Ki Sphere + Inward Rays at Fighter's Hands
-      const chargeProgress = 1 - (atk.timer - 50) / 22; // 0 -> 1
-      const orbR = (14 + chargeProgress * 28 + Math.sin(t * 35) * 4) * center.scale;
-      const g = ctx.createRadialGradient(handX, handY, 2, handX, handY, orbR * 1.9);
+      // Phase 1: Voice-Synced Condensing Ki Sphere + Syllable Throb at Fighter's Hands
+      const chargeProgress = Math.max(0, Math.min(1, elapsedMs / blastAtMs));
+      atk.chargeProgress = chargeProgress;
+      const syllablePulse = Math.abs(Math.sin(chargeProgress * Math.PI * 4)) * 7;
+      const orbR = (13 + chargeProgress * 32 + syllablePulse + Math.sin(t * 36) * 3) * center.scale;
+
+      const g = ctx.createRadialGradient(handX, handY, 2, handX, handY, orbR * 2.05);
       g.addColorStop(0, '#ffffff');
-      g.addColorStop(0.45, beamColor);
+      g.addColorStop(0.38, beamColor);
+      g.addColorStop(0.75, 'rgba(0, 229, 255, 0.22)');
       g.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = g;
       ctx.beginPath();
-      ctx.arc(handX, handY, orbR * 1.9, 0, Math.PI * 2);
+      ctx.arc(handX, handY, orbR * 2.05, 0, Math.PI * 2);
       ctx.fill();
 
+      // 12 Inward-Spiraling Ki Condensation Rays
       ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 2;
-      for (let r = 0; r < 8; r++) {
-        const ang = (r / 8) * Math.PI * 2 + t * 8;
-        const inner = orbR * 0.4;
-        const outer = orbR * (2.2 - chargeProgress * 0.8);
+      ctx.lineWidth = 2.1;
+      for (let r = 0; r < 12; r++) {
+        const ang = (r / 12) * Math.PI * 2 + t * 9.5;
+        const inner = orbR * 0.34;
+        const outer = orbR * (2.35 - chargeProgress * 0.85);
+        ctx.globalAlpha = 0.55 + 0.45 * chargeProgress;
         ctx.beginPath();
         ctx.moveTo(handX + Math.cos(ang) * outer, handY + Math.sin(ang) * outer);
         ctx.lineTo(handX + Math.cos(ang) * inner, handY + Math.sin(ang) * inner);
         ctx.stroke();
       }
+      ctx.globalAlpha = 1;
+
+      if (atk.moveName) {
+        if (atk.isKamehameha && blastAtMs >= 1400) {
+          if (chargeProgress < 0.25) bannerLabel = '⚡ KA...';
+          else if (chargeProgress < 0.5) bannerLabel = '⚡ KA · ME...';
+          else if (chargeProgress < 0.75) bannerLabel = '⚡ KA · ME · HA...';
+          else bannerLabel = '⚡ KA · ME · HA · ME...';
+          bannerBorder = '#00e5ff';
+        } else {
+          bannerLabel = '⚡ ' + atk.moveName.toUpperCase() + '...';
+        }
+      }
     } else {
-      // Phase 2: Full-Screen 3D Energy Cannon Blast -> Arena Crater Dome!
-      const blastRatio = Math.min(1, (50 - atk.timer) / 9); // extends across arena in 9 frames!
-      const fadeAlpha = Math.min(1, atk.timer / 12);
+      // Phase 2: Full-Screen 3D Energy Cannon Blast on "HAAAAA!!" -> Arena Crater Dome!
+      const postBlastMs = Math.max(0, elapsedMs - blastAtMs);
+      const remainMs = Math.max(0, durationMs - elapsedMs);
+      const blastRatio = Math.min(1, postBlastMs / 165);
+      const fadeAlpha = Math.min(1, remainMs / 280);
+      bannerAlpha = fadeAlpha;
       ctx.globalAlpha = fadeAlpha;
 
       const target3D = project3D(158, 162, -32, width, height, cam);
@@ -569,8 +605,8 @@
       ctx.lineCap = 'round';
       ctx.strokeStyle = beamColor;
       ctx.shadowColor = beamColor;
-      ctx.shadowBlur = 28;
-      ctx.lineWidth = (34 + Math.sin(t * 34) * 6) * center.scale;
+      ctx.shadowBlur = 32;
+      ctx.lineWidth = (38 + Math.sin(t * 38) * 7) * center.scale;
       ctx.beginPath();
       ctx.moveTo(handX, handY);
       ctx.lineTo(endX, endY);
@@ -579,56 +615,59 @@
       // Inner White-Hot Beam Core
       ctx.shadowBlur = 0;
       ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = (14 + Math.sin(t * 40) * 3) * center.scale;
+      ctx.lineWidth = (16 + Math.sin(t * 44) * 3.5) * center.scale;
       ctx.beginPath();
       ctx.moveTo(handX, handY);
       ctx.lineTo(endX, endY);
       ctx.stroke();
 
       // Muzzle Starburst at Hands
-      const muzGrad = ctx.createRadialGradient(handX, handY, 3, handX, handY, 52 * center.scale);
+      const muzGrad = ctx.createRadialGradient(handX, handY, 3, handX, handY, 58 * center.scale);
       muzGrad.addColorStop(0, '#ffffff');
       muzGrad.addColorStop(0.5, beamColor);
       muzGrad.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = muzGrad;
       ctx.beginPath();
-      ctx.arc(handX, handY, 52 * center.scale, 0, Math.PI * 2);
+      ctx.arc(handX, handY, 58 * center.scale, 0, Math.PI * 2);
       ctx.fill();
 
       // 3D Impact Explosion Dome when beam hits the arena!
-      if (blastRatio >= 0.92) {
-        const domeR = (58 + Math.sin(t * 28) * 10) * target3D.scale;
-        const expGrad = ctx.createRadialGradient(endX, endY, 6, endX, endY, domeR * 1.85);
+      if (blastRatio >= 0.9) {
+        const domeR = (62 + Math.sin(t * 30) * 11) * target3D.scale;
+        const expGrad = ctx.createRadialGradient(endX, endY, 6, endX, endY, domeR * 1.9);
         expGrad.addColorStop(0, '#ffffff');
         expGrad.addColorStop(0.38, '#ffd000');
         expGrad.addColorStop(0.72, beamColor);
         expGrad.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = expGrad;
         ctx.beginPath();
-        ctx.arc(endX, endY, domeR * 1.85, 0, Math.PI * 2);
+        ctx.arc(endX, endY, domeR * 1.9, 0, Math.PI * 2);
         ctx.fill();
+      }
+
+      if (atk.moveName) {
+        bannerLabel = '☄️ ' + atk.moveName.toUpperCase() + '!!';
       }
     }
 
     // Dynamic Anime Attack Shout Callout Banner!
-    if (atk.moveName) {
-      const label = '☄️ ' + atk.moveName.toUpperCase() + '!!';
-      ctx.globalAlpha = Math.min(1, atk.timer / 10);
+    if (bannerLabel) {
+      ctx.globalAlpha = bannerAlpha;
       ctx.font = '900 ' + (width < 520 ? '15px' : '19px') + ' system-ui, sans-serif';
-      const tw = ctx.measureText(label).width;
+      const tw = ctx.measureText(bannerLabel).width;
       const bx = width * 0.5 - tw * 0.5 - 14;
       const by = width < 520 ? 174 : 194;
-      ctx.fillStyle = 'rgba(7, 11, 20, 0.88)';
-      ctx.strokeStyle = '#ffd000';
+      ctx.fillStyle = 'rgba(7, 11, 20, 0.9)';
+      ctx.strokeStyle = bannerBorder;
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(bx, by, tw + 28, 32, 999);
       ctx.fill();
       ctx.stroke();
-      ctx.fillStyle = '#ffd000';
+      ctx.fillStyle = bannerBorder;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(label, width * 0.5, by + 16);
+      ctx.fillText(bannerLabel, width * 0.5, by + 16);
     }
     ctx.restore();
   }
@@ -640,8 +679,14 @@
     const burstActive =
       state.powerBurstTimer > 0 ||
       kiRatio > 0.25 ||
-      Boolean(state.signatureAttack && state.signatureAttack.timer > 0);
-    const burstScale = (state.powerBurstTimer > 0 ? 1.24 : 1.0) + kiRatio * 0.42;
+      Boolean(state.signatureAttack && state.signatureAttack.active);
+    const atkBoost =
+      state.signatureAttack && state.signatureAttack.active
+        ? state.signatureAttack.elapsedMs >= state.signatureAttack.blastAtMs
+          ? 0.34
+          : (state.signatureAttack.chargeProgress || 0) * 0.24
+        : 0;
+    const burstScale = (state.powerBurstTimer > 0 ? 1.24 : 1.0) + kiRatio * 0.42 + atkBoost;
     const floatBob = Math.sin(t * 2.6) * 6;
 
     const singleSpriteMaxH = isCompactViewport
@@ -930,19 +975,38 @@
       }
     }
 
-    // Update Signature Ultimate Attack & Spawn Impact Crater at Frame 42
-    if (state.signatureAttack && state.signatureAttack.timer > 0) {
-      state.signatureAttack.timer -= 1;
-      if (state.signatureAttack.timer === 50 && typeof callbacks.onBeamFireSound === 'function') {
-        callbacks.onBeamFireSound();
+    // Update Signature Ultimate Attack (Millisecond-Synced with Fighter Voice Shout!)
+    if (state.signatureAttack && state.signatureAttack.active) {
+      const atk = state.signatureAttack;
+      const liveAudioMs =
+        typeof atk.getLiveElapsedMs === 'function' ? atk.getLiveElapsedMs() : null;
+      const elapsedMs =
+        typeof liveAudioMs === 'number' && liveAudioMs >= 0
+          ? liveAudioMs
+          : performance.now() - atk.startedAtMs;
+      atk.elapsedMs = elapsedMs;
+
+      if (elapsedMs >= atk.blastAtMs) {
+        if (!atk.beamSoundPlayed) {
+          atk.beamSoundPlayed = true;
+          if (typeof callbacks.onBeamFireSound === 'function') {
+            callbacks.onBeamFireSound(Math.max(0.6, (atk.durationMs - atk.blastAtMs) / 1000));
+          }
+        }
+        if (!atk.craterSpawned && elapsedMs >= atk.blastAtMs + 140) {
+          atk.craterSpawned = true;
+          state.arenaCrater = {
+            x: 158,
+            z: -32,
+            timer: 210,
+            color: atk.beamColor || atk.color || '#00e5ff'
+          };
+        }
       }
-      if (state.signatureAttack.timer === 42) {
-        state.arenaCrater = {
-          x: 158,
-          z: -32,
-          timer: 185,
-          color: state.signatureAttack.color || '#ff6b00'
-        };
+
+      if (elapsedMs >= atk.durationMs) {
+        atk.active = false;
+        state.signatureAttack = null;
       }
     }
     if (state.arenaCrater && state.arenaCrater.timer > 0) {
@@ -1010,8 +1074,10 @@
     ctx.save();
     // Dynamic Camera Shake during power-up, high Ki charge, beam cannon fire, or 1v1 beam struggle!
     const atkShake =
-      state.signatureAttack && state.signatureAttack.timer > 0 && state.signatureAttack.timer <= 50
-        ? 3.2
+      state.signatureAttack && state.signatureAttack.active
+        ? state.signatureAttack.elapsedMs >= state.signatureAttack.blastAtMs
+          ? 3.8
+          : (state.signatureAttack.chargeProgress || 0) * 1.4
         : 0;
     const kiShake = state.kiCharge > 55 ? ((state.kiCharge - 55) / 45) * 2.2 : 0;
     const burstShake = state.powerBurstTimer > 45 ? (state.powerBurstTimer - 45) * 0.14 : 0;

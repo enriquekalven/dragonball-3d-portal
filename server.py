@@ -196,8 +196,8 @@ class ChirpSynthesizer:
         self._cache_dir = cache_dir
         self._cache_dir.mkdir(parents=True, exist_ok=True)
 
-    def resolve_voice(self, lang: str, persona: str = "Aoede"):
-        safe_persona = persona if persona in VALID_PERSONAS else "Aoede"
+    def resolve_voice(self, lang: str, persona: str = "Orus"):
+        safe_persona = persona if persona in VALID_PERSONAS else "Orus"
         lang_key = (lang or "en").strip()
         if lang_key not in LANG_VOICE_MAP:
             prefix = lang_key.split("-")[0]
@@ -210,7 +210,7 @@ class ChirpSynthesizer:
         self,
         text: str,
         lang: str = "en",
-        persona: str = "Aoede",
+        persona: str = "Orus",
         speaking_rate: float = 1.0,
     ):
         cleaned = (text or "").strip()
@@ -406,7 +406,7 @@ class SecurePortalHandler(http.server.SimpleHTTPRequestHandler):
 
         text = str(data.get("text") or "").strip()
         lang = str(data.get("lang") or "en").strip()
-        persona = str(data.get("persona") or "Aoede").strip()
+        persona = str(data.get("persona") or "Orus").strip()
         speaking_rate = data.get("speakingRate", 1.0)
 
         if not text:
